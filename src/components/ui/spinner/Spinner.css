@@ -11,7 +11,7 @@
   width: 20px;
   margin: 0 15px;
   border-radius: 20px;
-  animation: pulse 1s linear infinite;
+  animation: pulse 1.2s linear infinite;
 }
 #spinner_dot1 {
   animation-delay: 0s;
@@ -27,19 +27,19 @@
     opacity: 1;
     transform: scale(100%);
   }
-  25% {
+  10% {
     opacity: 0.3;
     transform: scale(75%);
   }
-  50% {
+  20% {
     opacity: 0.1;
     transform: scale(50%);
   }
-  75% {
+  30% {
     opacity: 0.3;
     transform: scale(75%);
   }
-  100% {
+  40% {
     opacity: 1;
     transform: scale(100%);
   }
