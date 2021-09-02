@@ -1,5 +1,5 @@
 import './App.css';
-import Spinner from './components/ui/spinner/Spinner';
+import Spinner from './components/ui/elements/Spinner';
 
 function App() {
   return (
