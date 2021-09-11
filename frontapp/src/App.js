@@ -1,10 +1,11 @@
+import React from 'react';
+import LandingPage from './components/pages/LandingPage';
 import './App.css';
-import Spinner from './components/ui/elements/Spinner';
 
 function App() {
   return (
     <div className='App'>
-      <Spinner />
+      <LandingPage />
     </div>
   );
 }
