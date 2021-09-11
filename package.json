@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
+    "frontapp": "npm start --prefix frontapp",
+    "frontappinstall": "npm install --prefix frontapp",
+    "dev": "concurrently \"npm run server\" \"npm run frontapp\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
