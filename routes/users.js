@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const router = express.Router();
 const User = require('../models/User');
-const userValidator = require('./validators');
+const validators = require('./validators');
 
 // @route   POST api/users
 // @desc    Register a user
 // @access  Public
-router.post('/', userValidator, (req, res) => {
+router.post('/', validators.usersValidator, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
