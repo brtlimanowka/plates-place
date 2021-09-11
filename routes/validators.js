@@ -13,4 +13,14 @@ const auth = [
   check('password', 'Password is required').exists(),
 ];
 
-module.exports = { usersValidator: users, authValidator: auth };
+const settings = [check('user', 'User is required').not().isEmpty()];
+const workout = [];
+const day = [];
+
+module.exports = {
+  usersValidator: users,
+  authValidator: auth,
+  settingsValidator: settings,
+  workoutValidator: workout,
+  dayValidator: day,
+};
