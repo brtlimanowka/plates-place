@@ -2,13 +2,13 @@
   margin-top: 55px;
   width: 100%;
 }
-.form-control label {
+.form-group label {
   display: block;
   margin: 25px 0;
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
-.form-control input {
+.form-group input {
   font: inherit;
   border-radius: 4px 0 0 0;
   border: none;

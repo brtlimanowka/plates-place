@@ -13,11 +13,11 @@ const SignupForm = () => {
     <div className={classes['form-container']}>
       <form onSubmit={submitHandler}>
         <h2>{isLogin ? 'Login' : 'Sign up'}</h2>
-        <div className={classes['form-control']}>
+        <div className={classes['form-group']}>
           <label htmlFor='email'>Email</label>
           <input type='email' id='email' />
         </div>
-        <div className={classes['form-control']}>
+        <div className={classes['form-group']}>
           <label htmlFor='password'>Password</label>
           <input type='password' id='password' />
         </div>
