@@ -1,8 +1,9 @@
 main.card {
   text-align: center;
-  padding: 25px;
+  padding-top: 25px;
   height: 500px;
   width: 500px;
   border-radius: 25px;
-  background-color: #eee;
+  background-color: #f5f6fb;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
