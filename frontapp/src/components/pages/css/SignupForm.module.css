@@ -12,7 +12,7 @@
   font: inherit;
   border-radius: 4px 0 0 0;
   border: none;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #73ace5;
   width: 90%;
   text-align: left;
   padding: 0.25rem;
@@ -24,13 +24,14 @@
   align-items: center;
 }
 .form-actions button {
+  width: 92%;
   border-radius: 4px;
   border: none;
-  background-color: white;
-  padding: 10px;
+  background-color: #73ace5;
+  padding: 10px ;
   margin-bottom: 10px;
 }
 .form-actions button:hover {
   cursor: pointer;
-  background-color: #eee;
+  background-color: #bbead6;
 }
