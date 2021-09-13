@@ -1,7 +1,7 @@
 import React from 'react';
 import CenteredCard from '../ui/templates/CenteredCard';
 import AuthForm from './AuthForm';
-import classes from './css/LandingPage.module.css';
+import classes from './css/Authentication.module.css';
 
 const Authentication = () => {
   return (
