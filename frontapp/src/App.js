@@ -1,11 +1,11 @@
 import React from 'react';
-import LandingPage from './components/pages/LandingPage';
+import Authentication from './components/pages/Authentication';
 import './App.css';
 
 function App() {
   return (
     <div className='App'>
-      <LandingPage />
+      <Authentication />
     </div>
   );
 }

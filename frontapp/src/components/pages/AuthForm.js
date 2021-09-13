@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classes from './css/SignupForm.module.css';
 
-const SignupForm = () => {
+const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(false);
   const switchModeHandler = () => {
     setIsLogin(!isLogin);
@@ -32,4 +32,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default AuthForm;
