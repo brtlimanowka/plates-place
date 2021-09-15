@@ -26,6 +26,9 @@
   min-width: 300px;
   border-radius: 4px 0 0 4px;
   background-color: #df4e00;
+  transform-origin: right;
+  transform: scaleX(0%);
+  animation: error-slide 5s linear;
 }
 .form-group input {
   font: inherit;
@@ -61,4 +64,19 @@
 .form-actions button:hover {
   cursor: pointer;
   background-color: #95aaaf;
+}
+
+@keyframes error-slide {
+  0% {
+    transform: scaleX(0%);
+  }
+  2% {
+    transform: scaleX(100%);
+  }
+  98% {
+    transform: scaleX(100%);
+  }
+  100% {
+    transform: scaleX(0%);
+  }
 }
