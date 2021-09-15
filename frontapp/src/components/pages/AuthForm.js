@@ -1,14 +1,26 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Spinner from '../ui/elements/Spinner';
 import classes from './css/AuthForm.module.css';
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState({
+    name: null,
+    email: null,
+    password: null,
+    global: null,
+  });
+  const [isFormValid, setIsFormValid] = useState(false);
+
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+
+  useEffect(() => {
+    setIsFormValid(Object.values(errors).every((value) => value === null));
+  }, [errors]);
+
   const switchModeHandler = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };
@@ -156,7 +168,9 @@ const AuthForm = () => {
             />
           </div>
           <div className={classes['form-actions']}>
-            <button>{isLogin ? 'Login' : 'Create Account'}</button>
+            <button style={isFormValid ? { color: 'green' } : { color: 'red' }}>
+              {isLogin ? 'Login' : 'Create Account'}
+            </button>
             <button type='button' onClick={switchModeHandler}>
               {isLogin ? 'Create new account' : 'Login with existing account'}
             </button>
