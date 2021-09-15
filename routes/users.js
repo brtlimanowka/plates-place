@@ -62,4 +62,18 @@ router.post('/', validators.usersValidator, (req, res) => {
     });
 });
 
+// @route   GET api/users/:email
+// @desc    Checks if a user exist
+// @access  Public
+router.get('/:email', (req, res) => {
+  let email = Buffer.from(req.params.email, 'base64').toString();
+  User.findOne({ email }).then((result) => {
+    if (result) {
+      res.json({ message: 'Email already in use' });
+    } else {
+      res.json({ message: 'OK' });
+    }
+  });
+});
+
 module.exports = router;
