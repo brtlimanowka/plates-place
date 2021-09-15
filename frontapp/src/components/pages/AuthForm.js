@@ -10,7 +10,64 @@ const AuthForm = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const switchModeHandler = () => {
-    setIsLogin(!isLogin);
+    setIsLogin((prevIsLogin) => !prevIsLogin);
+  };
+  const nameFocusHandler = () => {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, name: null };
+    });
+  };
+  const emailFocusHandler = () => {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, email: null };
+    });
+  };
+  const passwordFocusHandler = () => {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, password: null };
+    });
+  };
+  const nameBlurHandler = (event) => {
+    if (!event.target.value.trim()) {
+      setErrors((prevErrors) => {
+        return { ...prevErrors, name: 'Name is required' };
+      });
+    }
+  };
+  const emailBlurHandler = (event) => {
+    if (!event.target.value.trim() || !event.target.value.includes('@')) {
+      setErrors((prevErrors) => {
+        return { ...prevErrors, email: 'Please enter a valid email' };
+      });
+    } else {
+      let encodedEmail = btoa(event.target.value);
+      fetch(`/api/users/:${encodedEmail}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.message !== 'OK') {
+            setErrors((prevErrors) => {
+              return { ...prevErrors, email: 'Email already in use' };
+            });
+            return;
+          }
+        });
+    }
+  };
+  const passwordBlurHandler = (event) => {
+    if (event.target.value.trim() < 1) {
+      setErrors((prevErrors) => {
+        return { ...prevErrors, password: 'Password is required' };
+      });
+      return;
+    }
+    if (event.target.value.trim() < 6) {
+      setErrors((prevErrors) => {
+        return {
+          ...prevErrors,
+          password: 'Password must be at least 6 characters long',
+        };
+      });
+    }
   };
   const submitHandler = (event) => {
     event.preventDefault();
@@ -28,11 +85,12 @@ const AuthForm = () => {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Could not process request');
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.errors && data.errors.length) {
+          throw new Error('Required data is missing from the form');
         }
-        response.json();
+        setIsLoading(false);
       })
       .catch((error) => {
         setErrors((prevErrors) => {
@@ -58,27 +116,44 @@ const AuthForm = () => {
           ) : (
             <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
           )}
-
           <div className={classes['form-group']}>
             <div className={classes['form-label']}>
               <label htmlFor='name'>Name</label>
               {hasNameError && <span>{errors.name}</span>}
             </div>
-            <input type='text' id='name' ref={nameInputRef} />
+            <input
+              type='text'
+              id='name'
+              ref={nameInputRef}
+              onFocus={nameFocusHandler}
+              onBlur={nameBlurHandler}
+            />
           </div>
           <div className={classes['form-group']}>
             <div className={classes['form-label']}>
               <label htmlFor='email'>Email</label>
               {hasEmailError && <span>{errors.email}</span>}
             </div>
-            <input type='email' id='email' ref={emailInputRef} />
+            <input
+              type='email'
+              id='email'
+              ref={emailInputRef}
+              onFocus={emailFocusHandler}
+              onBlur={emailBlurHandler}
+            />
           </div>
           <div className={classes['form-group']}>
             <div className={classes['form-label']}>
               <label htmlFor='password'>Password</label>
               {hasPasswordError && <span>{errors.password}</span>}
             </div>
-            <input type='password' id='password' ref={passwordInputRef} />
+            <input
+              type='password'
+              id='password'
+              ref={passwordInputRef}
+              onFocus={passwordFocusHandler}
+              onBlur={passwordBlurHandler}
+            />
           </div>
           <div className={classes['form-actions']}>
             <button>{isLogin ? 'Login' : 'Create Account'}</button>
