@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import Spinner from '../ui/elements/Spinner';
-import AuthError from './AuthError';
 import classes from './css/AuthForm.module.css';
 
 const AuthForm = () => {
@@ -54,21 +53,32 @@ const AuthForm = () => {
         <Spinner height='300px' />
       ) : (
         <form onSubmit={submitHandler}>
-          <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
+          {hasGlobalError ? (
+            <h2 className={classes['form-error']}>{errors.global}</h2>
+          ) : (
+            <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
+          )}
+
           <div className={classes['form-group']}>
-            <label htmlFor='name'>Name</label>
+            <div className={classes['form-label']}>
+              <label htmlFor='name'>Name</label>
+              {hasNameError && <span>{errors.name}</span>}
+            </div>
             <input type='text' id='name' ref={nameInputRef} />
-            {hasNameError && <AuthError errorMessage={errors.name} />}
           </div>
           <div className={classes['form-group']}>
-            <label htmlFor='email'>Email</label>
+            <div className={classes['form-label']}>
+              <label htmlFor='email'>Email</label>
+              {hasEmailError && <span>{errors.email}</span>}
+            </div>
             <input type='email' id='email' ref={emailInputRef} />
-            {hasEmailError && <AuthError errorMessage={errors.email} />}
           </div>
           <div className={classes['form-group']}>
-            <label htmlFor='password'>Password</label>
+            <div className={classes['form-label']}>
+              <label htmlFor='password'>Password</label>
+              {hasPasswordError && <span>{errors.password}</span>}
+            </div>
             <input type='password' id='password' ref={passwordInputRef} />
-            {hasPasswordError && <AuthError errorMessage={errors.password} />}
           </div>
           <div className={classes['form-actions']}>
             <button>{isLogin ? 'Login' : 'Create Account'}</button>
@@ -76,7 +86,6 @@ const AuthForm = () => {
               {isLogin ? 'Create new account' : 'Login with existing account'}
             </button>
           </div>
-          {hasGlobalError && <AuthError errorMessage={errors.global} />}
         </form>
       )}
     </div>

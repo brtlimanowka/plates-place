@@ -6,11 +6,26 @@
   margin-top: 35px;
   width: 100%;
 }
-.form-group label {
-  display: block;
+.form-error {
+  background-color: #df4e00;
+  display: flex;
+  justify-content: center;
+}
+.form-label {
+  display: flex;
+  justify-content: space-between;
   margin: 20px 0;
+  line-height: 25px;
   font-weight: 500;
   margin-bottom: 0.5rem;
+}
+.form-label label {
+  margin-left: 22px;
+}
+.form-label span {
+  min-width: 300px;
+  border-radius: 4px 0 0 4px;
+  background-color: #df4e00;
 }
 .form-group input {
   font: inherit;
