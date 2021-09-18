@@ -9,7 +9,16 @@ const AuthInput = (props) => {
   const [emailFound, setEmailFound] = useState(undefined);
 
   useEffect(() => {
-    if (props.isLogin) {
+    setIsTouched(false);
+    setInputHasError(false);
+    setInputError(null);
+    setInputValue('');
+    setEmailFound(undefined);
+    // eslint-disable-next-line
+  }, [props.isLogin]);
+
+  useEffect(() => {
+    if (isTouched && props.isLogin) {
       if (!emailFound) {
         setInputHasError(true);
         setInputError('Email not found');
@@ -27,18 +36,23 @@ const AuthInput = (props) => {
       }
     }
     // eslint-disable-next-line
-  }, [props.isLogin, emailFound]);
+  }, [emailFound]);
 
   useEffect(() => {
-    const inputValid =
-      isTouched && !inputHasError && (props.isLogin ? emailFound : !emailFound);
+    const correctEmailFound = props.isLogin ? emailFound : !emailFound;
+    let inputValid = false;
+    if (props.inputFor === 'email') {
+      inputValid = isTouched && !inputHasError && correctEmailFound;
+    } else {
+      inputValid = isTouched && !inputHasError;
+    }
     if (inputValid) {
       props.confirmValue(inputValue);
     } else {
       props.confirmValue(null);
     }
     // eslint-disable-next-line
-  }, [isTouched, inputHasError, inputValue, emailFound]);
+  }, [inputHasError, inputValue, emailFound]);
 
   const checkEmailAvailability = (email) => {
     let encodedEmail = btoa(email);
@@ -70,8 +84,10 @@ const AuthInput = (props) => {
         return;
       case 'email':
         if (!!value.trim().length && value.trim().includes('@')) {
-          setInputHasError(false);
-          setInputError(null);
+          if (emailFound === undefined) {
+            setInputHasError(true);
+          }
+          checkEmailAvailability(value);
         } else {
           setInputHasError(true);
           setInputError('Required');
@@ -92,32 +108,22 @@ const AuthInput = (props) => {
   };
 
   const inputFocusHandler = () => {
-    // clearTimeout(checkEmailAvailability);
+    clearTimeout(checkEmailAvailability);
   };
   const inputChangeHandler = (event) => {
     setIsTouched(true);
     setInputValue(event.target.value);
     validateInput(event.target.value);
-    if (props.inputFor === 'email' && event.target.value !== '') {
-      checkEmailAvailability(event.target.value);
-    }
   };
   const inputBlurHandler = (event) => {
     validateInput(event.target.value);
-    if (
-      props.inputFor === 'email' &&
-      !inputHasError &&
-      event.target.value !== ''
-    ) {
-      checkEmailAvailability(event.target.value);
-    }
   };
 
   return (
     <div className={classes['form-group']}>
       <div className={classes['form-label']}>
         <label htmlFor={props.inputFor}>{props.inputLabel}</label>
-        {inputHasError && <span>{inputError}</span>}
+        {inputHasError && inputError && <span>{inputError}</span>}
       </div>
       <input
         type={props.inputType}

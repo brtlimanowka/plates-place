@@ -14,10 +14,12 @@ const AuthForm = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    if (Object.values(formData).every((value) => value !== null)) {
-      setIsFormValid(true);
+    if (isLogin) {
+      setIsFormValid(formData.email && formData.password);
+    } else {
+      setIsFormValid(formData.name && formData.email && formData.password);
     }
-  }, [formData]);
+  }, [isLogin, formData]);
 
   const switchModeHandler = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);
