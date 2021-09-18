@@ -42,7 +42,7 @@ const AuthForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    fetch(isLogin ? '/api/auth/' : '/api/userss/', {
+    fetch(isLogin ? '/api/auth/' : '/api/users/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,6 +63,7 @@ const AuthForm = () => {
           <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
           {!isLogin && (
             <AuthInput
+              isLogin={isLogin}
               inputType='text'
               inputFor='name'
               inputLabel='Name'
@@ -70,12 +71,14 @@ const AuthForm = () => {
             />
           )}
           <AuthInput
+            isLogin={isLogin}
             inputType='email'
             inputFor='email'
             inputLabel='Email'
             confirmValue={emailConfirmed}
           />
           <AuthInput
+            isLogin={isLogin}
             inputType='password'
             inputFor='password'
             inputLabel='Password'

@@ -6,28 +6,52 @@ const AuthInput = (props) => {
   const [inputHasError, setInputHasError] = useState(false);
   const [inputError, setInputError] = useState(null);
   const [inputValue, setInputValue] = useState('');
+  const [emailFound, setEmailFound] = useState(undefined);
 
   useEffect(() => {
-    if (isTouched && !inputHasError) {
+    if (props.isLogin) {
+      if (!emailFound) {
+        setInputHasError(true);
+        setInputError('Email not found');
+      } else {
+        setInputHasError(false);
+        setInputError(null);
+      }
+    } else {
+      if (emailFound) {
+        setInputHasError(true);
+        setInputError('Email already in use');
+      } else {
+        setInputHasError(false);
+        setInputError(null);
+      }
+    }
+    // eslint-disable-next-line
+  }, [props.isLogin, emailFound]);
+
+  useEffect(() => {
+    const inputValid =
+      isTouched && !inputHasError && (props.isLogin ? emailFound : !emailFound);
+    if (inputValid) {
       props.confirmValue(inputValue);
     } else {
       props.confirmValue(null);
     }
     // eslint-disable-next-line
-  }, [isTouched, inputHasError, inputValue]);
+  }, [isTouched, inputHasError, inputValue, emailFound]);
 
   const checkEmailAvailability = (email) => {
     let encodedEmail = btoa(email);
     setTimeout(() => {
-      fetch(`/api/users/${encodedEmail}`)
+      fetch(`/api/users/${encodedEmail}`, {
+        cache: 'no-store',
+      })
         .then((response) => response.json())
         .then((data) => {
-          if (data.message === 'OK') {
-            setInputHasError(false);
-            setInputError(null);
+          if (data.found) {
+            setEmailFound(true);
           } else {
-            setInputHasError(true);
-            setInputError('Email already in use');
+            setEmailFound(false);
           }
         });
     }, 500);
@@ -74,11 +98,7 @@ const AuthInput = (props) => {
     setIsTouched(true);
     setInputValue(event.target.value);
     validateInput(event.target.value);
-    if (
-      props.inputFor === 'email' &&
-      !inputHasError &&
-      event.target.value !== ''
-    ) {
+    if (props.inputFor === 'email' && event.target.value !== '') {
       checkEmailAvailability(event.target.value);
     }
   };
