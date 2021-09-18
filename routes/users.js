@@ -69,9 +69,9 @@ router.get('/:email', (req, res) => {
   let email = Buffer.from(req.params.email, 'base64').toString();
   User.findOne({ email }).then((result) => {
     if (result) {
-      res.json({ message: 'Email already in use' });
+      res.json({ found: true });
     } else {
-      res.json({ message: 'OK' });
+      res.json({ found: false });
     }
   });
 });
