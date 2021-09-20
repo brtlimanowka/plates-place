@@ -12,6 +12,7 @@ const AuthForm = () => {
     password: null,
   });
   const [isFormValid, setIsFormValid] = useState(false);
+  const [applicationError, setApplicationError] = useState(null);
 
   useEffect(() => {
     if (isLogin) {
@@ -51,16 +52,30 @@ const AuthForm = () => {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
       .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setApplicationError(error.message);
+        console.error(error);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
     <div className={classes['form-container']}>
-      {isLoading ? (
-        <Spinner height='300px' />
-      ) : (
+      {isLoading && !applicationError && <Spinner height='300px' />}
+      {!isLoading && !!applicationError && (
+        <p className={classes['form-error']}>
+          Application error: {applicationError}
+        </p>
+      )}
+      {!isLoading && !applicationError && (
         <form onSubmit={submitHandler}>
           <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
           {!isLogin && (

@@ -13,8 +13,8 @@ main.card {
 }
 .form-error {
   background-color: #df4e00;
-  display: flex;
-  justify-content: center;
+  line-height: 48px;
+  font-size: 24px;
 }
 .form-label {
   display: flex;
