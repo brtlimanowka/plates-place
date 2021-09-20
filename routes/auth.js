@@ -42,7 +42,7 @@ router.post('/', validators.authValidator, (req, res) => {
         .compare(password, result.password)
         .then((match) => {
           if (!match) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(401).json({ message: 'Invalid credentials' });
           } else {
             const payload = {
               user: {
