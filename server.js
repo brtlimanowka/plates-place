@@ -10,6 +10,9 @@ app.use(express.json({ extended: false }));
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('*', (req, res) =>
+  res.status(404).json({ message: 'Invalid endpoint' })
+);
 // app.use('/api/settings', require('./routes/settings'));
 // app.use('/api/workout', require('./routes/workout'));
 // app.use('/api/day', require('./routes/day'));
