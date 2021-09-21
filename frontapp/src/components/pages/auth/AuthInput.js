@@ -83,6 +83,7 @@ const AuthInput = (props) => {
         }
         return;
       case 'email':
+        setInputError(null);
         if (!!value.trim().length && value.trim().includes('@')) {
           if (emailFound === undefined) {
             setInputHasError(true);
@@ -90,7 +91,7 @@ const AuthInput = (props) => {
           checkEmailAvailability(value);
         } else {
           setInputHasError(true);
-          setInputError('Required');
+          setInputError('Valid email required');
         }
         return;
       case 'password':
