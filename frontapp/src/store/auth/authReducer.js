@@ -12,12 +12,11 @@ import {
 const _ = (state, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('token', action.payload);
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        loading: false,
       };
     case REGISTER_FAIL:
       localStorage.removeItem('token');
@@ -25,7 +24,6 @@ const _ = (state, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
-        isLoading: true,
         user: null,
         error: action.payload,
       };
@@ -33,7 +31,6 @@ const _ = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        loading: false,
         user: action.payload,
       };
     case AUTH_ERROR:
@@ -42,17 +39,15 @@ const _ = (state, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: true,
         user: null,
         error: action.payload,
       };
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('token', action.payload);
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        loading: false,
       };
     case LOGIN_FAIL:
       localStorage.removeItem('token');
@@ -60,7 +55,6 @@ const _ = (state, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: true,
         user: null,
         error: action.payload,
       };
@@ -69,7 +63,6 @@ const _ = (state, action) => {
       return {
         ...state,
         isAuthenticated: false,
-        loading: true,
         user: null,
       };
     case CLEAR_ERRORS:

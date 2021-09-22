@@ -1,15 +1,15 @@
 import React from 'react';
-import AuthContextProvider from './store/auth/authContext';
+import AuthState from './store/auth/AuthState';
 import Authentication from './components/pages/auth/Authentication';
 import './App.css';
 
 function App() {
   return (
-    <AuthContextProvider>
+    <AuthState>
       <div className='App'>
         <Authentication />
       </div>
-    </AuthContextProvider>
+    </AuthState>
   );
 }
 
