@@ -1,4 +1,5 @@
 import {
+  START_LOADING,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
@@ -17,6 +18,7 @@ const _ = (state, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
+        isLoading: false,
       };
     case REGISTER_FAIL:
       localStorage.removeItem('token');
@@ -26,12 +28,14 @@ const _ = (state, action) => {
         isAuthenticated: false,
         user: null,
         error: action.payload,
+        isLoading: false,
       };
     case USER_LOADED:
       return {
         ...state,
         isAuthenticated: true,
         user: action.payload,
+        isLoading: false,
       };
     case AUTH_ERROR:
       localStorage.removeItem('token');
@@ -41,6 +45,7 @@ const _ = (state, action) => {
         isAuthenticated: false,
         user: null,
         error: action.payload,
+        isLoading: false,
       };
     case LOGIN_SUCCESS:
       localStorage.setItem('token', action.payload);
@@ -48,6 +53,7 @@ const _ = (state, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
+        isLoading: false,
       };
     case LOGIN_FAIL:
       localStorage.removeItem('token');
@@ -57,6 +63,7 @@ const _ = (state, action) => {
         isAuthenticated: false,
         user: null,
         error: action.payload,
+        isLoading: false,
       };
     case LOGOUT:
       localStorage.removeItem('token');
@@ -64,6 +71,12 @@ const _ = (state, action) => {
         ...state,
         isAuthenticated: false,
         user: null,
+        isLoading: false,
+      };
+    case START_LOADING:
+      return {
+        ...state,
+        isLoading: true,
       };
     case CLEAR_ERRORS:
       return {

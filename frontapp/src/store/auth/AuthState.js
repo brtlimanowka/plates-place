@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import authContext from './authContext';
 import authReducer from './authReducer';
 import {
+  START_LOADING,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
@@ -15,6 +16,7 @@ import {
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem('token'),
+    isLoading: false,
     isAuthenticated: false,
     user: null,
     error: null,
@@ -93,6 +95,10 @@ const AuthState = (props) => {
       });
   };
 
+  const startLoading = () => {
+    dispatch({ type: START_LOADING });
+  };
+
   const clearErrors = () => {
     dispatch({ type: CLEAR_ERRORS });
   };
@@ -100,8 +106,10 @@ const AuthState = (props) => {
   const contextValues = {
     token: state.token,
     isAuthenticated: state.isAuthenticated,
+    isLoading: state.isLoading,
     user: state.user,
     error: state.error,
+    startLoading,
     registerUser,
     getUser,
     logIn,
