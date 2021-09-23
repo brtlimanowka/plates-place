@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
-import AuthContext from '../../../store/auth/authContext';
+import AuthContext from '../../../store/auth/AuthContext';
 import AuthInput from './AuthInput';
 import Spinner from '../../ui/elements/Spinner';
 import classes from '../css/Authentication.module.css';

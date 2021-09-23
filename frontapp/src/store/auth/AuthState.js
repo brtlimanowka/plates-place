@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import authContext from './authContext';
+import AuthContext from './AuthContext';
 import authReducer from './authReducer';
 import {
   START_LOADING,
@@ -118,9 +118,9 @@ const AuthState = (props) => {
   };
 
   return (
-    <authContext.Provider value={contextValues}>
+    <AuthContext.Provider value={contextValues}>
       {props.children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
