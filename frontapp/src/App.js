@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AuthContext from './store/auth/AuthContext';
 import Navbar from './components/ui/elements/Navbar';
@@ -8,9 +8,14 @@ import './App.css';
 function App() {
   const authContext = useContext(AuthContext);
   const token = localStorage.getItem('token');
-  if (token) {
-    authContext.getUser();
-  }
+
+  useEffect(() => {
+    if (token) {
+      authContext.getUser();
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className='App'>
       <Router>
