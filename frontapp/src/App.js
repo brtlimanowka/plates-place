@@ -7,10 +7,9 @@ import './App.css';
 
 function App() {
   const authContext = useContext(AuthContext);
-  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem('token')) {
       authContext.getUser();
     }
     // eslint-disable-next-line

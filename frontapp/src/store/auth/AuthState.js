@@ -74,6 +74,7 @@ const AuthState = (props) => {
   };
 
   const getUser = () => {
+    dispatch({ type: START_LOADING });
     let token = localStorage.getItem('token');
     fetch('/api/auth', {
       headers: {
