@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
-import AuthContext from '../../../store/auth/AuthContext';
+import AuthContext from '../../../store/auth/authContext';
 import AuthInput from './AuthInput';
 import Spinner from '../../ui/elements/Spinner';
 import classes from '../css/Authentication.module.css';
