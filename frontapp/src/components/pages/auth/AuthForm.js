@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
+import { useHistory } from 'react-router-dom';
 import AuthContext from '../../../store/auth/AuthContext';
 import AuthInput from './AuthInput';
 import Spinner from '../../ui/elements/Spinner';
 import classes from '../css/Authentication.module.css';
 
 const AuthForm = () => {
+  let history = useHistory();
   const authContext = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(false);
   const [formData, setFormData] = useState({
@@ -41,6 +43,9 @@ const AuthForm = () => {
       return { ...prevFormData, password };
     });
   };
+  const backHandler = () => {
+    history.go(0);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -59,9 +64,12 @@ const AuthForm = () => {
           <Spinner height='300px' />
         )}
         {!authContext.isLoading && !!authContext.error && (
-          <p className={classes['form-error']}>
-            Application error: {authContext.error.message}
-          </p>
+          <div className={classes['form-error']}>
+            <p>Application error: {authContext.error.message}</p>
+            <button type='button' onClick={backHandler}>
+              Back
+            </button>
+          </div>
         )}
         {!authContext.isLoading && !authContext.error && (
           <form onSubmit={submitHandler}>
