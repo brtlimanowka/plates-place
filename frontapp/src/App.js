@@ -26,6 +26,7 @@ function App() {
             {/* <Route exact path='/workouts' component={Workouts} /> */}
             {/* <Route exact path='/stopwatch' component={Stopwatch} /> */}
             {/* <Route exact path='/settings' component={Settings} /> */}
+            {/* <Route exact path='/logout' component={Settings} /> */}
             {/* <Route exact path='/about' component={About} /> */}
           </Switch>
         </div>
