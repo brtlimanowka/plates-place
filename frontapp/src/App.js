@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import AuthContext from './store/auth/AuthContext';
+import AuthContext from './store/auth/authContext';
 import Navbar from './components/ui/elements/Navbar';
 import Home from './components/pages/Home';
 import './App.css';
