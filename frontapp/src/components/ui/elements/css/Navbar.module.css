@@ -1,0 +1,42 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+.navbar a {
+  color: #ddd;
+  text-decoration: none;
+}
+.navbar header {
+  font-size: 36px;
+}
+.menu {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  font-size: 24px;
+}
+.menu-item_label {
+  display: none;
+}
+.menu-item:hover {
+  cursor: pointer;
+}
+.icon {
+  color: #66d9ff;
+  margin-right: 10px;
+}
+.icon:hover {
+  color: #ddd;
+}
+
+@media (min-width: 1400px) {
+  .menu {
+    font-size: 18px;
+  }
+  .menu-item_label {
+    display: inline;
+  }
+}
