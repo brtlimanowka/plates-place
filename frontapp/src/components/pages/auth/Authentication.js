@@ -5,7 +5,7 @@ import classes from '../css/Authentication.module.css';
 
 const Authentication = () => {
   return (
-    <CenteredCard height={'100vh'}>
+    <CenteredCard>
       <main className={classes.card}>
         <header>
           <h1>Welcome to Plates' Place</h1>
