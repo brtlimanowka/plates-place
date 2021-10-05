@@ -13,12 +13,10 @@ import {
 const _ = (state, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', action.payload);
       return {
         ...state,
-        ...action.payload,
-        isAuthenticated: true,
         isLoading: false,
+        isRegistered: true,
       };
     case REGISTER_FAIL:
       localStorage.removeItem('token');

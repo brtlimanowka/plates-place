@@ -17,6 +17,7 @@ const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem('token'),
     isLoading: false,
+    isRegistered: false,
     isAuthenticated: false,
     user: null,
     error: null,
@@ -33,14 +34,10 @@ const AuthState = (props) => {
     })
       .then((response) => {
         if (response.ok) {
-          return response.json();
+          dispatch({ type: REGISTER_SUCCESS });
         } else {
           throw new Error(response.statusText);
         }
-      })
-      .then((data) => {
-        dispatch({ type: REGISTER_SUCCESS, payload: data.token });
-        getUser();
       })
       .catch((error) => dispatch({ type: REGISTER_FAIL, payload: error }));
   };
@@ -106,6 +103,7 @@ const AuthState = (props) => {
 
   const contextValues = {
     token: state.token,
+    isRegistered: state.isRegistered,
     isAuthenticated: state.isAuthenticated,
     isLoading: state.isLoading,
     user: state.user,
