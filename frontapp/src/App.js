@@ -20,10 +20,6 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-  const logoutHandler = () => {
-    console.log('logged out');
-  };
-
   return (
     <div className='App'>
       <Router>
@@ -35,7 +31,6 @@ function App() {
             <Route exact path='/workouts' component={Workouts} />
             <Route exact path='/stopwatch' component={Stopwatch} />
             <Route exact path='/settings' component={Settings} />
-            <Route exact path='/logout' onClick={logoutHandler} />
             <Route exact path='/about' component={About} />
           </Switch>
         </div>
