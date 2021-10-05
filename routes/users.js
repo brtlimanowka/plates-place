@@ -30,27 +30,9 @@ router.post('/', validators.usersValidator, (req, res) => {
           .then((salt) => bcrypt.hash(password, salt))
           .then((hashedPassword) => {
             user.password = hashedPassword;
-            user.save().then(() => {
-              const payload = {
-                user: {
-                  id: user.id,
-                },
-              };
-              jwt.sign(
-                payload,
-                process.env.JWT_SECRET,
-                {
-                  expiresIn: 3600,
-                },
-                (error, token) => {
-                  if (error) {
-                    throw error;
-                  } else {
-                    res.status(201).json({ token });
-                  }
-                }
-              );
-            });
+            user
+              .save()
+              .then(() => res.status(200).json({ message: 'Success' }));
           })
           .catch((error) => {
             console.error(error.message);
