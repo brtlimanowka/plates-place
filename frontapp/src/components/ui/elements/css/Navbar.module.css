@@ -1,0 +1,12 @@
+.navbar {
+  display: flex;
+}
+.menu {
+  display: flex;
+  list-style: none;
+}
+.menu-item {
+}
+.icon {
+  color: red;
+}
