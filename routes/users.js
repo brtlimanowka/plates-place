@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const router = express.Router();
+const uuid = require('uuid');
 const User = require('../models/User');
 const validators = require('./validators');
 
@@ -22,7 +23,8 @@ router.post('/', validators.usersValidator, (req, res) => {
       if (result) {
         return res.status(400).json({ message: 'Email already in use' });
       } else {
-        let user = new User({ name, email, password });
+        let manageString = uuid.v4();
+        let user = new User({ name, email, password, manageString });
         bcrypt
           .genSalt()
           .then((salt) => bcrypt.hash(password, salt))
