@@ -57,58 +57,78 @@ const AuthForm = () => {
     }
   };
 
+  const isContextLoading = authContext.isLoading;
+  const isContextError = !authContext.isLoading && !!authContext.error;
+  const isContextRegistered =
+    !authContext.isLoading && !!authContext.isRegistered;
+  const isContextEmptyForm =
+    !authContext.isLoading && !authContext.error && !authContext.isRegistered;
+
+  const renderLoading = <Spinner height='300px' />;
+  const renderError = (
+    <div className={classes['form-error']}>
+      <p>Application error: {authContext.error && authContext.error.message}</p>
+      <button type='button' onClick={backHandler}>
+        Back
+      </button>
+    </div>
+  );
+  const renderedRegistered = (
+    <div className={classes['form-success']}>
+      <p>Success!</p>
+      <p>Your account has been registered.</p>
+      <p>Check your email to activate it!</p>
+      <button type='button' onClick={backHandler}>
+        Back
+      </button>
+    </div>
+  );
+  const renderEmptyForm = (
+    <form onSubmit={submitHandler}>
+      <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
+      {!isLogin && (
+        <AuthInput
+          isLogin={isLogin}
+          inputType='text'
+          inputFor='name'
+          inputLabel='Name'
+          confirmValue={nameConfirmed}
+        />
+      )}
+      <AuthInput
+        isLogin={isLogin}
+        inputType='email'
+        inputFor='email'
+        inputLabel='Email'
+        confirmValue={emailConfirmed}
+      />
+      <AuthInput
+        isLogin={isLogin}
+        inputType='password'
+        inputFor='password'
+        inputLabel='Password'
+        confirmValue={passwordConfirmed}
+      />
+      <div className={classes['form-actions']}>
+        <button
+          disabled={!isFormValid}
+          className={isFormValid ? '' : classes['form-invalid']}>
+          {isLogin ? 'Login' : 'Create Account'}
+        </button>
+        <button type='button' onClick={switchModeHandler}>
+          {isLogin ? 'Create new account' : 'Login with existing account'}
+        </button>
+      </div>
+    </form>
+  );
+
   return (
     <Fragment>
       <div className={classes['form-container']}>
-        {authContext.isLoading && !authContext.error && (
-          <Spinner height='300px' />
-        )}
-        {!authContext.isLoading && !!authContext.error && (
-          <div className={classes['form-error']}>
-            <p>Application error: {authContext.error.message}</p>
-            <button type='button' onClick={backHandler}>
-              Back
-            </button>
-          </div>
-        )}
-        {!authContext.isLoading && !authContext.error && (
-          <form onSubmit={submitHandler}>
-            <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
-            {!isLogin && (
-              <AuthInput
-                isLogin={isLogin}
-                inputType='text'
-                inputFor='name'
-                inputLabel='Name'
-                confirmValue={nameConfirmed}
-              />
-            )}
-            <AuthInput
-              isLogin={isLogin}
-              inputType='email'
-              inputFor='email'
-              inputLabel='Email'
-              confirmValue={emailConfirmed}
-            />
-            <AuthInput
-              isLogin={isLogin}
-              inputType='password'
-              inputFor='password'
-              inputLabel='Password'
-              confirmValue={passwordConfirmed}
-            />
-            <div className={classes['form-actions']}>
-              <button
-                disabled={!isFormValid}
-                className={isFormValid ? '' : classes['form-invalid']}>
-                {isLogin ? 'Login' : 'Create Account'}
-              </button>
-              <button type='button' onClick={switchModeHandler}>
-                {isLogin ? 'Create new account' : 'Login with existing account'}
-              </button>
-            </div>
-          </form>
-        )}
+        {isContextLoading && renderLoading}
+        {isContextError && renderError}
+        {isContextRegistered && renderedRegistered}
+        {isContextEmptyForm && renderEmptyForm}
       </div>
     </Fragment>
   );

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const router = express.Router();
+const uuid = require('uuid');
 const User = require('../models/User');
 const validators = require('./validators');
 
@@ -22,33 +23,16 @@ router.post('/', validators.usersValidator, (req, res) => {
       if (result) {
         return res.status(400).json({ message: 'Email already in use' });
       } else {
-        let user = new User({ name, email, password });
+        let manageString = uuid.v4();
+        let user = new User({ name, email, password, manageString });
         bcrypt
           .genSalt()
           .then((salt) => bcrypt.hash(password, salt))
           .then((hashedPassword) => {
             user.password = hashedPassword;
-            user.save().then(() => {
-              const payload = {
-                user: {
-                  id: user.id,
-                },
-              };
-              jwt.sign(
-                payload,
-                process.env.JWT_SECRET,
-                {
-                  expiresIn: 3600,
-                },
-                (error, token) => {
-                  if (error) {
-                    throw error;
-                  } else {
-                    res.status(201).json({ token });
-                  }
-                }
-              );
-            });
+            user
+              .save()
+              .then(() => res.status(200).json({ message: 'Success' }));
           })
           .catch((error) => {
             console.error(error.message);
