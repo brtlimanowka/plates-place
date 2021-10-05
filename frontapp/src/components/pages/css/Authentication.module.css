@@ -11,16 +11,25 @@ main.card {
   margin-top: 35px;
   width: 100%;
 }
-.form-error {
+.form-error,
+.form-success {
   display: flex;
   flex-direction: column;
 }
-.form-error p {
+.form-error p,
+.form-success p {
   line-height: 48px;
   font-size: 24px;
+}
+.form-error p {
   background-color: #df4e00;
 }
-.form-error button {
+.form-success p {
+  color: #242527;
+  background-color: #66d9ff;
+}
+.form-error button,
+.form-success button {
   width: 100%;
   border: none;
   padding: 10px;
@@ -80,7 +89,8 @@ main.card {
   color: #ddd;
 }
 .form-actions button:hover,
-.form-error button:hover {
+.form-error button:hover,
+.form-success button:hover {
   cursor: pointer;
   background-color: #b3ecff;
   color: #242527;
