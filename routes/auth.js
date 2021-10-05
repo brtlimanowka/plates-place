@@ -44,25 +44,29 @@ router.post('/', validators.authValidator, (req, res) => {
           if (!match) {
             return res.status(401).json({ message: 'Invalid credentials' });
           } else {
-            const payload = {
-              user: {
-                id: result.id,
-              },
-            };
-            jwt.sign(
-              payload,
-              process.env.JWT_SECRET,
-              {
-                expiresIn: 3600,
-              },
-              (error, token) => {
-                if (error) {
-                  throw error;
-                } else {
-                  res.status(201).json({ token });
+            if (result.active) {
+              const payload = {
+                user: {
+                  id: result.id,
+                },
+              };
+              jwt.sign(
+                payload,
+                process.env.JWT_SECRET,
+                {
+                  expiresIn: 3600,
+                },
+                (error, token) => {
+                  if (error) {
+                    throw error;
+                  } else {
+                    res.status(200).json({ token });
+                  }
                 }
-              }
-            );
+              );
+            } else {
+              res.status(403).json({ message: 'Account inactive' });
+            }
           }
         })
         .catch((error) => {

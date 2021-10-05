@@ -32,7 +32,7 @@ router.post('/', validators.usersValidator, (req, res) => {
             user.password = hashedPassword;
             user
               .save()
-              .then(() => res.status(200).json({ message: 'Success' }));
+              .then(() => res.status(201).json({ message: 'Success' }));
           })
           .catch((error) => {
             console.error(error.message);

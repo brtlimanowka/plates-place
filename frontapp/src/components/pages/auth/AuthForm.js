@@ -68,6 +68,13 @@ const AuthForm = () => {
   const renderError = (
     <div className={classes['form-error']}>
       <p>Application error: {authContext.error && authContext.error.message}</p>
+      {authContext.error && authContext.error.message === 'Forbidden' && (
+        <p className={classes['form-error_forbidden']}>
+          Your account may be inactive.
+          <br />
+          Check your inbox for activation email.
+        </p>
+      )}
       <button type='button' onClick={backHandler}>
         Back
       </button>
