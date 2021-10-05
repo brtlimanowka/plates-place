@@ -21,6 +21,10 @@ main.card {
   line-height: 48px;
   background-color: #df4e00;
 }
+.form-error_forbidden {
+  font-size: 18px !important;
+  line-height: 32px !important;
+}
 .form-success p {
   font-size: 22px;
   line-height: 36px;
