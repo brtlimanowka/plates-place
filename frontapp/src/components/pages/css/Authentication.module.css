@@ -16,15 +16,14 @@ main.card {
   display: flex;
   flex-direction: column;
 }
-.form-error p,
-.form-success p {
-  line-height: 48px;
-  font-size: 24px;
-}
 .form-error p {
+  font-size: 24px;
+  line-height: 48px;
   background-color: #df4e00;
 }
 .form-success p {
+  font-size: 22px;
+  line-height: 36px;
   color: #242527;
   background-color: #66d9ff;
 }
