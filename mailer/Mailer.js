@@ -21,7 +21,21 @@ class Mailer {
       }
     });
   };
-  sendPasswordResetEmail = () => {};
+  sendPasswordResetEmail = (host) => {
+    const options = setMailOptions(
+      'reset',
+      host,
+      this.email,
+      this.manageString
+    );
+    transporter.sendMail(options, (error, ignored) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(`\tSent password reset email to ${this.email}`);
+      }
+    });
+  };
 }
 
 module.exports = Mailer;
