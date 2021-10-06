@@ -1,12 +1,37 @@
-<html lang='en'>
+<html lang="en">
   <head>
-    <meta charset='UTF-8' />
-    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Reset!</h1>
-    {{url}}
+    <h1>Password reset request</h1>
+    <div>
+      <p>
+        It appears you're trying to reset your password; to do so, click
+        <a href="{{url}}">this link</a>.
+      </p>
+      <p>
+        Alternatively, you can copy below link and paste it in your browser:<br />
+        {{url}}
+      </p>
+      <p>
+        If you didn't request your password to be reset, you can ignore this
+        email.
+      </p>
+      <p>
+        Regards,<br />
+        Plates' Place Daemon
+      </p>
+    </div>
   </body>
 </html>
