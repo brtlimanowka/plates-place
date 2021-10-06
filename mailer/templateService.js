@@ -1,9 +1,9 @@
 const getUrl = (template, url, manageString) => {
   if (template === 'activation') {
-    return `${url}/users/activate/${manageString}`;
+    return `${url}/api/users/activate/${manageString}`;
   }
   if (template === 'reset') {
-    return `${url}/users/reset/${manageString}`;
+    return `${url}/api/users/reset/${manageString}`;
   }
 };
 const getSubject = (template) => {
