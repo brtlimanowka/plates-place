@@ -1,11 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const router = express.Router();
 const uuid = require('uuid');
 const User = require('../models/User');
 const validators = require('./validators');
+const Mailer = require('../mailer/Mailer');
 
 // @route   POST api/users
 // @desc    Register a user
@@ -30,9 +30,11 @@ router.post('/', validators.usersValidator, (req, res) => {
           .then((salt) => bcrypt.hash(password, salt))
           .then((hashedPassword) => {
             user.password = hashedPassword;
-            user
-              .save()
-              .then(() => res.status(201).json({ message: 'Success' }));
+            user.save().then(() => {
+              const mailer = new Mailer(user);
+              mailer.sendActivationEmail(req.header('host'));
+              return res.status(201).json({ message: 'Success' });
+            });
           })
           .catch((error) => {
             console.error(error.message);
