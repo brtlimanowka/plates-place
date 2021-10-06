@@ -62,4 +62,26 @@ router.get('/:email', (req, res) => {
   });
 });
 
+// @route   GET api/users
+// @desc    Activate a user
+// @access  Private
+router.get('/activate/:manageString', (req, res) => {
+  let manageString = req.params.manageString;
+  User.findOneAndUpdate(
+    { manageString },
+    { active: true, manageString: null },
+    (error, ignored) => {
+      if (error) {
+        return res.status(500).json({ message: 'Server error' });
+      } else {
+        res
+          .status(200)
+          .send(
+            "Your account has been activated! You can close this window and log in to Plates' Place"
+          );
+      }
+    }
+  );
+});
+
 module.exports = router;
