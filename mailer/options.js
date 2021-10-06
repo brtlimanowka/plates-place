@@ -1,16 +1,23 @@
-const templateService = require('./templates');
-const DAEMON_ADDRESS = 'platesplace.daemon@gmail.com';
-
 const setMailOptions = (template, host, recipient, manageString) => {
-  const url = templateService.getUrl(template, host, manageString);
-  const emailSubject = templateService.getSubject(template);
-  const emailBody = templateService.getBody(template, url);
+  const url = `https://${host}/api/users/${template}/${manageString}`;
+  let subject;
+
+  if (template === 'activate') {
+    subject = "Activate your Plates' Place account";
+  }
+
+  if (template === 'reset') {
+    subject = "Plates' Place password reset request";
+  }
 
   return {
-    from: DAEMON_ADDRESS,
+    from: process.env.MAIL_USER,
     to: recipient,
-    subject: emailSubject,
-    html: emailBody,
+    subject,
+    template,
+    context: {
+      url,
+    },
   };
 };
 

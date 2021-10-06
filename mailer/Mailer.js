@@ -8,7 +8,7 @@ class Mailer {
   }
   sendActivationEmail = (host) => {
     const options = setMailOptions(
-      'activation',
+      'activate',
       host,
       this.email,
       this.manageString
