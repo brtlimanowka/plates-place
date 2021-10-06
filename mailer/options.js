@@ -1,10 +1,10 @@
-const templates = require('./templates');
+const templateService = require('./templates');
 const DAEMON_ADDRESS = 'platesplace.daemon@gmail.com';
 
 const setMailOptions = (template, host, recipient, manageString) => {
-  const url = templates.getUrl(template, host, manageString);
-  const emailSubject = templates.getSubject(template);
-  const emailBody = templates.getBody(template, url);
+  const url = templateService.getUrl(template, host, manageString);
+  const emailSubject = templateService.getSubject(template);
+  const emailBody = templateService.getBody(template, url);
 
   return {
     from: DAEMON_ADDRESS,

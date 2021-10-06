@@ -16,15 +16,7 @@ const getSubject = (template) => {
 };
 const getBody = (template, url) => {
   if (template === 'activation') {
-    return `
-    <h1>Welcome to Plates' Place!</h1>
-    <div>
-        <p>In order to complete your registration, you'll need to activate your account.</p>
-        <p>You can do it by clicking <a href="${url}">this link</a>.</p>
-        <p>Regards,</p>
-        <p>Plates' Place Daemon</p>
-    </div>
-    `;
+    //
   }
   if (template === 'reset') {
     //
