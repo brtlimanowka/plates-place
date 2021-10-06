@@ -1,5 +1,6 @@
 const setMailOptions = (template, host, recipient, manageString) => {
-  const url = `https://${host}/api/users/${template}/${manageString}`;
+  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+  const url = `${protocol}://${host}/api/users/${template}/${manageString}`;
   let subject;
 
   if (template === 'activate') {
