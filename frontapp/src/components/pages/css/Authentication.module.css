@@ -41,7 +41,7 @@ main.card {
   padding: 10px;
   margin-top: 10px;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 1px;
   background-color: #333;
   color: #ddd;
@@ -51,7 +51,7 @@ main.card {
   justify-content: space-between;
   margin: 20px 0;
   line-height: 25px;
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: 0.5rem;
 }
 .form-label label {
@@ -87,7 +87,7 @@ main.card {
   padding: 10px;
   margin-bottom: 10px;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 1px;
 }
 .form-actions button[type='button'] {
