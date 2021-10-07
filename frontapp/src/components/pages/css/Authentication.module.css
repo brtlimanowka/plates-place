@@ -11,6 +11,10 @@ main.card {
   margin-top: 35px;
   width: 100%;
 }
+.form-container form h3 {
+  margin: 0 20px;
+  line-height: 28px;
+}
 .form-error,
 .form-success {
   display: flex;

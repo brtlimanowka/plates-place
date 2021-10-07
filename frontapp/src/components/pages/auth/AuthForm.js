@@ -95,7 +95,7 @@ const AuthForm = () => {
   );
   const renderEmptyForm = (
     <form onSubmit={submitHandler}>
-      <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
+      <h2>{isLogin ? 'Login' : 'Sign up'}</h2>
       {!isLogin && (
         <AuthInput
           isLogin={isLogin}
