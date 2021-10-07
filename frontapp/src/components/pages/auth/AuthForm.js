@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Fragment } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../../../store/auth/authContext';
 import AuthInput from './AuthInput';
@@ -130,14 +130,12 @@ const AuthForm = () => {
   );
 
   return (
-    <Fragment>
-      <div className={classes['form-container']}>
-        {isContextLoading && renderLoading}
-        {isContextError && renderError}
-        {isContextRegistered && renderedRegistered}
-        {isContextEmptyForm && renderEmptyForm}
-      </div>
-    </Fragment>
+    <div className={classes['form-container']}>
+      {isContextLoading && renderLoading}
+      {isContextError && renderError}
+      {isContextRegistered && renderedRegistered}
+      {isContextEmptyForm && renderEmptyForm}
+    </div>
   );
 };
 
