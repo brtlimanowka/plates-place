@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Fragment } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../../../store/auth/authContext';
 import AuthInput from './AuthInput';
@@ -42,6 +42,9 @@ const AuthForm = () => {
     setFormData((prevFormData) => {
       return { ...prevFormData, password };
     });
+  };
+  const resetPasswordHandler = () => {
+    history.push('/reset');
   };
   const backHandler = () => {
     history.go(0);
@@ -92,7 +95,7 @@ const AuthForm = () => {
   );
   const renderEmptyForm = (
     <form onSubmit={submitHandler}>
-      <h2 className={classes.header}>{isLogin ? 'Login' : 'Sign up'}</h2>
+      <h2>{isLogin ? 'Login' : 'Sign up'}</h2>
       {!isLogin && (
         <AuthInput
           isLogin={isLogin}
@@ -125,19 +128,22 @@ const AuthForm = () => {
         <button type='button' onClick={switchModeHandler}>
           {isLogin ? 'Create new account' : 'Login with existing account'}
         </button>
+        {isLogin && (
+          <button type='button' onClick={resetPasswordHandler}>
+            Forgot my password
+          </button>
+        )}
       </div>
     </form>
   );
 
   return (
-    <Fragment>
-      <div className={classes['form-container']}>
-        {isContextLoading && renderLoading}
-        {isContextError && renderError}
-        {isContextRegistered && renderedRegistered}
-        {isContextEmptyForm && renderEmptyForm}
-      </div>
-    </Fragment>
+    <div className={classes['form-container']}>
+      {isContextLoading && renderLoading}
+      {isContextError && renderError}
+      {isContextRegistered && renderedRegistered}
+      {isContextEmptyForm && renderEmptyForm}
+    </div>
   );
 };
 

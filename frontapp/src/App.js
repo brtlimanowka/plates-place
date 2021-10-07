@@ -8,6 +8,7 @@ import Workouts from './components/pages/Workouts';
 import Stopwatch from './components/pages/Stopwatch';
 import Settings from './components/pages/Settings';
 import About from './components/pages/About';
+import ResetPassword from './components/pages/auth/ResetPassword';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route exact path='/stopwatch' component={Stopwatch} />
             <Route exact path='/settings' component={Settings} />
             <Route exact path='/about' component={About} />
+            <Route exact path='/reset' component={ResetPassword} />
           </Switch>
         </div>
       </Router>

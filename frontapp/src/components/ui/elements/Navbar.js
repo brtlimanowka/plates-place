@@ -14,7 +14,8 @@ const Navbar = () => {
     <nav className={classes.navbar}>
       <header>
         <Link to='/'>
-          <i className={`${classes.icon} fas fa-dumbbell`}></i>Plates' Place
+          <i className={`${classes.icon} fas fa-dumbbell`}></i>
+          <span className={classes.appname}>Plates' Place</span>
         </Link>
       </header>
       {authContext.isAuthenticated && (

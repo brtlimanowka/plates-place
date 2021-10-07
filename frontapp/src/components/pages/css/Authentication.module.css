@@ -1,7 +1,7 @@
 main.card {
   text-align: center;
   padding-top: 25px;
-  height: 500px;
+  height: 550px;
   width: 500px;
   border-radius: 25px;
   background-color: #333;
@@ -10,6 +10,10 @@ main.card {
 .form-container {
   margin-top: 35px;
   width: 100%;
+}
+.form-container form h3 {
+  margin: 0 20px;
+  line-height: 28px;
 }
 .form-error,
 .form-success {
@@ -23,7 +27,6 @@ main.card {
 }
 .form-error_forbidden {
   font-size: 18px !important;
-  line-height: 32px !important;
 }
 .form-success p {
   font-size: 22px;
@@ -38,7 +41,7 @@ main.card {
   padding: 10px;
   margin-top: 10px;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 1px;
   background-color: #333;
   color: #ddd;
@@ -48,14 +51,14 @@ main.card {
   justify-content: space-between;
   margin: 20px 0;
   line-height: 25px;
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: 0.5rem;
 }
 .form-label label {
   margin-left: 22px;
 }
 .form-label span {
-  min-width: 350px;
+  min-width: 200px;
   border-radius: 4px 0 0 4px;
   background-color: #df4e00;
 }
@@ -84,7 +87,7 @@ main.card {
   padding: 10px;
   margin-bottom: 10px;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 1px;
 }
 .form-actions button[type='button'] {
@@ -101,4 +104,10 @@ main.card {
 .form-invalid {
   cursor: not-allowed !important;
   background-color: #bbb !important;
+}
+
+@media (min-width: 810px) {
+  .form-label span {
+    min-width: 350px;
+  }
 }

@@ -11,6 +11,9 @@
 .navbar header {
   font-size: 36px;
 }
+.appname {
+  display: none;
+}
 .menu {
   flex-basis: 50%;
   display: flex;
@@ -32,6 +35,11 @@
   color: #ddd;
 }
 
+@media (min-width: 810px) {
+  .appname {
+    display: inline;
+  }
+}
 @media (min-width: 1400px) {
   .menu {
     font-size: 18px;

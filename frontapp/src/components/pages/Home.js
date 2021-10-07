@@ -5,7 +5,7 @@ import Authentication from '../pages/auth/Authentication';
 const Home = () => {
   const { isAuthenticated } = useContext(AuthContext);
 
-  return <div>{isAuthenticated ? <p>Hi</p> : <Authentication />}</div>;
+  return <div>{isAuthenticated ? <div></div> : <Authentication />}</div>;
 };
 
 export default Home;
