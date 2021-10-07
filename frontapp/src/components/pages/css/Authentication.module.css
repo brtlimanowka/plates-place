@@ -1,7 +1,7 @@
 main.card {
   text-align: center;
   padding-top: 25px;
-  height: 500px;
+  height: 550px;
   width: 500px;
   border-radius: 25px;
   background-color: #333;
@@ -23,7 +23,6 @@ main.card {
 }
 .form-error_forbidden {
   font-size: 18px !important;
-  line-height: 32px !important;
 }
 .form-success p {
   font-size: 22px;
@@ -55,7 +54,7 @@ main.card {
   margin-left: 22px;
 }
 .form-label span {
-  min-width: 350px;
+  min-width: 200px;
   border-radius: 4px 0 0 4px;
   background-color: #df4e00;
 }
@@ -101,4 +100,10 @@ main.card {
 .form-invalid {
   cursor: not-allowed !important;
   background-color: #bbb !important;
+}
+
+@media (min-width: 810px) {
+  .form-label span {
+    min-width: 350px;
+  }
 }
