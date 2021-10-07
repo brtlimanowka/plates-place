@@ -43,6 +43,9 @@ const AuthForm = () => {
       return { ...prevFormData, password };
     });
   };
+  const resetPasswordHandler = () => {
+    history.push('/reset');
+  };
   const backHandler = () => {
     history.go(0);
   };
@@ -125,6 +128,11 @@ const AuthForm = () => {
         <button type='button' onClick={switchModeHandler}>
           {isLogin ? 'Create new account' : 'Login with existing account'}
         </button>
+        {isLogin && (
+          <button type='button' onClick={resetPasswordHandler}>
+            Forgot my password
+          </button>
+        )}
       </div>
     </form>
   );
