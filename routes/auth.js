@@ -3,9 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
+const uuid = require('uuid');
 const validators = require('./validators');
 const authMiddleware = require('../middleware/auth');
 const User = require('../models/User');
+const Mailer = require('../mailer/Mailer');
 
 // @route   GET api/auth
 // @desc    Get logged in user
@@ -78,6 +80,31 @@ router.post('/', validators.authValidator, (req, res) => {
       console.error(error.message);
       res.status(500).send('Server Error');
     });
+});
+
+// @route   POST api/auth/reset
+// @desc    Send a password reset email
+// @access  Public
+router.post('/reset', validators.resetValidator, (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  let manageString = uuid.v4();
+  User.findOneAndUpdate(
+    { email: req.body.email },
+    { manageString },
+    { new: true },
+    (error, user) => {
+      if (error) {
+        return res.status(500).json({ message: 'Server error' });
+      } else {
+        let mailer = new Mailer(user);
+        mailer.sendPasswordResetEmail(req.header('host'));
+        return res.sendStatus(200);
+      }
+    }
+  );
 });
 
 module.exports = router;
