@@ -9,7 +9,8 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  PASSWORD_RESET,
+  REQUEST_PASSWORD_RESET,
+  RESET_PASSWORD,
   LOGOUT,
   CLEAR_ERRORS,
 } from '../types';
@@ -20,7 +21,8 @@ const AuthState = (props) => {
     isLoading: false,
     isRegistered: false,
     isAuthenticated: false,
-    isPasswordReset: false,
+    isPasswordResetRequested: false,
+    isPasswordResetSuccessful: false,
     user: null,
     error: null,
   };
@@ -95,7 +97,7 @@ const AuthState = (props) => {
       });
   };
 
-  const resetPassword = (formData) => {
+  const requestPasswordReset = (formData) => {
     fetch('/api/auth/reset', {
       method: 'POST',
       headers: {
@@ -105,12 +107,30 @@ const AuthState = (props) => {
     })
       .then((response) => {
         if (response.ok) {
-          dispatch({ type: PASSWORD_RESET });
+          dispatch({ type: REQUEST_PASSWORD_RESET });
         } else {
           throw new Error(response.statusText);
         }
       })
-      .catch((error) => dispatch({ type: REGISTER_FAIL, payload: error }));
+      .catch((error) => dispatch({ type: AUTH_ERROR, payload: error }));
+  };
+
+  const resetPassword = ({ manageString, password }) => {
+    fetch('/api/users/reset', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ manageString, password }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          dispatch({ type: RESET_PASSWORD });
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .catch((error) => dispatch({ type: AUTH_ERROR, payload: error }));
   };
 
   const startLoading = () => {
@@ -125,7 +145,8 @@ const AuthState = (props) => {
     token: state.token,
     isRegistered: state.isRegistered,
     isAuthenticated: state.isAuthenticated,
-    isPasswordReset: state.isPasswordReset,
+    isPasswordResetRequested: state.isPasswordResetRequested,
+    isPasswordResetSuccessful: state.isPasswordResetSuccessful,
     isLoading: state.isLoading,
     user: state.user,
     error: state.error,
@@ -134,6 +155,7 @@ const AuthState = (props) => {
     getUser,
     logIn,
     logOut,
+    requestPasswordReset,
     resetPassword,
     clearErrors,
   };

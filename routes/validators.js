@@ -13,7 +13,11 @@ const auth = [
   check('password', 'Password is required').exists(),
 ];
 
-const passwordReset = [check('email', 'Valid email is required').isEmail()];
+const passwordResetRequest = [
+  check('email', 'Valid email is required').isEmail(),
+];
+
+const newPassword = [check('email', 'Password is required').exists()];
 
 const settings = [check('user', 'User is required').not().isEmpty()];
 const workout = [];
@@ -22,7 +26,8 @@ const day = [];
 module.exports = {
   usersValidator: users,
   authValidator: auth,
-  resetValidator: passwordReset,
+  resetValidator: passwordResetRequest,
+  passwordValidator: newPassword,
   settingsValidator: settings,
   workoutValidator: workout,
   dayValidator: day,

@@ -6,7 +6,8 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  PASSWORD_RESET,
+  REQUEST_PASSWORD_RESET,
+  RESET_PASSWORD,
   LOGOUT,
   CLEAR_ERRORS,
 } from '../types';
@@ -64,10 +65,16 @@ const _ = (state, action) => {
         error: action.payload,
         isLoading: false,
       };
-    case PASSWORD_RESET:
+    case REQUEST_PASSWORD_RESET:
       return {
         ...state,
-        isPasswordReset: true,
+        isPasswordResetRequested: true,
+        isLoading: false,
+      };
+    case RESET_PASSWORD:
+      return {
+        ...state,
+        isPasswordResetSuccessful: true,
         isLoading: false,
       };
     case LOGOUT:
