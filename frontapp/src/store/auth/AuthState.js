@@ -9,7 +9,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  PASSWORD_RESET,
+  REQUEST_PASSWORD_RESET,
   LOGOUT,
   CLEAR_ERRORS,
 } from '../types';
@@ -21,6 +21,7 @@ const AuthState = (props) => {
     isRegistered: false,
     isAuthenticated: false,
     isPasswordResetRequested: false,
+    isPasswordResetSuccessful: false,
     user: null,
     error: null,
   };
@@ -95,7 +96,7 @@ const AuthState = (props) => {
       });
   };
 
-  const resetPassword = (formData) => {
+  const requestPasswordReset = (formData) => {
     fetch('/api/auth/reset', {
       method: 'POST',
       headers: {
@@ -105,7 +106,7 @@ const AuthState = (props) => {
     })
       .then((response) => {
         if (response.ok) {
-          dispatch({ type: PASSWORD_RESET });
+          dispatch({ type: REQUEST_PASSWORD_RESET });
         } else {
           throw new Error(response.statusText);
         }
@@ -126,6 +127,7 @@ const AuthState = (props) => {
     isRegistered: state.isRegistered,
     isAuthenticated: state.isAuthenticated,
     isPasswordResetRequested: state.isPasswordResetRequested,
+    isPasswordResetSuccessful: state.isPasswordResetSuccessful,
     isLoading: state.isLoading,
     user: state.user,
     error: state.error,
@@ -134,7 +136,7 @@ const AuthState = (props) => {
     getUser,
     logIn,
     logOut,
-    resetPassword,
+    requestPasswordReset,
     clearErrors,
   };
 
