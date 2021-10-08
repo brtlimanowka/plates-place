@@ -10,6 +10,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   REQUEST_PASSWORD_RESET,
+  RESET_PASSWORD,
   LOGOUT,
   CLEAR_ERRORS,
 } from '../types';
@@ -111,7 +112,25 @@ const AuthState = (props) => {
           throw new Error(response.statusText);
         }
       })
-      .catch((error) => dispatch({ type: REGISTER_FAIL, payload: error }));
+      .catch((error) => dispatch({ type: AUTH_ERROR, payload: error }));
+  };
+
+  const resetPassword = ({ manageString, password }) => {
+    fetch('/api/users/reset', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ manageString, password }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          dispatch({ type: RESET_PASSWORD });
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .catch((error) => dispatch({ type: AUTH_ERROR, payload: error }));
   };
 
   const startLoading = () => {
@@ -137,6 +156,7 @@ const AuthState = (props) => {
     logIn,
     logOut,
     requestPasswordReset,
+    resetPassword,
     clearErrors,
   };
 
