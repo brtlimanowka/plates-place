@@ -107,4 +107,18 @@ router.post('/reset', validators.resetValidator, (req, res) => {
   );
 });
 
+// @route   GET api/auth/verify
+// @desc    Verify a manageString
+// @access  Public
+router.get('/verify/:manageString', (req, res) => {
+  let manageString = req.params.manageString;
+  User.findOne({ manageString }).then((result) => {
+    if (result) {
+      res.json({ found: true });
+    } else {
+      res.json({ found: false });
+    }
+  });
+});
+
 module.exports = router;
