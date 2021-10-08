@@ -21,6 +21,7 @@ main.card {
   flex-direction: column;
 }
 .form-error p {
+  padding: 0 20px;
   font-size: 24px;
   line-height: 48px;
   background-color: #df4e00;
@@ -29,6 +30,7 @@ main.card {
   font-size: 18px !important;
 }
 .form-success p {
+  padding: 0 20px;
   font-size: 22px;
   line-height: 36px;
   color: #242527;
