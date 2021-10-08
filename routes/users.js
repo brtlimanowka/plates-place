@@ -72,7 +72,7 @@ router.get('/activate/:manageString', (req, res) => {
     { active: true, manageString: null },
     (error, ignored) => {
       if (error) {
-        return res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: 'Server error' });
       } else {
         res
           .status(200)
@@ -82,6 +82,34 @@ router.get('/activate/:manageString', (req, res) => {
       }
     }
   );
+});
+
+// @route   POST api/users/reset
+// @desc    Change a user's password
+// @access  Private
+router.post('/reset', validators.passwordValidator, (req, res) => {
+  const { password, manageString } = req.body;
+
+  bcrypt
+    .genSalt()
+    .then((salt) => bcrypt.hash(password, salt))
+    .then((hashedPassword) => {
+      User.findOneAndUpdate(
+        { manageString },
+        { password: hashedPassword, manageString: null },
+        (error, ignored) => {
+          if (error) {
+            res.status(500).json({ message: 'Server error' });
+          } else {
+            res.sendStatus(200);
+          }
+        }
+      );
+    })
+    .catch((error) => {
+      console.error(error.message);
+      res.status(500).send('Server Error');
+    });
 });
 
 module.exports = router;
