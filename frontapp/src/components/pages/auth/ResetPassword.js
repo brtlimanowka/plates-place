@@ -14,7 +14,11 @@ const ResetPassword = () => {
         <header>
           <h1>Reset My Password</h1>
         </header>
-        {manageString ? <ResetPasswordForm /> : <ResetPasswordRequest />}
+        {manageString ? (
+          <ResetPasswordForm manageString={manageString} />
+        ) : (
+          <ResetPasswordRequest />
+        )}
       </main>
     </CenteredCard>
   );
