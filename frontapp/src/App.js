@@ -33,7 +33,7 @@ function App() {
             <Route exact path='/stopwatch' component={Stopwatch} />
             <Route exact path='/settings' component={Settings} />
             <Route exact path='/about' component={About} />
-            <Route exact path='/reset' component={ResetPassword} />
+            <Route path='/reset/:manageString?' component={ResetPassword} />
           </Switch>
         </div>
       </Router>
