@@ -63,7 +63,7 @@ const ResetPasswordForm = ({ manageString }) => {
   const isContextReset =
     !isLoading &&
     !authContext.isLoading &&
-    !!authContext.isPasswordResetSuccessful;
+    authContext.isPasswordResetSuccessful;
   const isContextEmptyForm =
     !isLoading &&
     !authContext.isLoading &&
