@@ -24,7 +24,7 @@ const ResetPassword = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     authContext.startLoading();
-    authContext.resetPassword();
+    authContext.resetPassword(formData);
   };
   const backHandler = () => {
     history.go(0);
