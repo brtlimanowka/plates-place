@@ -98,7 +98,9 @@ const AuthState = (props) => {
   const resetPassword = (formData) => {
     fetch('/api/auth/reset', {
       method: 'POST',
-      'Content-Type': 'application/json',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(formData),
     })
       .then((response) => {
