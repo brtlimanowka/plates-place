@@ -67,7 +67,7 @@ const _ = (state, action) => {
     case PASSWORD_RESET:
       return {
         ...state,
-        isPasswordReset: true,
+        isPasswordResetRequested: true,
         isLoading: false,
       };
     case LOGOUT:

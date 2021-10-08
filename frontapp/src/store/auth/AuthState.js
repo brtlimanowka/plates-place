@@ -20,7 +20,7 @@ const AuthState = (props) => {
     isLoading: false,
     isRegistered: false,
     isAuthenticated: false,
-    isPasswordReset: false,
+    isPasswordResetRequested: false,
     user: null,
     error: null,
   };
@@ -125,7 +125,7 @@ const AuthState = (props) => {
     token: state.token,
     isRegistered: state.isRegistered,
     isAuthenticated: state.isAuthenticated,
-    isPasswordReset: state.isPasswordReset,
+    isPasswordResetRequested: state.isPasswordResetRequested,
     isLoading: state.isLoading,
     user: state.user,
     error: state.error,

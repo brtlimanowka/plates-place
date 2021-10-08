@@ -34,11 +34,11 @@ const ResetPasswordRequest = () => {
   const isContextLoading = authContext.isLoading;
   const isContextError = !authContext.isLoading && !!authContext.error;
   const isContextReset =
-    !authContext.isLoading && !!authContext.isPasswordReset;
+    !authContext.isLoading && !!authContext.isPasswordResetRequested;
   const isContextEmptyForm =
     !authContext.isLoading &&
     !authContext.error &&
-    !authContext.isPasswordReset;
+    !authContext.isPasswordResetRequested;
 
   const renderLoading = <Spinner height='300px' />;
   const renderError = (
