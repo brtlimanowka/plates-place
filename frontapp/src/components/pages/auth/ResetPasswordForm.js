@@ -18,7 +18,7 @@ const ResetPasswordForm = ({ manageString }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`/api/auth/verify/${manageString}`)
+    fetch(`/api/auth/verify/${manageString}`, { cache: 'no-store' })
       .then((response) => response.json())
       .then((data) => {
         if (data.found) {
@@ -51,7 +51,7 @@ const ResetPasswordForm = ({ manageString }) => {
   };
 
   const backHandler = () => {
-    history.go(0);
+    history.push('/');
   };
 
   const isContextLoading = isLoading || authContext.isLoading;
@@ -59,7 +59,7 @@ const ResetPasswordForm = ({ manageString }) => {
     !isLoading &&
     !authContext.isLoading &&
     (!!authContext.error ||
-      (manageStringVerified && manageStringVerified.confirmed));
+      (manageStringVerified && !manageStringVerified.confirmed));
   const isContextReset =
     !isLoading &&
     !authContext.isLoading &&
@@ -68,6 +68,7 @@ const ResetPasswordForm = ({ manageString }) => {
     !isLoading &&
     !authContext.isLoading &&
     !authContext.error &&
+    (!manageStringVerified || manageStringVerified.confirmed) &&
     !authContext.isPasswordResetSuccessful;
 
   const renderLoading = <Spinner height='300px' />;
@@ -76,7 +77,9 @@ const ResetPasswordForm = ({ manageString }) => {
       <p>
         Application error:{' '}
         {(authContext.error && authContext.error.message) ||
-          (!manageStringVerified && 'Link is no longer valid')}
+          (manageStringVerified &&
+            !manageStringVerified.confirmed &&
+            'Invalid link')}
       </p>
       <button type='button' onClick={backHandler}>
         Back
