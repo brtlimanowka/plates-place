@@ -9,6 +9,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  PASSWORD_RESET,
   LOGOUT,
   CLEAR_ERRORS,
 } from '../types';
@@ -19,6 +20,7 @@ const AuthState = (props) => {
     isLoading: false,
     isRegistered: false,
     isAuthenticated: false,
+    isPasswordReset: false,
     user: null,
     error: null,
   };
@@ -93,6 +95,22 @@ const AuthState = (props) => {
       });
   };
 
+  const resetPassword = (formData) => {
+    fetch('/api/auth/reset', {
+      method: 'POST',
+      'Content-Type': 'application/json',
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          dispatch({ type: PASSWORD_RESET });
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .catch((error) => dispatch({ type: REGISTER_FAIL, payload: error }));
+  };
+
   const startLoading = () => {
     dispatch({ type: START_LOADING });
   };
@@ -105,6 +123,7 @@ const AuthState = (props) => {
     token: state.token,
     isRegistered: state.isRegistered,
     isAuthenticated: state.isAuthenticated,
+    isPasswordReset: state.isPasswordReset,
     isLoading: state.isLoading,
     user: state.user,
     error: state.error,
@@ -113,6 +132,7 @@ const AuthState = (props) => {
     getUser,
     logIn,
     logOut,
+    resetPassword,
     clearErrors,
   };
 
