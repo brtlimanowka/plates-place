@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../../../store/auth/authContext';
 import AuthInput from './AuthInput';
-import Spinner from '../../ui/elements/Spinner';
+import Spinner from '../../ui/Spinner';
 import classes from '../css/Authentication.module.css';
 
 const AuthForm = () => {

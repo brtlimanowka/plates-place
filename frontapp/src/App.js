@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AuthContext from './store/auth/authContext';
-import Navbar from './components/ui/elements/Navbar';
+import Navbar from './components/ui/Navbar';
 import Home from './components/pages/Home';
 import Planner from './components/pages/Planner';
 import Workouts from './components/pages/Workouts';

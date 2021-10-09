@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CenteredCard from '../../styles/CenteredCard.styled';
+import CenteredCard from '../styles/CenteredCard.styled';
 
 const Dot = styled.div`
   background-color: #f17104;
@@ -38,9 +38,9 @@ const Dot = styled.div`
 const Spinner = (props) => {
   return (
     <CenteredCard height={props.height}>
-      <Dot delay={'0s'} />
-      <Dot delay={'0.3s'} />
-      <Dot delay={'0.6s'} />
+      <Dot delay='0s' />
+      <Dot delay='0.3s' />
+      <Dot delay='0.6s' />
     </CenteredCard>
   );
 };
