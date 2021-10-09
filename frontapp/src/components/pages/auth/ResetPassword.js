@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import CenteredCard from '../../ui/templates/CenteredCard';
+import CenteredCard from '../../styles/CenteredCard.styled';
 import ResetPasswordRequest from './ResetPasswordRequest';
 import ResetPasswordForm from './ResetPasswordForm';
 import classes from '../css/Authentication.module.css';

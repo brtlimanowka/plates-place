@@ -1,5 +1,5 @@
 import React from 'react';
-import CenteredCard from '../../ui/templates/CenteredCard';
+import CenteredCard from '../../styles/CenteredCard.styled';
 import AuthForm from './AuthForm';
 import classes from '../css/Authentication.module.css';
 
