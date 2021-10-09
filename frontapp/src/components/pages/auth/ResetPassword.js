@@ -1,16 +1,16 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import CenteredCard from '../../ui/templates/CenteredCard';
+import CenteredCard from '../../styles/CenteredCard.styled';
+import Authentication from '../../styles/Authentication.styled';
 import ResetPasswordRequest from './ResetPasswordRequest';
 import ResetPasswordForm from './ResetPasswordForm';
-import classes from '../css/Authentication.module.css';
 
 const ResetPassword = () => {
   const { manageString } = useParams();
 
   return (
     <CenteredCard>
-      <main className={classes.card}>
+      <Authentication>
         <header>
           <h1>Reset My Password</h1>
         </header>
@@ -19,7 +19,7 @@ const ResetPassword = () => {
         ) : (
           <ResetPasswordRequest />
         )}
-      </main>
+      </Authentication>
     </CenteredCard>
   );
 };
