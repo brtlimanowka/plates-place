@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import AuthContext from '../../../store/auth/authContext';
 import AuthInput from './AuthInput';
 import Spinner from '../../ui/Spinner';
-import classes from '../css/Authentication.module.css';
 
 const ResetPasswordRequest = () => {
   let history = useHistory();
@@ -42,7 +41,7 @@ const ResetPasswordRequest = () => {
 
   const renderLoading = <Spinner height='300px' />;
   const renderError = (
-    <div className={classes['form-error']}>
+    <div className='form-error'>
       <p>Application error: {authContext.error && authContext.error.message}</p>
       <button type='button' onClick={backHandler}>
         Back
@@ -50,7 +49,7 @@ const ResetPasswordRequest = () => {
     </div>
   );
   const renderedReset = (
-    <div className={classes['form-success']}>
+    <div className='form-success'>
       <p>Success!</p>
       <p>
         We've sent you an email with a link that'll allow you to reset your
@@ -74,10 +73,10 @@ const ResetPasswordRequest = () => {
         inputLabel='Email'
         confirmValue={emailConfirmed}
       />
-      <div className={classes['form-actions']}>
+      <div className='form-actions'>
         <button
           disabled={!isFormValid}
-          className={isFormValid ? '' : classes['form-invalid']}>
+          className={isFormValid ? '' : 'form-invalid'}>
           Send me the link
         </button>
       </div>
@@ -85,7 +84,7 @@ const ResetPasswordRequest = () => {
   );
 
   return (
-    <div className={classes['form-container']}>
+    <div className='form-container'>
       {isContextLoading && renderLoading}
       {isContextError && renderError}
       {isContextReset && renderedReset}

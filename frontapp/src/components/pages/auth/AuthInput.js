@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import classes from '../css/Authentication.module.css';
 
 const AuthInput = (props) => {
   const [isTouched, setIsTouched] = useState(false);
@@ -121,8 +120,8 @@ const AuthInput = (props) => {
   };
 
   return (
-    <div className={classes['form-group']}>
-      <div className={classes['form-label']}>
+    <div className='form-group'>
+      <div className='form-label'>
         <label htmlFor={props.inputFor}>{props.inputLabel}</label>
         {inputHasError && inputError && <span>{inputError}</span>}
       </div>

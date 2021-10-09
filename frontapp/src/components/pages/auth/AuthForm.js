@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import AuthContext from '../../../store/auth/authContext';
 import AuthInput from './AuthInput';
 import Spinner from '../../ui/Spinner';
-import classes from '../css/Authentication.module.css';
 
 const AuthForm = () => {
   let history = useHistory();
@@ -69,10 +68,10 @@ const AuthForm = () => {
 
   const renderLoading = <Spinner height='300px' />;
   const renderError = (
-    <div className={classes['form-error']}>
+    <div className='form-error'>
       <p>Application error: {authContext.error && authContext.error.message}</p>
       {authContext.error && authContext.error.message === 'Forbidden' && (
-        <p className={classes['form-error_forbidden']}>
+        <p className='form-error_forbidden'>
           Your account may be inactive.
           <br />
           Check your inbox for activation email.
@@ -84,7 +83,7 @@ const AuthForm = () => {
     </div>
   );
   const renderedRegistered = (
-    <div className={classes['form-success']}>
+    <div className='form-success'>
       <p>Success!</p>
       <p>Your account has been registered.</p>
       <p>Check your email to activate it!</p>
@@ -119,10 +118,10 @@ const AuthForm = () => {
         inputLabel='Password'
         confirmValue={passwordConfirmed}
       />
-      <div className={classes['form-actions']}>
+      <div className='form-actions'>
         <button
           disabled={!isFormValid}
-          className={isFormValid ? '' : classes['form-invalid']}>
+          className={isFormValid ? '' : 'form-invalid'}>
           {isLogin ? 'Login' : 'Create Account'}
         </button>
         <button type='button' onClick={switchModeHandler}>
@@ -138,7 +137,7 @@ const AuthForm = () => {
   );
 
   return (
-    <div className={classes['form-container']}>
+    <div className='form-container'>
       {isContextLoading && renderLoading}
       {isContextError && renderError}
       {isContextRegistered && renderedRegistered}
