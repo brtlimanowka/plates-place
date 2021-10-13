@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Theme from './Theme';
 import AuthContext from './store/auth/authContext';
 import Navbar from './components/ui/Navbar';
 import Home from './components/pages/Home';
@@ -22,22 +23,24 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
-      <Router>
-        <Navbar />
-        <div className='container'>
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/planner' component={Planner} />
-            <Route exact path='/workouts' component={Workouts} />
-            <Route exact path='/stopwatch' component={Stopwatch} />
-            <Route exact path='/settings' component={Settings} />
-            <Route exact path='/about' component={About} />
-            <Route path='/reset/:manageString?' component={ResetPassword} />
-          </Switch>
-        </div>
-      </Router>
-    </div>
+    <Theme>
+      <div className='App'>
+        <Router>
+          <Navbar />
+          <div className='container'>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/planner' component={Planner} />
+              <Route exact path='/workouts' component={Workouts} />
+              <Route exact path='/stopwatch' component={Stopwatch} />
+              <Route exact path='/settings' component={Settings} />
+              <Route exact path='/about' component={About} />
+              <Route path='/reset/:manageString?' component={ResetPassword} />
+            </Switch>
+          </div>
+        </Router>
+      </div>
+    </Theme>
   );
 }
 

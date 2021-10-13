@@ -6,7 +6,7 @@ const Navigation = styled.nav`
   align-items: center;
   margin: 10px;
   a {
-    color: #ddd;
+    color: ${(props) => props.theme.colors.font};
     text-decoration: none;
   }
   header {
@@ -28,11 +28,11 @@ const Navigation = styled.nav`
   .menu-item:hover {
     cursor: pointer;
     .icon {
-      color: #ddd;
+      color: ${(props) => props.theme.colors.font};
     }
   }
   .icon {
-    color: #66d9ff;
+    color: ${(props) => props.theme.colors.icon};
     margin-right: 10px;
   }
 
