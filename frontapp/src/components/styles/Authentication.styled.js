@@ -6,7 +6,7 @@ const Authentication = styled.main`
   height: 550px;
   width: 500px;
   border-radius: 25px;
-  background-color: #333;
+  background-color: ${(props) => props.theme.colors.backgroundLighter};
   box-shadow: 0 1px 14px rgba(0, 0, 0, 0.2);
   .form-container {
     margin-top: 35px;
@@ -28,12 +28,13 @@ const Authentication = styled.main`
       text-transform: uppercase;
       font-weight: 700;
       letter-spacing: 1px;
-      background-color: #333;
-      color: #ddd;
+      background-color: ${(props) => props.theme.colors.backgroundLighter};
+      color: ${(props) => props.theme.colors.font};
       &:hover {
         cursor: pointer;
-        background-color: #b3ecff;
-        color: #242527;
+        background-color: ${(props) =>
+          props.theme.colors.buttonSecondaryBackground};
+        color: ${(props) => props.theme.colors.buttonFont};
       }
     }
     p {
@@ -43,13 +44,13 @@ const Authentication = styled.main`
   .form-error p {
     font-size: 24px;
     line-height: 48px;
-    background-color: #df4e00;
+    background-color: ${(props) => props.theme.colors.errorBackground};
   }
   .form-success p {
     font-size: 22px;
     line-height: 36px;
-    color: #242527;
-    background-color: #66d9ff;
+    color: ${(props) => props.theme.colors.buttonFont};
+    background-color: ${(props) => props.theme.colors.buttonPrimaryBackground};
   }
   .form-error_forbidden {
     font-size: 18px !important;
@@ -67,7 +68,7 @@ const Authentication = styled.main`
     span {
       min-width: 200px;
       border-radius: 4px 0 0 4px;
-      background-color: #df4e00;
+      background-color: ${(props) => props.theme.colors.errorBackground};
     }
   }
   .form-group input {
@@ -75,8 +76,8 @@ const Authentication = styled.main`
     border-radius: 4px;
     border: none;
     width: 90%;
-    background-color: #ddd;
-    color: #222;
+    background-color: ${(props) => props.theme.colors.font};
+    color: ${(props) => props.theme.colors.background};
     text-align: left;
     padding: 0.25rem;
   }
@@ -89,27 +90,29 @@ const Authentication = styled.main`
       width: 92%;
       border-radius: 4px;
       border: none;
-      background-color: #66d9ff;
-      color: #242527;
+      background-color: ${(props) =>
+        props.theme.colors.buttonPrimaryBackground};
+      color: ${(props) => props.theme.colors.buttonFont};
       padding: 10px;
       margin-bottom: 10px;
       text-transform: uppercase;
       font-weight: 700;
       letter-spacing: 1px;
       &[type='button'] {
-        background-color: #333;
-        color: #ddd;
+        background-color: ${(props) => props.theme.colors.backgroundLighter};
+        color: ${(props) => props.theme.colors.font};
       }
       &:hover {
         cursor: pointer;
-        background-color: #b3ecff;
-        color: #242527;
+        background-color: ${(props) =>
+          props.theme.colors.buttonSecondaryBackground};
+        color: ${(props) => props.theme.colors.buttonFont};
       }
     }
   }
   .form-invalid {
     cursor: not-allowed !important;
-    background-color: #bbb !important;
+    background-color: ${(props) => props.theme.colors.disabled} !important;
   }
 
   @media (min-width: 810px) {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CenteredCard from '../styles/CenteredCard.styled';
 
 const Dot = styled.div`
-  background-color: #f17104;
+  background-color: ${(props) => props.theme.colors.spinner};
   height: 20px;
   width: 20px;
   margin: 0 15px;
