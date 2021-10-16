@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 const router = express.Router();
 const uuid = require('uuid');
 const User = require('../models/User');
+const Settings = require('../models/Settings');
 const validators = require('./validators');
 const Mailer = require('../mailer/Mailer');
 
@@ -31,6 +32,9 @@ router.post('/', validators.usersValidator, (req, res) => {
           .then((hashedPassword) => {
             user.password = hashedPassword;
             user.save().then(() => {
+              let settings = new Settings({ user });
+              settings.save();
+
               const mailer = new Mailer(user);
               mailer.sendActivationEmail(req.header('host'));
               return res.status(201).json({ message: 'Success' });
