@@ -12,9 +12,9 @@ router.patch('/:id', validators.settingsValidator, (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  let id = req.params.id;
+
   Settings.findOneAndUpdate(
-    { user: id },
+    { user: req.params.id },
     { bars: req.body.bars, weights: req.body.weights },
     { new: true },
     (error, updatedSettings) => {
@@ -30,5 +30,16 @@ router.patch('/:id', validators.settingsValidator, (req, res) => {
 // @route   GET api/settings
 // @desc    Get user's settings
 // @access  Private
+router.get('/:id', (req, res) => {
+  Settings.findOne({ user: req.params.id })
+    .then((result) => {
+      if (result) {
+        return res.status(200).json(result);
+      } else {
+        return res.sendStatus(404);
+      }
+    })
+    .catch((error) => res.sendStatus(500));
+});
 
 module.exports = router;
