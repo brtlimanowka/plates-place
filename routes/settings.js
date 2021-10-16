@@ -19,7 +19,7 @@ router.patch('/:id', validators.settingsValidator, (req, res) => {
     { new: true },
     (error, updatedSettings) => {
       if (error) {
-        return res.sendStatus(500);
+        return res.status(500).json({ message: 'Server error' });
       } else {
         return res.status(200).json(updatedSettings);
       }

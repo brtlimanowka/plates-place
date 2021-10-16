@@ -25,12 +25,17 @@ const SettingsState = (props) => {
     dispatch({ type: CLEAR_ERRORS });
   };
   const getSettings = (userId) => {
-    // fetch
-    if (true) {
-      dispatch({ type: SETTINGS_LOADED, payload: null });
-    } else {
-      dispatch({ type: SETTINGS_FAIL, payload: null });
-    }
+    fetch(`/api/settings/${userId}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          dispatch({ type: SETTINGS_FAIL, payload: response.message });
+        }
+      })
+      .then((data) => {
+        dispatch({ type: SETTINGS_LOADED, payload: data });
+      });
   };
   const saveSettings = (formData) => {
     // fetch
