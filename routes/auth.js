@@ -13,7 +13,7 @@ const Mailer = require('../mailer/Mailer');
 // @desc    Get logged in user
 // @access  Private
 router.get('/', authMiddleware, (req, res) => {
-  User.findOne({ id: req.user.id })
+  User.findOne({ _id: req.user.id })
     .select('-password')
     .then((result) => {
       res.status(200).send(result);
