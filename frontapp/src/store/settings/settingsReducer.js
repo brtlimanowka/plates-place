@@ -21,14 +21,22 @@ const _ = (state, action) => {
     case SETTINGS_LOADED:
       return {
         ...state,
+        isLoading: false,
+        settings: action.payload,
+        error: null,
       };
     case SETTINGS_FAIL:
       return {
         ...state,
+        isLoading: false,
+        error: action.payload,
       };
     case SETTINGS_UPDATED:
       return {
         ...state,
+        isLoading: false,
+        settings: action.payload,
+        error: null,
       };
     default:
       return state;

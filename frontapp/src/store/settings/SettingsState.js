@@ -29,7 +29,7 @@ const SettingsState = (props) => {
     if (true) {
       dispatch({ type: SETTINGS_LOADED, payload: null });
     } else {
-      dispatch({ type: SETTINGS_FAIL });
+      dispatch({ type: SETTINGS_FAIL, payload: null });
     }
   };
   const saveSettings = (formData) => {
@@ -37,7 +37,7 @@ const SettingsState = (props) => {
     if (true) {
       dispatch({ type: SETTINGS_UPDATED, payload: formData });
     } else {
-      dispatch({ type: SETTINGS_FAIL });
+      dispatch({ type: SETTINGS_FAIL, payload: null });
     }
   };
 
