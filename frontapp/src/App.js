@@ -37,6 +37,9 @@ function App() {
           <div className='container'>
             <Switch>
               <Route exact path='/' component={Home} />
+              {!authContext.isAuthenticated && (
+                <Route path='*' component={Home} />
+              )}
               <Route exact path='/planner' component={Planner} />
               <Route exact path='/workouts' component={Workouts} />
               <Route exact path='/stopwatch' component={Stopwatch} />
