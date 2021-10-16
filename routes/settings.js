@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validators = require('./validators');
 const { validationResult } = require('express-validator');
-const User = require('../models/User');
+const Settings = require('../models/Settings');
 
 // @route   POST api/settings
 // @desc    Create settings for user
@@ -13,10 +13,6 @@ router.post('/', validators.settingsValidator, (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 });
-
-// @route   PUT api/settings
-// @desc    Update user's settings
-// @access  Private
 
 // @route   GET api/settings
 // @desc    Get user's settings
