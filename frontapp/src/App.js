@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Theme from './Theme';
 import AuthContext from './store/auth/authContext';
+import SettingsContext from './store/settings/settingsContext';
 import Navbar from './components/ui/Navbar';
 import Home from './components/pages/Home';
 import Planner from './components/pages/Planner';
@@ -14,6 +15,7 @@ import './App.css';
 
 function App() {
   const authContext = useContext(AuthContext);
+  const settingsContext = useContext(SettingsContext);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -21,6 +23,11 @@ function App() {
     }
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    authContext.user && settingsContext.getSettings(authContext.user._id);
+    // eslint-disable-next-line
+  }, [authContext.user]);
 
   return (
     <Theme>
