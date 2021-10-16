@@ -19,7 +19,10 @@ const passwordResetRequest = [
 
 const newPassword = [check('email', 'Password is required').exists()];
 
-const settings = [check('user', 'User is required').not().isEmpty()];
+const settings = [
+  check('bars', 'Bars is required').exists(),
+  check('weights', 'Weights is required').exists(),
+];
 const workout = [];
 const day = [];
 
