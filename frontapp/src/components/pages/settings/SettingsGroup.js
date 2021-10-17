@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SettingsContainer from '../../styles/SettingsContainer.styled';
+import SettingsItem from './SettingsItem';
 
 const HeaderIcon = styled.i`
   padding-top: 3px;
@@ -31,11 +32,10 @@ const SettingsGroup = (props) => {
       </header>
       <ItemsContainer show={showItems}>
         <ul>
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
-          <li>Item 4</li>
-          <li>Item 5</li>
+          {props.data &&
+            props.data.map((item) => (
+              <SettingsItem key={item._id} data={item} type={props.group} />
+            ))}
         </ul>
       </ItemsContainer>
     </SettingsContainer>
