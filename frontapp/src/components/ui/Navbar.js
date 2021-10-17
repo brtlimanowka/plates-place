@@ -21,7 +21,7 @@ const Navbar = () => {
       {authContext.isAuthenticated && (
         <ul className='menu'>
           <li className='menu-item'>
-            <Link to='/planner'>
+            <Link to='/'>
               <i className='icon far fa-calendar-check'></i>
               <span className='menu-item_label'>Plan My Week</span>
             </Link>

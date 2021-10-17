@@ -50,7 +50,7 @@ const ResetPasswordForm = ({ manageString }) => {
   };
 
   const backHandler = () => {
-    history.push('/');
+    history.push('/login');
   };
 
   const isContextLoading = isLoading || authContext.isLoading;
