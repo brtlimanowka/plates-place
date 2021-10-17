@@ -9,7 +9,7 @@ import Navbar from './components/ui/Navbar';
 import Planner from './components/pages/Planner';
 import Workouts from './components/pages/Workouts';
 import Stopwatch from './components/pages/Stopwatch';
-import Settings from './components/pages/Settings';
+import Settings from './components/pages/settings/Settings';
 import About from './components/pages/About';
 import ResetPassword from './components/pages/auth/ResetPassword';
 import './App.css';
