@@ -5,12 +5,16 @@ import SettingsGroup from './SettingsGroup';
 import CenteredCard from '../../styles/CenteredCard.styled';
 
 const Container = styled.div`
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   h2 {
     margin: 10px 0;
+  }
+
+  @media (min-width: 810px) {
+    width: 60%;
   }
 `;
 
