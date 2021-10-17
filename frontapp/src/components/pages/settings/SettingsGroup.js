@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import SettingsContainer from '../../styles/SettingsContainer.styled';
 
+const HeaderIcon = styled.i`
+  padding-top: 3px;
+  margin: 0 10px 0 5px;
+  color: ${(props) => props.theme.colors.buttonSecondaryBackground};
+`;
+
 const ItemsContainer = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
   margin: 10px;
@@ -14,12 +20,15 @@ const ItemsContainer = styled.div`
 
 const SettingsGroup = (props) => {
   const [showItems, setShowItems] = useState(false);
-
   const headerClickHandler = () => setShowItems(!showItems);
+  const setHeaderIcon = showItems ? 'fas fa-angle-up' : 'fas fa-angle-down';
 
   return (
     <SettingsContainer>
-      <header onClick={headerClickHandler}>{props.group}</header>
+      <header onClick={headerClickHandler}>
+        <HeaderIcon className={setHeaderIcon}></HeaderIcon>
+        {props.group}
+      </header>
       <ItemsContainer show={showItems}>
         <ul>
           <li>Item 1</li>
