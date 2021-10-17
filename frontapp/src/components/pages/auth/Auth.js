@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router';
+import AuthContext from '../../../store/auth/authContext';
 import CenteredCard from '../../styles/CenteredCard.styled';
 import Authentication from '../../styles/Authentication.styled';
 import AuthForm from './AuthForm';
 
 const Auth = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    isAuthenticated && history.push('/');
+    // eslint-disable-next-line
+  }, [isAuthenticated]);
+
   return (
     <CenteredCard>
       <Authentication>
