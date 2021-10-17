@@ -4,8 +4,8 @@ const SettingsContainer = styled.div`
   width: 100%;
   header {
     background-color: ${(props) => props.theme.colors.backgroundLighter};
+    display: flex;
     border-radius: 10px;
-    text-align: center;
     font-size: 18px;
     padding: 10px;
     margin: 10px;
