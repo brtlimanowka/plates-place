@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Theme from './Theme';
 import AuthContext from './store/auth/authContext';
 import SettingsContext from './store/settings/settingsContext';
+import PrivateRoute from './components/ui/PrivateRoute';
+import Auth from './components/pages/auth/Auth';
 import Navbar from './components/ui/Navbar';
-import Home from './components/pages/Home';
 import Planner from './components/pages/Planner';
 import Workouts from './components/pages/Workouts';
 import Stopwatch from './components/pages/Stopwatch';
@@ -36,15 +37,12 @@ function App() {
           <Navbar />
           <div className='container'>
             <Switch>
-              <Route exact path='/' component={Home} />
-              {!authContext.isAuthenticated && (
-                <Route path='*' component={Home} />
-              )}
-              <Route exact path='/planner' component={Planner} />
-              <Route exact path='/workouts' component={Workouts} />
-              <Route exact path='/stopwatch' component={Stopwatch} />
-              <Route exact path='/settings' component={Settings} />
-              <Route exact path='/about' component={About} />
+              <Route exact path='/login' component={Auth} />
+              <PrivateRoute exact path='/' component={Planner} />
+              <PrivateRoute exact path='/workouts' component={Workouts} />
+              <PrivateRoute exact path='/stopwatch' component={Stopwatch} />
+              <PrivateRoute exact path='/settings' component={Settings} />
+              <PrivateRoute exact path='/about' component={About} />
               <Route path='/reset/:manageString?' component={ResetPassword} />
             </Switch>
           </div>
