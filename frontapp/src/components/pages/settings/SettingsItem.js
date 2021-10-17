@@ -3,24 +3,44 @@ import styled from 'styled-components';
 
 const Item = styled.li`
   display: flex;
+  flex-direction: column;
   padding-left: 10px;
   border-radius: 5px;
   &:hover {
     background-color: ${(props) => props.theme.colors.backgroundLighter};
+  }
+
+  @media (min-width: 810px) {
+    flex-direction: row;
   }
 `;
 const Column = styled.div`
   &:first-of-type {
     flex-basis: 25%;
   }
+  &:nth-of-type(2),
+  &:nth-of-type(3) {
+    margin-left: 10px;
+  }
   &:last-of-type {
     flex-basis: 45%;
     justify-content: flex-end;
+    margin-bottom: 5px;
   }
   flex-basis: 15%;
   display: flex;
   label {
     margin-right: 10px;
+  }
+
+  @media (min-width: 810px) {
+    &:nth-of-type(2),
+    &:nth-of-type(3) {
+      margin-left: 0;
+    }
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
 `;
 const Icon = styled.i`
