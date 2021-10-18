@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ButtonIcon from '../../styles/ButtonIcon';
 
 const Item = styled.li`
   display: flex;
@@ -43,9 +44,7 @@ const Column = styled.div`
     }
   }
 `;
-const Icon = styled.i`
-  margin: 0 10px;
-  padding-top: 4px;
+const Icon = styled(ButtonIcon)`
   &:hover {
     color: ${(props) =>
       props.action === 'edit'
