@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Button from '../../styles/Button';
 import SettingsContainer from '../../styles/SettingsContainer.styled';
 import SettingsItem from './SettingsItem';
+import SettingsNewItem from './SettingsNewItem';
 
 const HeaderIcon = styled.i`
   padding-top: 3px;
@@ -18,28 +20,19 @@ const ItemsContainer = styled.div`
     list-style: none;
   }
 `;
-const AddItemButton = styled.button`
-  background-color: ${(props) => props.theme.colors.backgroundLighter};
+const NewItemContainer = styled.div`
   margin-top: 10px;
   align-self: center;
+  display: flex;
   width: 100%;
-  border: none;
-  border-radius: 3px;
-  text-transform: uppercase;
-  line-height: 24px;
-  letter-spacing: 0.8px;
-  font-weight: 700;
-  color: ${(props) => props.theme.colors.font};
-  &:hover {
-    cursor: pointer;
-    background-color: ${(props) =>
-      props.theme.colors.buttonSecondaryBackground};
-    color: ${(props) => props.theme.colors.buttonFont};
-  }
+  flex-direction: column;
 
   @media (min-width: 810px) {
     width: 60%;
   }
+`;
+const AddItemButton = styled(Button)`
+  width: 100%;
 `;
 const Icon = styled.i`
   margin: 0 10px;
@@ -54,7 +47,9 @@ const Icon = styled.i`
 
 const SettingsGroup = (props) => {
   const [showItems, setShowItems] = useState(false);
+  const [showNew, setShowNew] = useState(false);
   const headerClickHandler = () => setShowItems(!showItems);
+  const addNewClickHandler = () => setShowNew(!showNew);
   const setHeaderIcon = showItems ? 'fas fa-angle-up' : 'fas fa-angle-down';
 
   return (
@@ -71,9 +66,14 @@ const SettingsGroup = (props) => {
             ))}
         </ul>
         {(props.group === 'Bars' || props.group === 'Weights') && (
-          <AddItemButton>
-            <Icon className='fas fa-plus'></Icon>Add New
-          </AddItemButton>
+          <NewItemContainer>
+            {showNew && <SettingsNewItem type={props.group} />}
+            {!showNew && (
+              <AddItemButton onClick={addNewClickHandler}>
+                <Icon className='fas fa-plus'></Icon>Add New
+              </AddItemButton>
+            )}
+          </NewItemContainer>
         )}
       </ItemsContainer>
     </SettingsContainer>
