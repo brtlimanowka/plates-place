@@ -10,9 +10,10 @@ const NumberInput = styled.input``;
 const SelectInput = styled.select``;
 const ControlContainer = styled.div`
   display: flex;
+  justify-content: space-evenly;
 `;
 const ControlButton = styled(Button)`
-  width: 50%;
+  flex-basis: 40%;
 `;
 
 const SettingsNewItem = (props) => {
