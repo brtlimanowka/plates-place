@@ -21,6 +21,9 @@ const ItemsContainer = styled.div`
   }
 `;
 const NewItemContainer = styled.div`
+  background-color: ${(props) => props.theme.colors.backgroundLighter};
+  border-radius: 10px;
+  padding: 20px 30px;
   margin-top: 10px;
   align-self: center;
   display: flex;
