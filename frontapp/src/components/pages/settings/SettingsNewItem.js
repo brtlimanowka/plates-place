@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import Button from '../../styles/Button';
 import ButtonIcon from '../../styles/ButtonIcon';
 
-const defaultInput = styled.input`
+const Input = styled.input`
+  border-radius: 2px;
+  padding: 0 2px;
+  line-height: 20px;
   border: none;
   outline: none;
+  background-color: ${(props) => props.theme.colors.font};
+  color: ${(props) => props.theme.colors.background};
 `;
 const InputContainer = styled.div`
   box-sizing: content-box;
@@ -13,18 +18,19 @@ const InputContainer = styled.div`
   justify-content: space-between;
 `;
 const InputGroup = styled.div`
+  box-sizing: border-box;
   flex-basis: 30%;
   display: flex;
   flex-direction: column;
+  &.required {
+    color: ${(props) => props.theme.colors.errorBackground};
+  }
 `;
 const Label = styled.label`
+  display: flex;
+  justify-content: space-between;
   font-size: 14px;
-`;
-const TextInput = styled(defaultInput)``;
-const NumberInput = styled(defaultInput)``;
-const SelectInput = styled.select`
-  border: none;
-  outline: none;
+  margin-bottom: 2px;
 `;
 const ControlContainer = styled.div`
   display: flex;
@@ -50,7 +56,6 @@ const SettingsNewItem = (props) => {
 
   const confirmHoverHandler = (event) => {
     event.preventDefault();
-    console.log(refFirstField.current.value);
   };
   const cancelHandler = (event) => {
     event.preventDefault();
@@ -62,26 +67,31 @@ const SettingsNewItem = (props) => {
       ? { for: 'type', label: 'Type' }
       : { for: 'count', label: 'Count' };
   const renderBarTypes = (
-    <SelectInput ref={refThirdField}>
+    <select ref={refThirdField}>
       <option value='barbell'>Barbell</option>
       <option value='dumbbell'>Dumbbell</option>
       <option value='other'>Other</option>
-    </SelectInput>
+    </select>
   );
   const renderWeightsCount = (
-    <NumberInput ref={refThirdField} type='number' min='1' step='1' />
+    <Input ref={refThirdField} type='number' min='1' step='1' />
   );
 
   return (
     <form>
       <InputContainer>
         <InputGroup>
-          <Label htmlFor='name'>Name</Label>
-          <TextInput ref={refFirstField} type='text' id='name' />
+          <Label htmlFor='name'>
+            Name
+            {/* <ButtonIcon
+              className='fas fa-exclamation-triangle'
+              title='Required'></ButtonIcon> */}
+          </Label>
+          <Input ref={refFirstField} type='text' id='name' />
         </InputGroup>
         <InputGroup>
           <Label htmlFor='weight'>Weight</Label>
-          <NumberInput ref={refSecondField} type='number' min='0' />
+          <Input ref={refSecondField} type='number' min='0' />
         </InputGroup>
         <InputGroup>
           <Label htmlFor={thirdProperty.for}>{thirdProperty.label}</Label>
