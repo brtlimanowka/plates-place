@@ -21,6 +21,10 @@ const ItemsContainer = styled.div`
   }
 `;
 const NewItemContainer = styled.div`
+  background-color: ${(props) =>
+    props.show && props.theme.colors.backgroundLighter};
+  border-radius: ${(props) => props.show && '10px'};
+  padding: ${(props) => props.show && '20px 30px'};
   margin-top: 10px;
   align-self: center;
   display: flex;
@@ -49,7 +53,8 @@ const SettingsGroup = (props) => {
   const [showItems, setShowItems] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const headerClickHandler = () => setShowItems(!showItems);
-  const addNewClickHandler = () => setShowNew(!showNew);
+  const addNewClickHandler = () => setShowNew(true);
+  const newItemCancelHandler = () => setShowNew(false);
   const setHeaderIcon = showItems ? 'fas fa-angle-up' : 'fas fa-angle-down';
 
   return (
@@ -66,8 +71,13 @@ const SettingsGroup = (props) => {
             ))}
         </ul>
         {(props.group === 'Bars' || props.group === 'Weights') && (
-          <NewItemContainer>
-            {showNew && <SettingsNewItem type={props.group} />}
+          <NewItemContainer show={showNew}>
+            {showNew && (
+              <SettingsNewItem
+                type={props.group}
+                cancelNewItem={newItemCancelHandler}
+              />
+            )}
             {!showNew && (
               <AddItemButton onClick={addNewClickHandler}>
                 <Icon className='fas fa-plus'></Icon>Add New
