@@ -48,8 +48,13 @@ const SettingsNewItem = (props) => {
   const refSecondField = useRef(null);
   const refThirdField = useRef(null);
 
-  const confirmHoverHandler = () => {
+  const confirmHoverHandler = (event) => {
+    event.preventDefault();
     console.log(refFirstField.current.value);
+  };
+  const cancelHandler = (event) => {
+    event.preventDefault();
+    props.cancelNewItem();
   };
 
   const thirdProperty =
@@ -91,8 +96,9 @@ const SettingsNewItem = (props) => {
           <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
           Confirm
         </ControlButton>
-        <ControlButton>
-          <ButtonIcon className='fas fa-times-circle'></ButtonIcon>Cancel
+        <ControlButton onClick={cancelHandler}>
+          <ButtonIcon className='fas fa-times-circle'></ButtonIcon>
+          Cancel
         </ControlButton>
       </ControlContainer>
     </form>
