@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../../styles/Button';
 import ButtonIcon from '../../styles/ButtonIcon';
@@ -59,12 +59,22 @@ const ControlButton = styled(Button)`
 const SettingsNewItem = (props) => {
   const [formData, setFormData] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
-  const refFirstField = useRef(null);
-  const refSecondField = useRef(null);
-  const refThirdField = useRef(null);
+  useEffect(() => {
+    // check formData, modify isFormValid
+  }, [formData]);
 
+  const nameChangeHandler = (event) => {
+    // set formData
+  };
+  const weightChangeHandler = (event) => {
+    // set formData
+  };
+  const thirdPropertyChangeHandler = (event) => {
+    // set formData
+  };
   const confirmHoverHandler = (event) => {
     event.preventDefault();
+    // check isFormValid, provide feedback
   };
   const cancelHandler = (event) => {
     event.preventDefault();
@@ -76,14 +86,19 @@ const SettingsNewItem = (props) => {
       ? { for: 'type', label: 'Type' }
       : { for: 'count', label: 'Count' };
   const renderBarTypes = (
-    <select ref={refThirdField}>
+    <select onChange={thirdPropertyChangeHandler}>
       <option value='barbell'>Barbell</option>
       <option value='dumbbell'>Dumbbell</option>
       <option value='other'>Other</option>
     </select>
   );
   const renderWeightsCount = (
-    <Input ref={refThirdField} type='number' min='1' step='1' />
+    <Input
+      type='number'
+      min='1'
+      step='1'
+      onChange={thirdPropertyChangeHandler}
+    />
   );
 
   return (
@@ -96,11 +111,21 @@ const SettingsNewItem = (props) => {
               className='fas fa-exclamation-triangle'
               title='Required'></ButtonIcon> */}
           </Label>
-          <Input ref={refFirstField} type='text' id='name' />
+          <Input
+            type='text'
+            id='name'
+            maxLength='20'
+            onChange={nameChangeHandler}
+          />
         </InputGroup>
         <InputGroup>
           <Label htmlFor='weight'>Weight</Label>
-          <Input ref={refSecondField} type='number' min='0' />
+          <Input
+            type='number'
+            min='0'
+            max='50'
+            onChange={weightChangeHandler}
+          />
         </InputGroup>
         <InputGroup>
           <Label htmlFor={thirdProperty.for}>{thirdProperty.label}</Label>
