@@ -21,9 +21,10 @@ const ItemsContainer = styled.div`
   }
 `;
 const NewItemContainer = styled.div`
-  background-color: ${(props) => props.theme.colors.backgroundLighter};
-  border-radius: 10px;
-  padding: 20px 30px;
+  background-color: ${(props) =>
+    props.show && props.theme.colors.backgroundLighter};
+  border-radius: ${(props) => props.show && '10px'};
+  padding: ${(props) => props.show && '20px 30px'};
   margin-top: 10px;
   align-self: center;
   display: flex;
@@ -69,7 +70,7 @@ const SettingsGroup = (props) => {
             ))}
         </ul>
         {(props.group === 'Bars' || props.group === 'Weights') && (
-          <NewItemContainer>
+          <NewItemContainer show={showNew}>
             {showNew && <SettingsNewItem type={props.group} />}
             {!showNew && (
               <AddItemButton onClick={addNewClickHandler}>
