@@ -15,7 +15,12 @@ const Input = styled.input`
 const InputContainer = styled.div`
   box-sizing: content-box;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+
+  @media (min-width: 810px) {
+    flex-direction: row;
+  }
 `;
 const InputGroup = styled.div`
   box-sizing: border-box;
@@ -30,7 +35,11 @@ const Label = styled.label`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  margin-bottom: 2px;
+  margin: 5px 0;
+
+  @media (min-width: 810px) {
+    margin: 0 0 5px 0;
+  }
 `;
 const ControlContainer = styled.div`
   display: flex;
