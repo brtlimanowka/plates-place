@@ -38,7 +38,7 @@ const SettingsState = (props) => {
       });
   };
   const saveSettings = (formData) => {
-    // fetch
+    // fetch POST
     if (true) {
       dispatch({ type: SETTINGS_UPDATED, payload: formData });
     } else {
