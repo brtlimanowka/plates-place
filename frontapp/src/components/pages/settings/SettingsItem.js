@@ -54,6 +54,9 @@ const Icon = styled(ButtonIcon)`
 `;
 
 const SettingsItem = (props) => {
+  const itemDeleteHandler = () => {
+    props.deleteItem(props.type, props.data._id);
+  };
   const renderBarType = (
     <Column>
       <label>Type:</label> {props.data.barType}
@@ -75,7 +78,11 @@ const SettingsItem = (props) => {
       {props.type === 'Bars' ? renderBarType : renderWeightCount}
       <Column>
         <Icon action='edit' className='fas fa-wrench' title='Edit'></Icon>
-        <Icon action='delete' className='fas fa-times' title='Delete'></Icon>
+        <Icon
+          action='delete'
+          className='fas fa-times'
+          title='Delete'
+          onClick={itemDeleteHandler}></Icon>
       </Column>
     </Item>
   );
