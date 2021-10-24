@@ -54,6 +54,7 @@ const SettingsGroup = (props) => {
   const [showNew, setShowNew] = useState(false);
   const headerClickHandler = () => setShowItems(!showItems);
   const addNewClickHandler = () => setShowNew(true);
+  const newItemSubmittedHandler = () => setShowNew(false);
   const newItemCancelHandler = () => setShowNew(false);
   const setHeaderIcon = showItems ? 'fas fa-angle-up' : 'fas fa-angle-down';
 
@@ -76,6 +77,7 @@ const SettingsGroup = (props) => {
               <SettingsNewItem
                 type={props.group}
                 cancelNewItem={newItemCancelHandler}
+                submitNewItem={newItemSubmittedHandler}
               />
             )}
             {!showNew && (

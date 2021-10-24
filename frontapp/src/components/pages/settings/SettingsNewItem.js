@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import SettingsContext from '../../../store/settings/settingsContext';
 import Button from '../../styles/Button';
 import ButtonIcon from '../../styles/ButtonIcon';
 
@@ -57,6 +58,7 @@ const ControlButton = styled(Button)`
 `;
 
 const SettingsNewItem = (props) => {
+  const settingsContext = useContext(SettingsContext);
   const [formData, setFormData] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -99,6 +101,11 @@ const SettingsNewItem = (props) => {
   const confirmLeaveHandler = () => {
     setShowFeedback(false);
   };
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    settingsContext.saveSettings(formData);
+    props.submitNewItem();
+  };
   const cancelHandler = (event) => {
     event.preventDefault();
     props.cancelNewItem();
@@ -138,7 +145,7 @@ const SettingsNewItem = (props) => {
   );
 
   return (
-    <form>
+    <form onSubmit={formSubmitHandler}>
       <InputContainer>
         <InputGroup className={showNameFeedback ? 'required' : ''}>
           <Label htmlFor='name'>
