@@ -38,12 +38,34 @@ const SettingsState = (props) => {
       });
   };
   const saveSettings = (formData) => {
-    // fetch POST
-    if (true) {
-      dispatch({ type: SETTINGS_UPDATED, payload: formData });
-    } else {
-      dispatch({ type: SETTINGS_FAIL, payload: null });
-    }
+    let clonedSettings = { ...state.settings };
+    let updateType = Object.keys(formData)[0];
+    clonedSettings[updateType] = [
+      ...clonedSettings[updateType],
+      formData[updateType],
+    ];
+
+    fetch(`/api/settings/${state.settings.user}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(clonedSettings),
+    })
+      .then((result) => {
+        if (result.ok) {
+          return result.json();
+        } else {
+          dispatch({ type: SETTINGS_FAIL, payload: result.status });
+        }
+      })
+      .then((data) => {
+        dispatch({ type: SETTINGS_UPDATED, payload: data });
+      })
+      .catch((error) => {
+        console.error(error);
+        dispatch({ type: SETTINGS_UPDATED, payload: error });
+      });
   };
 
   const contextValues = {

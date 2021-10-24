@@ -59,6 +59,7 @@ const ControlButton = styled(Button)`
 
 const SettingsNewItem = (props) => {
   const settingsContext = useContext(SettingsContext);
+  const [formParent, setFormParent] = useState(null);
   const [formData, setFormData] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -67,7 +68,7 @@ const SettingsNewItem = (props) => {
     if (formData) {
       const hasName = !!formData.name;
       const hasWeight = !!formData.weight && formData.weight > 0;
-      const hasType = !!formData.type;
+      const hasType = !!formData.barType;
       const hasCount = !!formData.count && formData.count > 0;
 
       setIsFormValid(hasName && hasWeight && (hasType || hasCount));
@@ -87,12 +88,14 @@ const SettingsNewItem = (props) => {
   };
   const thirdPropertyChangeHandler = (event) => {
     if (props.type === 'Bars') {
-      let type = event.target.value;
-      setFormData({ ...formData, type });
+      let barType = event.target.value;
+      setFormData({ ...formData, barType });
+      setFormParent('bars');
     }
     if (props.type === 'Weights') {
       let count = +event.target.value;
       setFormData({ ...formData, count });
+      setFormParent('weights');
     }
   };
   const confirmHoverHandler = () => {
@@ -103,7 +106,11 @@ const SettingsNewItem = (props) => {
   };
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    settingsContext.saveSettings(formData);
+
+    let transportObject = {};
+    transportObject[formParent] = formData;
+    settingsContext.saveSettings(transportObject);
+
     props.submitNewItem();
   };
   const cancelHandler = (event) => {
@@ -136,7 +143,8 @@ const SettingsNewItem = (props) => {
   const showWeightFeedback = showFeedback && (!formData || !formData.weight);
   const showThirdPropertyFeedback =
     showFeedback &&
-    (!formData || (props.type === 'Bars' ? !formData.type : !formData.count));
+    (!formData ||
+      (props.type === 'Bars' ? !formData.barType : !formData.count));
 
   const renderFeedbackIcon = (
     <ButtonIcon
