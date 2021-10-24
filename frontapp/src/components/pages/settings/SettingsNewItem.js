@@ -59,9 +59,9 @@ const ControlButton = styled(Button)`
 const SettingsNewItem = (props) => {
   const [formData, setFormData] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   useEffect(() => {
-    console.log(formData);
     if (formData) {
       const hasName = !!formData.name;
       const hasWeight = !!formData.weight && formData.weight > 0;
@@ -85,13 +85,19 @@ const SettingsNewItem = (props) => {
   };
   const thirdPropertyChangeHandler = (event) => {
     if (props.type === 'Bars') {
-      const type = event.target.value;
+      let type = event.target.value;
       setFormData({ ...formData, type });
     }
+    if (props.type === 'Weights') {
+      let count = +event.target.value;
+      setFormData({ ...formData, count });
+    }
   };
-  const confirmHoverHandler = (event) => {
-    event.preventDefault();
-    // check isFormValid, provide feedback
+  const confirmHoverHandler = () => {
+    setShowFeedback(true);
+  };
+  const confirmLeaveHandler = () => {
+    setShowFeedback(false);
   };
   const cancelHandler = (event) => {
     event.preventDefault();
@@ -119,15 +125,25 @@ const SettingsNewItem = (props) => {
     />
   );
 
+  const showNameFeedback = showFeedback && (!formData || !formData.name);
+  const showWeightFeedback = showFeedback && (!formData || !formData.weight);
+  const showThirdPropertyFeedback =
+    showFeedback &&
+    (!formData || (props.type === 'Bars' ? !formData.type : !formData.count));
+
+  const renderFeedbackIcon = (
+    <ButtonIcon
+      className='fas fa-exclamation-triangle'
+      title='Required'></ButtonIcon>
+  );
+
   return (
     <form>
       <InputContainer>
-        <InputGroup>
+        <InputGroup className={showNameFeedback ? 'required' : ''}>
           <Label htmlFor='name'>
             Name
-            {/* <ButtonIcon
-              className='fas fa-exclamation-triangle'
-              title='Required'></ButtonIcon> */}
+            {showNameFeedback && renderFeedbackIcon}
           </Label>
           <Input
             type='text'
@@ -136,8 +152,11 @@ const SettingsNewItem = (props) => {
             onChange={nameChangeHandler}
           />
         </InputGroup>
-        <InputGroup>
-          <Label htmlFor='weight'>Weight</Label>
+        <InputGroup className={showWeightFeedback ? 'required' : ''}>
+          <Label htmlFor='weight'>
+            Weight
+            {showWeightFeedback && renderFeedbackIcon}
+          </Label>
           <Input
             type='number'
             min='0'
@@ -145,8 +164,11 @@ const SettingsNewItem = (props) => {
             onChange={weightChangeHandler}
           />
         </InputGroup>
-        <InputGroup>
-          <Label htmlFor={thirdProperty.for}>{thirdProperty.label}</Label>
+        <InputGroup className={showThirdPropertyFeedback ? 'required' : ''}>
+          <Label htmlFor={thirdProperty.for}>
+            {thirdProperty.label}
+            {showThirdPropertyFeedback && renderFeedbackIcon}
+          </Label>
           {props.type === 'Bars' ? renderBarTypes : renderWeightsCount}
         </InputGroup>
       </InputContainer>
@@ -154,6 +176,7 @@ const SettingsNewItem = (props) => {
         <ControlButton
           disabled={!isFormValid}
           onMouseOver={confirmHoverHandler}
+          onMouseLeave={confirmLeaveHandler}
           className={isFormValid ? '' : 'disabled'}>
           <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
           Confirm
