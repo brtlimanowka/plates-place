@@ -59,18 +59,35 @@ const ControlButton = styled(Button)`
 const SettingsNewItem = (props) => {
   const [formData, setFormData] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
+
   useEffect(() => {
-    // check formData, modify isFormValid
+    console.log(formData);
+    if (formData) {
+      const hasName = !!formData.name;
+      const hasWeight = !!formData.weight && formData.weight > 0;
+      const hasType = !!formData.type;
+      const hasCount = !!formData.count && formData.count > 0;
+
+      setIsFormValid(hasName && hasWeight && (hasType || hasCount));
+    }
   }, [formData]);
 
   const nameChangeHandler = (event) => {
-    // set formData
+    let name = event.target.value;
+    if (name.length > 20) {
+      name = name.substring(0, 19);
+    }
+    setFormData({ ...formData, name });
   };
   const weightChangeHandler = (event) => {
-    // set formData
+    let weight = +event.target.value;
+    setFormData({ ...formData, weight });
   };
   const thirdPropertyChangeHandler = (event) => {
-    // set formData
+    if (props.type === 'Bars') {
+      const type = event.target.value;
+      setFormData({ ...formData, type });
+    }
   };
   const confirmHoverHandler = (event) => {
     event.preventDefault();
@@ -86,7 +103,8 @@ const SettingsNewItem = (props) => {
       ? { for: 'type', label: 'Type' }
       : { for: 'count', label: 'Count' };
   const renderBarTypes = (
-    <select onChange={thirdPropertyChangeHandler}>
+    <select onChange={thirdPropertyChangeHandler} defaultValue=''>
+      <option value='' disabled></option>
       <option value='barbell'>Barbell</option>
       <option value='dumbbell'>Dumbbell</option>
       <option value='other'>Other</option>
