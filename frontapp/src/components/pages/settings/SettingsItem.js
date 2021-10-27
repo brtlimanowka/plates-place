@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import SettingsContext from '../../../store/settings/settingsContext';
 import ButtonIcon from '../../styles/ButtonIcon';
@@ -8,6 +8,9 @@ const Item = styled.li`
   flex-direction: column;
   padding-left: 10px;
   border-radius: 5px;
+  &.deleted {
+    display: none;
+  }
   &:hover {
     background-color: ${(props) => props.theme.colors.backgroundLighter};
   }
@@ -56,6 +59,7 @@ const Icon = styled(ButtonIcon)`
 
 const SettingsItem = (props) => {
   const settingsContext = useContext(SettingsContext);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const itemDeleteHandler = () => {
     let updateType = props.type.toLowerCase();
@@ -64,6 +68,7 @@ const SettingsItem = (props) => {
       (item) => item._id !== props.data._id
     );
     settingsContext.saveSettings(clonedSettings);
+    setIsDeleted(true);
   };
 
   const renderBarType = (
@@ -78,7 +83,7 @@ const SettingsItem = (props) => {
   );
 
   return (
-    <Item>
+    <Item className={isDeleted ? 'deleted' : ''}>
       <Column>{props.data.name}</Column>
       <Column>
         <label>Weight:</label>
