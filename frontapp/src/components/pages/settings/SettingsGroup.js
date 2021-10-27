@@ -28,8 +28,8 @@ const NewItemContainer = styled.div`
   margin-top: 10px;
   align-self: center;
   display: flex;
-  width: 100%;
   flex-direction: column;
+  width: 100%;
 
   @media (min-width: 810px) {
     width: 60%;

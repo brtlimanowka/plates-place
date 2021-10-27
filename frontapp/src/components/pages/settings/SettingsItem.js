@@ -20,6 +20,17 @@ const Item = styled.li`
     flex-direction: row;
   }
 `;
+const EditItemContainer = styled.div`
+  padding: 10px 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @media (min-width: 810px) {
+    width: 60%;
+  }
+`;
 const Column = styled.div`
   &:first-of-type {
     flex-basis: 25%;
@@ -110,12 +121,14 @@ const SettingsItem = (props) => {
     </Fragment>
   );
   const renderEdit = (
-    <SettingsNewItem
-      type={props.type}
-      data={props.data}
-      cancelNewItem={editItemCancelHandler}
-      submitNewItem={itemEditedHandler}
-    />
+    <EditItemContainer>
+      <SettingsNewItem
+        type={props.type}
+        data={props.data}
+        cancelNewItem={editItemCancelHandler}
+        submitNewItem={itemEditedHandler}
+      />
+    </EditItemContainer>
   );
 
   return (
