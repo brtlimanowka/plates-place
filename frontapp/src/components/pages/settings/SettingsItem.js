@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import styled from 'styled-components';
 import SettingsContext from '../../../store/settings/settingsContext';
+import SettingsNewItem from './SettingsNewItem';
 import ButtonIcon from '../../styles/ButtonIcon';
 
 const Item = styled.li`
@@ -50,6 +51,7 @@ const Column = styled.div`
 `;
 const Icon = styled(ButtonIcon)`
   &:hover {
+    cursor: pointer;
     color: ${(props) =>
       props.action === 'edit'
         ? props.theme.colors.buttonPrimaryBackground
@@ -59,8 +61,12 @@ const Icon = styled(ButtonIcon)`
 
 const SettingsItem = (props) => {
   const settingsContext = useContext(SettingsContext);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
 
+  const enterEditModeHandler = () => setIsEditMode(true);
+  const editItemCancelHandler = () => setIsEditMode(false);
+  const itemEditedHandler = () => setIsEditMode(false);
   const itemDeleteHandler = () => {
     let updateType = props.type.toLowerCase();
     let clonedSettings = { ...settingsContext.settings };
@@ -81,9 +87,8 @@ const SettingsItem = (props) => {
       <label>Count:</label> {props.data.count}
     </Column>
   );
-
-  return (
-    <Item className={isDeleted ? 'deleted' : ''}>
+  const renderDisplay = (
+    <Fragment>
       <Column>{props.data.name}</Column>
       <Column>
         <label>Weight:</label>
@@ -91,13 +96,31 @@ const SettingsItem = (props) => {
       </Column>
       {props.type === 'Bars' ? renderBarType : renderWeightCount}
       <Column>
-        <Icon action='edit' className='fas fa-wrench' title='Edit'></Icon>
+        <Icon
+          action='edit'
+          className='fas fa-wrench'
+          title='Edit'
+          onClick={enterEditModeHandler}></Icon>
         <Icon
           action='delete'
           className='fas fa-times'
           title='Delete'
           onClick={itemDeleteHandler}></Icon>
       </Column>
+    </Fragment>
+  );
+  const renderEdit = (
+    <SettingsNewItem
+      type={props.type}
+      data={props.data}
+      cancelNewItem={editItemCancelHandler}
+      submitNewItem={itemEditedHandler}
+    />
+  );
+
+  return (
+    <Item className={isDeleted ? 'deleted' : ''}>
+      {isEditMode ? renderEdit : renderDisplay}
     </Item>
   );
 };

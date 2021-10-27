@@ -76,6 +76,7 @@ const SettingsGroup = (props) => {
             {showNew && (
               <SettingsNewItem
                 type={props.group}
+                data={null}
                 cancelNewItem={newItemCancelHandler}
                 submitNewItem={newItemSubmittedHandler}
               />
