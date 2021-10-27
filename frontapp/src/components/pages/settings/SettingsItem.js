@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import SettingsContext from '../../../store/settings/settingsContext';
 import ButtonIcon from '../../styles/ButtonIcon';
 
 const Item = styled.li`
@@ -54,9 +55,17 @@ const Icon = styled(ButtonIcon)`
 `;
 
 const SettingsItem = (props) => {
+  const settingsContext = useContext(SettingsContext);
+
   const itemDeleteHandler = () => {
-    props.deleteItem(props.type, props.data._id);
+    let updateType = props.type.toLowerCase();
+    let clonedSettings = { ...settingsContext.settings };
+    clonedSettings[updateType] = clonedSettings[updateType].filter(
+      (item) => item._id !== props.data._id
+    );
+    settingsContext.saveSettings(clonedSettings);
   };
+
   const renderBarType = (
     <Column>
       <label>Type:</label> {props.data.barType}
