@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import styled from 'styled-components';
+import SettingsContext from '../../../store/settings/settingsContext';
+import SettingsNewItem from './SettingsNewItem';
 import ButtonIcon from '../../styles/ButtonIcon';
 
 const Item = styled.li`
@@ -7,12 +9,26 @@ const Item = styled.li`
   flex-direction: column;
   padding-left: 10px;
   border-radius: 5px;
+  &.deleted {
+    display: none;
+  }
   &:hover {
     background-color: ${(props) => props.theme.colors.backgroundLighter};
   }
 
   @media (min-width: 810px) {
     flex-direction: row;
+  }
+`;
+const EditItemContainer = styled.div`
+  padding: 10px 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @media (min-width: 810px) {
+    width: 60%;
   }
 `;
 const Column = styled.div`
@@ -46,6 +62,7 @@ const Column = styled.div`
 `;
 const Icon = styled(ButtonIcon)`
   &:hover {
+    cursor: pointer;
     color: ${(props) =>
       props.action === 'edit'
         ? props.theme.colors.buttonPrimaryBackground
@@ -54,9 +71,23 @@ const Icon = styled(ButtonIcon)`
 `;
 
 const SettingsItem = (props) => {
+  const settingsContext = useContext(SettingsContext);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const enterEditModeHandler = () => setIsEditMode(true);
+  const editItemCancelHandler = () => setIsEditMode(false);
+  const itemEditedHandler = () => setIsEditMode(false);
   const itemDeleteHandler = () => {
-    props.deleteItem(props.type, props.data._id);
+    let updateType = props.type.toLowerCase();
+    let clonedSettings = { ...settingsContext.settings };
+    clonedSettings[updateType] = clonedSettings[updateType].filter(
+      (item) => item._id !== props.data._id
+    );
+    settingsContext.saveSettings(clonedSettings);
+    setIsDeleted(true);
   };
+
   const renderBarType = (
     <Column>
       <label>Type:</label> {props.data.barType}
@@ -67,9 +98,8 @@ const SettingsItem = (props) => {
       <label>Count:</label> {props.data.count}
     </Column>
   );
-
-  return (
-    <Item>
+  const renderDisplay = (
+    <Fragment>
       <Column>{props.data.name}</Column>
       <Column>
         <label>Weight:</label>
@@ -77,13 +107,33 @@ const SettingsItem = (props) => {
       </Column>
       {props.type === 'Bars' ? renderBarType : renderWeightCount}
       <Column>
-        <Icon action='edit' className='fas fa-wrench' title='Edit'></Icon>
+        <Icon
+          action='edit'
+          className='fas fa-wrench'
+          title='Edit'
+          onClick={enterEditModeHandler}></Icon>
         <Icon
           action='delete'
           className='fas fa-times'
           title='Delete'
           onClick={itemDeleteHandler}></Icon>
       </Column>
+    </Fragment>
+  );
+  const renderEdit = (
+    <EditItemContainer>
+      <SettingsNewItem
+        type={props.type}
+        data={props.data}
+        cancelNewItem={editItemCancelHandler}
+        submitNewItem={itemEditedHandler}
+      />
+    </EditItemContainer>
+  );
+
+  return (
+    <Item className={isDeleted ? 'deleted' : ''}>
+      {isEditMode ? renderEdit : renderDisplay}
     </Item>
   );
 };

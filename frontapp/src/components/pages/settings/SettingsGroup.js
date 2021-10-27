@@ -1,6 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import SettingsContext from '../../../store/settings/settingsContext';
 import Button from '../../styles/Button';
 import SettingsContainer from '../../styles/SettingsContainer.styled';
 import SettingsItem from './SettingsItem';
@@ -29,8 +28,8 @@ const NewItemContainer = styled.div`
   margin-top: 10px;
   align-self: center;
   display: flex;
-  width: 100%;
   flex-direction: column;
+  width: 100%;
 
   @media (min-width: 810px) {
     width: 60%;
@@ -51,7 +50,6 @@ const Icon = styled.i`
 `;
 
 const SettingsGroup = (props) => {
-  const settingsContext = useContext(SettingsContext);
   const [showItems, setShowItems] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const headerClickHandler = () => setShowItems(!showItems);
@@ -59,17 +57,6 @@ const SettingsGroup = (props) => {
   const newItemSubmittedHandler = () => setShowNew(false);
   const newItemCancelHandler = () => setShowNew(false);
   const setHeaderIcon = showItems ? 'fas fa-angle-up' : 'fas fa-angle-down';
-
-  const itemDeleteHandler = (type, id) => {
-    let updateType = type.toLowerCase();
-    let currentSettings = settingsContext.settings;
-    let updatedSettings = currentSettings[updateType].filter(
-      (item) => item._id !== id
-    );
-    let transport = {};
-    transport[updateType] = updatedSettings;
-    settingsContext.saveSettings(transport);
-  };
 
   return (
     <SettingsContainer>
@@ -81,12 +68,7 @@ const SettingsGroup = (props) => {
         <ul>
           {props.data &&
             props.data.map((item) => (
-              <SettingsItem
-                key={item._id}
-                data={item}
-                type={props.group}
-                deleteItem={itemDeleteHandler}
-              />
+              <SettingsItem key={item._id} data={item} type={props.group} />
             ))}
         </ul>
         {(props.group === 'Bars' || props.group === 'Weights') && (
@@ -94,6 +76,7 @@ const SettingsGroup = (props) => {
             {showNew && (
               <SettingsNewItem
                 type={props.group}
+                data={null}
                 cancelNewItem={newItemCancelHandler}
                 submitNewItem={newItemSubmittedHandler}
               />

@@ -65,6 +65,13 @@ const SettingsNewItem = (props) => {
   const [showFeedback, setShowFeedback] = useState(false);
 
   useEffect(() => {
+    setFormParent(props.type.toLowerCase());
+    if (props.data) {
+      setFormData({ ...props.data });
+    }
+    // eslint-disable-next-line
+  }, []);
+  useEffect(() => {
     if (formData) {
       const hasName = !!formData.name;
       const hasWeight = !!formData.weight && formData.weight > 0;
@@ -90,12 +97,10 @@ const SettingsNewItem = (props) => {
     if (props.type === 'Bars') {
       let barType = event.target.value;
       setFormData({ ...formData, barType });
-      setFormParent('bars');
     }
     if (props.type === 'Weights') {
       let count = +event.target.value;
       setFormData({ ...formData, count });
-      setFormParent('weights');
     }
   };
   const confirmHoverHandler = () => {
@@ -109,8 +114,21 @@ const SettingsNewItem = (props) => {
 
     let transportObject = {};
     transportObject[formParent] = formData;
-    settingsContext.saveSettings(transportObject);
+    let clonedSettings = { ...settingsContext.settings };
 
+    if (props.data) {
+      let editedObjectIndex = clonedSettings[formParent].findIndex(
+        (item) => item._id === props.data._id
+      );
+      clonedSettings[formParent][editedObjectIndex] = formData;
+    } else {
+      clonedSettings[formParent] = [
+        ...clonedSettings[formParent],
+        transportObject[formParent],
+      ];
+    }
+
+    settingsContext.saveSettings(clonedSettings);
     props.submitNewItem();
   };
   const cancelHandler = (event) => {
@@ -123,7 +141,9 @@ const SettingsNewItem = (props) => {
       ? { for: 'type', label: 'Type' }
       : { for: 'count', label: 'Count' };
   const renderBarTypes = (
-    <select onChange={thirdPropertyChangeHandler} defaultValue=''>
+    <select
+      onChange={thirdPropertyChangeHandler}
+      defaultValue={props.data ? props.data.barType : ''}>
       <option value='' disabled></option>
       <option value='barbell'>Barbell</option>
       <option value='dumbbell'>Dumbbell</option>
@@ -136,6 +156,7 @@ const SettingsNewItem = (props) => {
       min='1'
       step='1'
       onChange={thirdPropertyChangeHandler}
+      defaultValue={props.data ? props.data.count : ''}
     />
   );
 
@@ -165,6 +186,8 @@ const SettingsNewItem = (props) => {
             id='name'
             maxLength='20'
             onChange={nameChangeHandler}
+            defaultValue={props.data ? props.data.name : ''}
+            autoFocus
           />
         </InputGroup>
         <InputGroup className={showWeightFeedback ? 'required' : ''}>
@@ -174,9 +197,11 @@ const SettingsNewItem = (props) => {
           </Label>
           <Input
             type='number'
-            min='0'
+            min='0.5'
+            step='0.5'
             max='50'
             onChange={weightChangeHandler}
+            defaultValue={props.data ? props.data.weight : ''}
           />
         </InputGroup>
         <InputGroup className={showThirdPropertyFeedback ? 'required' : ''}>
