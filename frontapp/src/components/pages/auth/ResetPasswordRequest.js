@@ -27,7 +27,7 @@ const ResetPasswordRequest = () => {
   };
 
   const backHandler = () => {
-    history.go(0);
+    history.push('/login');
   };
 
   const isContextLoading = authContext.isLoading;
