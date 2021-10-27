@@ -7,7 +7,7 @@ import Spinner from '../../ui/Spinner';
 const AuthForm = () => {
   let history = useHistory();
   const authContext = useContext(AuthContext);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     name: null,
     email: null,
