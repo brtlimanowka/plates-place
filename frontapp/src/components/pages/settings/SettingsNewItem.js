@@ -187,6 +187,7 @@ const SettingsNewItem = (props) => {
             maxLength='20'
             onChange={nameChangeHandler}
             defaultValue={props.data ? props.data.name : ''}
+            autoFocus
           />
         </InputGroup>
         <InputGroup className={showWeightFeedback ? 'required' : ''}>
