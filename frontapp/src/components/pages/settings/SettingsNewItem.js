@@ -109,7 +109,13 @@ const SettingsNewItem = (props) => {
 
     let transportObject = {};
     transportObject[formParent] = formData;
-    settingsContext.saveSettings(transportObject);
+    let clonedSettings = { ...settingsContext.settings };
+
+    clonedSettings[formParent] = [
+      ...clonedSettings[formParent],
+      transportObject[formParent],
+    ];
+    settingsContext.saveSettings(clonedSettings);
 
     props.submitNewItem();
   };

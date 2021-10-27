@@ -37,20 +37,13 @@ const SettingsState = (props) => {
         dispatch({ type: SETTINGS_LOADED, payload: data });
       });
   };
-  const saveSettings = (formData) => {
-    let clonedSettings = { ...state.settings };
-    let updateType = Object.keys(formData)[0];
-    clonedSettings[updateType] = [
-      ...clonedSettings[updateType],
-      formData[updateType],
-    ];
-
+  const saveSettings = (modifiedSettings) => {
     fetch(`/api/settings/${state.settings.user}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(clonedSettings),
+      body: JSON.stringify(modifiedSettings),
     })
       .then((result) => {
         if (result.ok) {
