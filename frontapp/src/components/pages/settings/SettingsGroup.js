@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import Button from '../../styles/Button';
 import SettingsContainer from '../../styles/SettingsContainer.styled';
 import SettingsItem from './SettingsItem';
 import SettingsNewItem from './SettingsNewItem';
+import ResetPasswordForm from '../auth/ResetPasswordForm';
 
 const HeaderIcon = styled.i`
   padding-top: 3px;
@@ -58,6 +59,35 @@ const SettingsGroup = (props) => {
   const newItemCancelHandler = () => setShowNew(false);
   const setHeaderIcon = showItems ? 'fas fa-angle-up' : 'fas fa-angle-down';
 
+  const renderSettingsItems = (
+    <Fragment>
+      <ul>
+        {props.data &&
+          props.data.map((item) => (
+            <SettingsItem key={item._id} data={item} type={props.group} />
+          ))}
+      </ul>
+      {(props.group === 'Bars' || props.group === 'Weights') && (
+        <NewItemContainer show={showNew}>
+          {showNew && (
+            <SettingsNewItem
+              type={props.group}
+              data={null}
+              cancelNewItem={newItemCancelHandler}
+              submitNewItem={newItemSubmittedHandler}
+            />
+          )}
+          {!showNew && (
+            <AddItemButton onClick={addNewClickHandler}>
+              <Icon className='fas fa-plus'></Icon>Add New
+            </AddItemButton>
+          )}
+        </NewItemContainer>
+      )}
+    </Fragment>
+  );
+  const renderSettingsAccount = <ResetPasswordForm />;
+
   return (
     <SettingsContainer>
       <header onClick={headerClickHandler}>
@@ -65,29 +95,7 @@ const SettingsGroup = (props) => {
         {props.group}
       </header>
       <ItemsContainer show={showItems}>
-        <ul>
-          {props.data &&
-            props.data.map((item) => (
-              <SettingsItem key={item._id} data={item} type={props.group} />
-            ))}
-        </ul>
-        {(props.group === 'Bars' || props.group === 'Weights') && (
-          <NewItemContainer show={showNew}>
-            {showNew && (
-              <SettingsNewItem
-                type={props.group}
-                data={null}
-                cancelNewItem={newItemCancelHandler}
-                submitNewItem={newItemSubmittedHandler}
-              />
-            )}
-            {!showNew && (
-              <AddItemButton onClick={addNewClickHandler}>
-                <Icon className='fas fa-plus'></Icon>Add New
-              </AddItemButton>
-            )}
-          </NewItemContainer>
-        )}
+        {props.data ? renderSettingsItems : renderSettingsAccount}
       </ItemsContainer>
     </SettingsContainer>
   );
