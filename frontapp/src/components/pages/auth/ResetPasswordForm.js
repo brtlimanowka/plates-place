@@ -16,24 +16,22 @@ const ResetPasswordForm = ({ manageString }) => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    if (!authContext.isAuthenticated) {
-      setIsLoading(true);
-      fetch(`/api/auth/verify/${manageString}`, { cache: 'no-store' })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.found) {
-            setFormData((prevFormData) => {
-              return { ...prevFormData, manageString };
-            });
-            setManageStringVerified({ confirmed: true });
-          } else {
-            setManageStringVerified({ confirmed: false });
-          }
-        })
-        .catch((error) => console.error(error))
-        .finally(() => setIsLoading(false));
-    }
-  }, [manageString, authContext.isAuthenticated]);
+    setIsLoading(true);
+    fetch(`/api/auth/verify/${manageString}`, { cache: 'no-store' })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.found) {
+          setFormData((prevFormData) => {
+            return { ...prevFormData, manageString };
+          });
+          setManageStringVerified({ confirmed: true });
+        } else {
+          setManageStringVerified({ confirmed: false });
+        }
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setIsLoading(false));
+  }, [manageString]);
 
   useEffect(() => {
     setIsFormValid(!!formData.password && !!formData.manageString);
