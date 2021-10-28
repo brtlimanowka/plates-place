@@ -27,7 +27,6 @@ const Settings = () => {
         <h2>Application Settings</h2>
         <SettingsGroup group='Bars' data={settings.bars} />
         <SettingsGroup group='Weights' data={settings.weights} />
-        <SettingsGroup group='Account' data={null} />
       </Container>
     </CenteredCard>
   );
