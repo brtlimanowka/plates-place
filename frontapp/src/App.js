@@ -7,7 +7,7 @@ import PrivateRoute from './components/ui/PrivateRoute';
 import Auth from './components/pages/auth/Auth';
 import Navbar from './components/ui/Navbar';
 import Planner from './components/pages/Planner';
-import Workouts from './components/pages/Workouts';
+import Workouts from './components/pages/workouts/Workouts';
 import Stopwatch from './components/pages/Stopwatch';
 import Settings from './components/pages/settings/Settings';
 import About from './components/pages/About';
