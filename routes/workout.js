@@ -42,7 +42,7 @@ router.get('/:userId', (req, res) => {
 });
 
 // @route   PATCH api/workout
-// @desc    Update a workout
+// @desc    Update a Workout
 // @access  Private
 router.patch('/', (req, res) => {
   const { id, name, muscleGroup, bar, weights } = req.body;
@@ -63,6 +63,19 @@ router.patch('/', (req, res) => {
       }
     }
   );
+});
+
+// @route   DELETE api/workout
+// @desc    Update a Workout
+// @access  Private
+router.delete('/', (req, res) => {
+  Workout.findOneAndDelete({ _id: req.body.id }).then((result) => {
+    if (result) {
+      return res.sendStatus(200);
+    } else {
+      return res.sendStatus(404);
+    }
+  });
 });
 
 module.exports = router;
