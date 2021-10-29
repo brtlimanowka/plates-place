@@ -39,7 +39,10 @@ router.get('/:id', (req, res) => {
         return res.sendStatus(404);
       }
     })
-    .catch((error) => res.sendStatus(500));
+    .catch((error) => {
+      console.error(error);
+      return res.sendStatus(500);
+    });
 });
 
 module.exports = router;
