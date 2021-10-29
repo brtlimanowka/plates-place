@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
-  const token = req.header('x-auth-token');
+  const token = req.header('X-AUTH-TOKEN');
   if (!token) {
     return res.status(401).json({ message: 'Authorization denied' });
   } else {
@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
       next();
     } catch (error) {
       console.error(error.message);
-      res.status(401).json({ message: 'Authorization denied' });
+      res.status(403).json({ message: 'Authorization denied' });
     }
   }
 };
