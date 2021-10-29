@@ -19,6 +19,7 @@ const WorkoutState = (props) => {
   const initialState = {
     isLoading: false,
     workouts: null,
+    filtered: null,
     error: null,
   };
 
@@ -115,6 +116,7 @@ const WorkoutState = (props) => {
   const contextValues = {
     isLoading: state.isLoading,
     workouts: state.workouts,
+    filtered: state.filtered,
     error: state.error,
     startLoading,
     clearErrors,
