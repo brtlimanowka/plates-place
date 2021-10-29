@@ -68,7 +68,7 @@ router.get('/:email', (req, res) => {
 
 // @route   GET api/users
 // @desc    Activate a user
-// @access  Private
+// @access  Public
 router.get('/activate/:manageString', (req, res) => {
   let manageString = req.params.manageString;
   User.findOneAndUpdate(
@@ -90,7 +90,7 @@ router.get('/activate/:manageString', (req, res) => {
 
 // @route   POST api/users/reset
 // @desc    Change a user's password
-// @access  Private
+// @access  Public
 router.post('/reset', validators.passwordValidator, (req, res) => {
   const { password, manageString } = req.body;
 
