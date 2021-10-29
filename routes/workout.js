@@ -3,11 +3,12 @@ const router = express.Router();
 const validators = require('./validators');
 const { validationResult } = require('express-validator');
 const Workout = require('../models/Workout');
+const authMiddleware = require('../middleware/auth');
 
 // @route   POST api/workout
 // @desc    Create a Workout
 // @access  Private
-router.post('/', validators.workoutValidator, (req, res) => {
+router.post('/', [authMiddleware, validators.workoutValidator], (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -26,7 +27,7 @@ router.post('/', validators.workoutValidator, (req, res) => {
 // @route   GET api/workout
 // @desc    Get all user's Workouts
 // @access  Private
-router.get('/:userId', (req, res) => {
+router.get('/:userId', authMiddleware, (req, res) => {
   Workout.find({ user: req.params.userId })
     .then((result) => {
       if (result) {
@@ -44,7 +45,7 @@ router.get('/:userId', (req, res) => {
 // @route   PATCH api/workout
 // @desc    Update a Workout
 // @access  Private
-router.patch('/', (req, res) => {
+router.patch('/', authMiddleware, (req, res) => {
   const { id, name, muscleGroup, bar, weights } = req.body;
   Workout.findOneAndUpdate(
     { _id: id },
@@ -68,7 +69,7 @@ router.patch('/', (req, res) => {
 // @route   DELETE api/workout
 // @desc    Update a Workout
 // @access  Private
-router.delete('/', (req, res) => {
+router.delete('/', authMiddleware, (req, res) => {
   Workout.findOneAndDelete({ _id: req.body.id }).then((result) => {
     if (result) {
       return res.sendStatus(200);
