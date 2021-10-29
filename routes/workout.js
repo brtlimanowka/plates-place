@@ -23,4 +23,22 @@ router.post('/', validators.workoutValidator, (req, res) => {
     });
 });
 
+// @route   GET api/workout
+// @desc    Read a Workout
+// @access  Private
+router.get('/:id', (req, res) => {
+  Workout.findOne({ _id: req.params.id })
+    .then((result) => {
+      if (result) {
+        return res.status(200).json(result);
+      } else {
+        return res.sendStatus(404);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
