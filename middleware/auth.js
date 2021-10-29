@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
       next();
     } catch (error) {
       console.error(error.message);
-      res.status(403).json({ message: 'Authorization denied' });
+      res.status(401).json({ message: 'Authorization denied' });
     }
   }
 };
