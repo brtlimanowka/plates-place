@@ -24,10 +24,10 @@ router.post('/', validators.workoutValidator, (req, res) => {
 });
 
 // @route   GET api/workout
-// @desc    Read a Workout
+// @desc    Get all user's Workouts
 // @access  Private
-router.get('/:id', (req, res) => {
-  Workout.findOne({ _id: req.params.id })
+router.get('/:userId', (req, res) => {
+  Workout.find({ user: req.params.userId })
     .then((result) => {
       if (result) {
         return res.status(200).json(result);
@@ -37,7 +37,7 @@ router.get('/:id', (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-      res.sendStatus(500);
+      return res.sendStatus(500);
     });
 });
 
