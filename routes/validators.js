@@ -23,7 +23,10 @@ const settings = [
   check('bars', 'Bars is required').exists(),
   check('weights', 'Weights is required').exists(),
 ];
-const workout = [];
+const workout = [
+  check('user', 'User is required').exists(),
+  check('name', 'Name is required').exists(),
+];
 const day = [];
 
 module.exports = {

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const SettingsSchema = mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
   bars: [
     {
       name: { type: String, required: true, unique: true },

@@ -25,7 +25,11 @@ const SettingsState = (props) => {
     dispatch({ type: CLEAR_ERRORS });
   };
   const getSettings = (userId) => {
-    fetch(`/api/settings/${userId}`)
+    fetch(`/api/settings/${userId}`, {
+      headers: {
+        'X-AUTH-TOKEN': localStorage.getItem('token'),
+      },
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -42,6 +46,7 @@ const SettingsState = (props) => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        'X-AUTH-TOKEN': localStorage.getItem('token'),
       },
       body: JSON.stringify(modifiedSettings),
     })
