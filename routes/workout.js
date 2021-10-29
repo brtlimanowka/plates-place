@@ -41,4 +41,28 @@ router.get('/:userId', (req, res) => {
     });
 });
 
+// @route   PATCH api/workout
+// @desc    Update a workout
+// @access  Private
+router.patch('/', (req, res) => {
+  const { id, name, muscleGroup, bar, weights } = req.body;
+  Workout.findOneAndUpdate(
+    { _id: id },
+    {
+      name,
+      muscleGroup,
+      bar,
+      weights,
+    },
+    { new: true },
+    (error, updatedWorkout) => {
+      if (error) {
+        return res.status(500).json({ message: 'Server error' });
+      } else {
+        return res.status(200).json(updatedWorkout);
+      }
+    }
+  );
+});
+
 module.exports = router;
