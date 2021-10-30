@@ -1,11 +1,18 @@
 import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import Button from '../../styles/Button';
-import SettingsContainer from '../../styles/SettingsContainer.styled';
+import SectionContainer from '../../styles/SectionContainer.styled';
 import SettingsItem from './SettingsItem';
 import SettingsNewItem from './SettingsNewItem';
 import ResetPasswordForm from '../auth/ResetPasswordForm';
 
+const SettingsContainer = styled(SectionContainer)`
+  header:hover {
+    background-color: ${(props) => props.theme.colors.buttonPrimaryBackground};
+    color: ${(props) => props.theme.colors.buttonFont};
+    cursor: pointer;
+  }
+`;
 const HeaderIcon = styled.i`
   padding-top: 3px;
   margin: 0 10px 0 5px;

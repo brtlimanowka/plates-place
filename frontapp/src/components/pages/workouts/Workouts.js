@@ -1,13 +1,15 @@
 import React from 'react';
+import WorokutsTable from './WorokutsTable';
 import CenteredCard from '../../styles/CenteredCard.styled';
-import SectionContainer from '../../styles/SectionContainer.styled';
+import PageContainer from '../../styles/PageContainer.styled';
 
 const Workouts = () => {
   return (
     <CenteredCard>
-      <SectionContainer>
+      <PageContainer>
         <h2>Workouts</h2>
-      </SectionContainer>
+        <WorokutsTable />
+      </PageContainer>
     </CenteredCard>
   );
 };
