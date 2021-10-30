@@ -24,18 +24,12 @@ const Types = styled.ul`
     font-size: 0.8rem;
     text-transform: uppercase;
     &.active {
-      background-image: linear-gradient(
-        ${(props) => props.theme.colors.buttonSecondaryBackground},
-        ${(props) => props.theme.colors.buttonPrimaryBackground}
-      );
+      background: ${(props) => props.theme.colors.buttonPrimaryBackground};
       color: ${(props) => props.theme.colors.buttonFont};
       font-weight: 700;
       &:hover {
         cursor: default;
-        background-image: linear-gradient(
-          ${(props) => props.theme.colors.buttonSecondaryBackground},
-          ${(props) => props.theme.colors.buttonPrimaryBackground}
-        );
+        background-image: none;
       }
     }
     &:hover {
