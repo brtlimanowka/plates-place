@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import WorkoutContext from '../../../store/workout/workoutContext';
+import Modal from '../../ui/Modal';
 import SectionContainer from '../../styles/SectionContainer.styled';
 
 const TypeFilter = styled.div`
@@ -68,6 +69,7 @@ const WorkoutsTable = () => {
   const workoutContext = useContext(WorkoutContext);
   const types = ['All', 'Push', 'Pull', 'Legs', 'Other'];
   const [active, setActive] = useState(types[0]);
+  const [showNewWorkout, setShowNewWorkout] = useState(false);
 
   const typeClickHandler = (type) => {
     setActive(type);
@@ -76,6 +78,12 @@ const WorkoutsTable = () => {
     } else {
       workoutContext.filterWorkout(type);
     }
+  };
+  const newWorkoutClickHandler = () => {
+    setShowNewWorkout(true);
+  };
+  const closeModalHandler = () => {
+    setShowNewWorkout(false);
   };
 
   return (
@@ -95,10 +103,16 @@ const WorkoutsTable = () => {
           </Types>
         </TypeFilter>
         <Controls>
-          <i className='fas fa-plus' title='New Workout'></i>
+          <i
+            className='fas fa-plus'
+            title='New Workout'
+            onClick={newWorkoutClickHandler}></i>
           <i className='fas fa-tasks' title='View Options'></i>
         </Controls>
       </header>
+      <Modal open={showNewWorkout} closeModal={closeModalHandler}>
+        <h1>Test</h1>
+      </Modal>
     </SectionContainer>
   );
 };
