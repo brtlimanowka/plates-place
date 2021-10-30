@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Theme from './Theme';
 import AuthContext from './store/auth/authContext';
 import SettingsContext from './store/settings/settingsContext';
+import WorkoutContext from './store/workout/workoutContext';
 import PrivateRoute from './components/ui/PrivateRoute';
 import Auth from './components/pages/auth/Auth';
 import Navbar from './components/ui/Navbar';
@@ -17,6 +18,7 @@ import './App.css';
 function App() {
   const authContext = useContext(AuthContext);
   const settingsContext = useContext(SettingsContext);
+  const workoutContext = useContext(WorkoutContext);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -26,7 +28,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    authContext.user && settingsContext.getSettings(authContext.user._id);
+    if (authContext.user) {
+      settingsContext.getSettings(authContext.user._id);
+      workoutContext.getWorkouts(authContext.user._id);
+    }
     // eslint-disable-next-line
   }, [authContext.user]);
 
