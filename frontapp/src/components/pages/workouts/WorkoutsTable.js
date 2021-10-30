@@ -6,6 +6,27 @@ import SectionContainer from '../../styles/SectionContainer.styled';
 const TypeFilter = styled.div`
   display: flex;
 `;
+const Controls = styled.div`
+  display: flex;
+  i {
+    margin: 0 2px;
+    padding: 4px 5px 2px 5px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid ${(props) => props.theme.colors.background};
+    background-image: linear-gradient(
+      ${(props) => props.theme.colors.backgroundLighter},
+      ${(props) => props.theme.colors.background}
+    );
+    &:hover {
+      cursor: pointer;
+      background-image: linear-gradient(
+        ${(props) => props.theme.colors.background},
+        ${(props) => props.theme.colors.backgroundLighter}
+      );
+    }
+  }
+`;
 const Types = styled.ul`
   display: flex;
   align-items: center;
@@ -59,7 +80,7 @@ const WorkoutsTable = () => {
 
   return (
     <SectionContainer>
-      <header>
+      <header style={{ justifyContent: 'space-between' }}>
         <TypeFilter>
           Show:
           <Types>
@@ -73,6 +94,10 @@ const WorkoutsTable = () => {
             ))}
           </Types>
         </TypeFilter>
+        <Controls>
+          <i className='fas fa-plus' title='New Workout'></i>
+          <i className='fas fa-tasks' title='View Options'></i>
+        </Controls>
       </header>
     </SectionContainer>
   );
