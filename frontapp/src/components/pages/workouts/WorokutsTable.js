@@ -23,6 +23,21 @@ const Types = styled.ul`
     text-align: center;
     font-size: 0.8rem;
     text-transform: uppercase;
+    &.active {
+      background-image: linear-gradient(
+        ${(props) => props.theme.colors.buttonSecondaryBackground},
+        ${(props) => props.theme.colors.buttonPrimaryBackground}
+      );
+      color: ${(props) => props.theme.colors.buttonFont};
+      font-weight: 700;
+      &:hover {
+        cursor: default;
+        background-image: linear-gradient(
+          ${(props) => props.theme.colors.buttonSecondaryBackground},
+          ${(props) => props.theme.colors.buttonPrimaryBackground}
+        );
+      }
+    }
     &:hover {
       cursor: pointer;
       background-image: linear-gradient(
@@ -40,7 +55,7 @@ const WorokutsTable = () => {
         <TypeFilter>
           Show:
           <Types>
-            <li>All</li>
+            <li className='active'>All</li>
             <li>Push</li>
             <li>Pull</li>
             <li>Legs</li>
