@@ -7,8 +7,6 @@ import {
   WORKOUT_DELETED,
   WORKOUTS_FAIL,
   WORKOUTS_FILTER,
-  WORKOUTS_SORT,
-  WORKOUTS_SEARCH,
   WORKOUTS_CLEAR,
 } from '../types';
 
@@ -69,18 +67,6 @@ const _ = (state, action) => {
         filtered: state.workouts.filter(
           (workout) => workout.muscleGroup === action.payload
         ),
-      };
-    case WORKOUTS_SORT:
-      return {
-        ...state,
-        workouts: state.workouts.sort((a, b) =>
-          a[action.payload] > b[action.payload] ? 1 : -1
-        ),
-      };
-    case WORKOUTS_SEARCH:
-      return {
-        ...state,
-        //todo
       };
     case WORKOUTS_CLEAR:
       return {
