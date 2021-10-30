@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SectionContainer from '../../styles/SectionContainer.styled';
 
@@ -43,17 +43,23 @@ const Types = styled.ul`
 `;
 
 const WorkoutsTable = () => {
+  const types = ['All', 'Push', 'Pull', 'Legs', 'Other'];
+  const [active, setActive] = useState(types[0]);
+
   return (
     <SectionContainer>
       <header>
         <TypeFilter>
           Show:
           <Types>
-            <li className='active'>All</li>
-            <li>Push</li>
-            <li>Pull</li>
-            <li>Legs</li>
-            <li>Other</li>
+            {types.map((type) => (
+              <li
+                key={type}
+                className={active === type ? 'active' : ''}
+                onClick={() => setActive(type)}>
+                {type}
+              </li>
+            ))}
           </Types>
         </TypeFilter>
       </header>
