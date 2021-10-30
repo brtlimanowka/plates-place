@@ -48,7 +48,7 @@ const Types = styled.ul`
   }
 `;
 
-const WorokutsTable = () => {
+const WorkoutsTable = () => {
   return (
     <SectionContainer>
       <header>
@@ -67,4 +67,4 @@ const WorokutsTable = () => {
   );
 };
 
-export default WorokutsTable;
+export default WorkoutsTable;

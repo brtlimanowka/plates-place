@@ -1,5 +1,5 @@
 import React from 'react';
-import WorokutsTable from './WorokutsTable';
+import WorkoutsTable from './WorkoutsTable';
 import CenteredCard from '../../styles/CenteredCard.styled';
 import PageContainer from '../../styles/PageContainer.styled';
 
@@ -8,7 +8,7 @@ const Workouts = () => {
     <CenteredCard>
       <PageContainer>
         <h2>Workouts</h2>
-        <WorokutsTable />
+        <WorkoutsTable />
       </PageContainer>
     </CenteredCard>
   );
