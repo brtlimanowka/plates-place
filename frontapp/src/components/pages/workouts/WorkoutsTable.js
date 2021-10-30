@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import WorkoutContext from '../../../store/workout/workoutContext';
 import SectionContainer from '../../styles/SectionContainer.styled';
 
 const TypeFilter = styled.div`
@@ -43,8 +44,18 @@ const Types = styled.ul`
 `;
 
 const WorkoutsTable = () => {
+  const workoutContext = useContext(WorkoutContext);
   const types = ['All', 'Push', 'Pull', 'Legs', 'Other'];
   const [active, setActive] = useState(types[0]);
+
+  const typeClickHandler = (type) => {
+    setActive(type);
+    if (type === 'All') {
+      workoutContext.clearFilter();
+    } else {
+      workoutContext.filterWorkout(type);
+    }
+  };
 
   return (
     <SectionContainer>
@@ -56,7 +67,7 @@ const WorkoutsTable = () => {
               <li
                 key={type}
                 className={active === type ? 'active' : ''}
-                onClick={() => setActive(type)}>
+                onClick={() => typeClickHandler(type)}>
                 {type}
               </li>
             ))}
