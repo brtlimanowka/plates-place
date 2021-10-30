@@ -22,6 +22,12 @@ const Navigation = styled.nav`
     list-style: none;
     font-size: 24px;
   }
+  .active {
+    i,
+    span {
+      color: ${(props) => props.theme.colors.buttonSecondaryBackground};
+    }
+  }
   .menu-item_label {
     display: none;
   }

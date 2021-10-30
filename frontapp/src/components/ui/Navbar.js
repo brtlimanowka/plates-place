@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import AuthContext from '../../store/auth/authContext';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Navigation from '../styles/Navigation.styled';
 
 const Navbar = () => {
@@ -21,34 +21,34 @@ const Navbar = () => {
       {authContext.isAuthenticated && (
         <ul className='menu'>
           <li className='menu-item'>
-            <Link to='/'>
+            <NavLink exact to='/' activeClassName='active'>
               <i className='icon far fa-calendar-check'></i>
               <span className='menu-item_label'>Plan My Week</span>
-            </Link>
+            </NavLink>
           </li>
           <li className='menu-item'>
-            <Link to='/workouts'>
+            <NavLink to='/workouts' activeClassName='active'>
               <i className='icon fas fa-wrench'></i>
               <span className='menu-item_label'>Workouts</span>
-            </Link>
+            </NavLink>
           </li>
           <li className='menu-item'>
-            <Link to='/stopwatch'>
+            <NavLink to='/stopwatch'>
               <i className='icon fas fa-stopwatch'></i>
               <span className='menu-item_label'>Stopwatch</span>
-            </Link>
+            </NavLink>
           </li>
           <li className='menu-item'>
-            <Link to='/settings'>
+            <NavLink to='/settings'>
               <i className='icon fas fa-sliders-h'></i>
               <span className='menu-item_label'>Settings</span>
-            </Link>
+            </NavLink>
           </li>
           <li className='menu-item'>
-            <Link to='/about'>
+            <NavLink to='/about'>
               <i className='icon fas fa-ellipsis-h'></i>
               <span className='menu-item_label'>About</span>
-            </Link>
+            </NavLink>
           </li>
           <li className='menu-item' onClick={logoutHandler}>
             <i className='icon fas fa-sign-out-alt'></i>
