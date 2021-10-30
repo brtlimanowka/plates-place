@@ -10,8 +10,6 @@ import {
   WORKOUT_DELETED,
   WORKOUTS_FAIL,
   WORKOUTS_FILTER,
-  WORKOUTS_SORT,
-  WORKOUTS_SEARCH,
   WORKOUTS_CLEAR,
 } from '../types';
 
@@ -106,7 +104,9 @@ const WorkoutState = (props) => {
           dispatch({ type: WORKOUTS_FAIL, payload: result.status });
         }
       })
-      .then((data) => dispatch({ type: WORKOUT_DELETED, payload: workoutId }))
+      .then((ignored) =>
+        dispatch({ type: WORKOUT_DELETED, payload: workoutId })
+      )
       .catch((error) => {
         console.error(error);
         dispatch({ type: WORKOUTS_FAIL, payload: error });
