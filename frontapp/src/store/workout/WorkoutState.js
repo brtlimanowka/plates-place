@@ -112,6 +112,12 @@ const WorkoutState = (props) => {
         dispatch({ type: WORKOUTS_FAIL, payload: error });
       });
   };
+  const filterWorkout = (muscleGroup) => {
+    dispatch({ type: WORKOUTS_FILTER, payload: muscleGroup });
+  };
+  const clearFilter = () => {
+    dispatch({ type: WORKOUTS_CLEAR });
+  };
 
   const contextValues = {
     isLoading: state.isLoading,
@@ -124,6 +130,8 @@ const WorkoutState = (props) => {
     createWorkout,
     updateWorkout,
     deleteWorkout,
+    filterWorkout,
+    clearFilter,
   };
 
   return (
