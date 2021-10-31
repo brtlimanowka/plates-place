@@ -6,6 +6,7 @@ import CenteredCard from '../../styles/CenteredCard.styled';
 import Input from '../../styles/Input';
 
 const Container = styled.div`
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
   background-color: ${(props) => props.theme.colors.background};
   min-width: 350px;
   padding: 20px;
@@ -23,15 +24,14 @@ const Container = styled.div`
       }
     }
   }
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
 `;
 const InputGroup = styled.div`
   display: flex;
+  margin: 7px 0;
   label {
     min-width: 150px;
-    flex-basis: 10%;
+    flex-basis: 30%;
   }
-  margin: 7px 0;
 `;
 const WideInput = styled(Input)`
   width: 100%;
@@ -46,6 +46,7 @@ const WorkoutNew = (props) => {
 
   const groups = ['Push', 'Pull', 'Legs', 'Other'];
   const bars = settingsContext.settings.bars;
+  const weights = settingsContext.settings.weights;
 
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
@@ -55,7 +56,7 @@ const WorkoutNew = (props) => {
     <CenteredCard>
       <Container>
         <header>
-          <h3>New Workout</h3>
+          <h2>New Workout</h2>
           <i
             className='fas fa-times-circle'
             title='Close'
@@ -88,15 +89,35 @@ const WorkoutNew = (props) => {
               ))}
             </Menu>
           </InputGroup>
+          <h2 style={{ margin: '10px 0' }}>Weights</h2>
           <InputGroup>
-            <label htmlFor='weights'>Weights</label>
+            <label htmlFor='weight'>Total weight:</label>
             <WideInput
               type='number'
+              id='weight'
               min='0'
-              id='weights'
-              placeholder='Total plate weight'
+              placeholder='Excluding bar weight'
             />
           </InputGroup>
+          <h4 style={{ textAlign: 'center', margin: '10px 0' }}>
+            Or select available plates below
+          </h4>
+          {weights.map((weight) => (
+            <InputGroup>
+              <label htmlFor={weight._id} style={{ textAlign: 'right' }}>
+                {weight.name}
+              </label>
+              <WideInput
+                id={weight._id}
+                type='number'
+                min='0'
+                step='1'
+                max={weight.count}
+                style={{ marginLeft: '10px' }}
+              />
+            </InputGroup>
+          ))}
+          <h3>Total weight:</h3>
         </form>
       </Container>
     </CenteredCard>
