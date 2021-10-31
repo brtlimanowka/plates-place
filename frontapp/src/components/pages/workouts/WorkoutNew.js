@@ -44,6 +44,7 @@ const WorkoutNew = (props) => {
   const workoutContext = useContext(WorkoutContext);
   const settingsContext = useContext(SettingsContext);
 
+  const groups = ['Push', 'Pull', 'Legs', 'Other'];
   const bars = settingsContext.settings.bars;
 
   const workoutSubmitHandle = (event) => {
@@ -69,10 +70,11 @@ const WorkoutNew = (props) => {
             <label htmlFor='group'>Group</label>
             <Menu id='group' defaultValue=''>
               <option value='' disabled></option>
-              <option value='push'>Push</option>
-              <option value='pull'>Pull</option>
-              <option value='legs'>Legs</option>
-              <option value='other'>Other</option>
+              {groups.map((group) => (
+                <option key={group} value={group}>
+                  {group}
+                </option>
+              ))}
             </Menu>
           </InputGroup>
           <InputGroup>
