@@ -40,7 +40,7 @@ const Menu = styled.select`
   width: 100%;
 `;
 
-const WorkoutNew = () => {
+const WorkoutNew = (props) => {
   const workoutContext = useContext(WorkoutContext);
   const settingsContext = useContext(SettingsContext);
 
@@ -55,7 +55,10 @@ const WorkoutNew = () => {
       <Container>
         <header>
           <h3>New Workout</h3>
-          <i className='fas fa-times-circle' title='Close'></i>
+          <i
+            className='fas fa-times-circle'
+            title='Close'
+            onClick={() => props.closeModal()}></i>
         </header>
         <form onSubmit={workoutSubmitHandle}>
           <InputGroup>

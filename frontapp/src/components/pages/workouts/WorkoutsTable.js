@@ -112,7 +112,7 @@ const WorkoutsTable = () => {
         </Controls>
       </header>
       <Modal open={showNewWorkout} closeModal={closeModalHandler}>
-        <WorkoutNew />
+        <WorkoutNew closeModal={closeModalHandler} />
       </Modal>
     </SectionContainer>
   );
