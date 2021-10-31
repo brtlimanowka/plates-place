@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const Backdrop = styled.div`
   position: fixed;
+  display: flex;
   top: 0;
   bottom: 0;
   left: 0;
@@ -14,7 +15,7 @@ const Backdrop = styled.div`
 
 const Modal = (props) => {
   const backdropClickHandler = (event) => {
-    if (event.target.parentElement.id === 'modal-root') {
+    if (event.target.parentElement.parentElement.id === 'modal-root') {
       props.closeModal();
     }
   };
