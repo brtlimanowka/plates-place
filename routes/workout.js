@@ -13,8 +13,8 @@ router.post('/', [authMiddleware, validators.workoutValidator], (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { user, name, muscleGroup, bar, weights } = req.body;
-  let workout = new Workout({ user, name, muscleGroup, bar, weights });
+  const { user, name, muscleGroup, bar, totalWeight } = req.body;
+  let workout = new Workout({ user, name, muscleGroup, bar, totalWeight });
   workout
     .save()
     .then((result) => res.status(201).json(result))
@@ -46,14 +46,14 @@ router.get('/:userId', authMiddleware, (req, res) => {
 // @desc    Update a Workout
 // @access  Private
 router.patch('/', authMiddleware, (req, res) => {
-  const { id, name, muscleGroup, bar, weights } = req.body;
+  const { id, name, muscleGroup, bar, totalWeight } = req.body;
   Workout.findOneAndUpdate(
     { _id: id },
     {
       name,
       muscleGroup,
       bar,
-      weights,
+      totalWeight,
     },
     { new: true },
     (error, updatedWorkout) => {

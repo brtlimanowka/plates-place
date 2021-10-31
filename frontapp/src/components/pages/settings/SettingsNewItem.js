@@ -3,16 +3,8 @@ import styled from 'styled-components';
 import SettingsContext from '../../../store/settings/settingsContext';
 import Button from '../../styles/Button';
 import ButtonIcon from '../../styles/ButtonIcon';
+import Input from '../../styles/Input';
 
-const Input = styled.input`
-  border-radius: 2px;
-  padding: 0 2px;
-  line-height: 20px;
-  border: none;
-  outline: none;
-  background-color: ${(props) => props.theme.colors.font};
-  color: ${(props) => props.theme.colors.background};
-`;
 const InputContainer = styled.div`
   box-sizing: content-box;
   display: flex;
