@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import WorkoutContext from '../../../store/workout/workoutContext';
 import Modal from '../../ui/Modal';
+import WorkoutNew from './WorkoutNew';
 import SectionContainer from '../../styles/SectionContainer.styled';
 
 const TypeFilter = styled.div`
@@ -111,7 +112,7 @@ const WorkoutsTable = () => {
         </Controls>
       </header>
       <Modal open={showNewWorkout} closeModal={closeModalHandler}>
-        <h1>Test</h1>
+        <WorkoutNew />
       </Modal>
     </SectionContainer>
   );
