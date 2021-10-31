@@ -8,13 +8,7 @@ const WorkoutSchema = mongoose.Schema({
     name: { type: String, required: true },
     weight: { type: Number, required: true },
   },
-  weights: [
-    {
-      name: { type: String, required: true },
-      weight: { type: Number, required: true },
-      _id: false,
-    },
-  ],
+  totalWeight: { type: Number },
 });
 
 module.exports = mongoose.model('workout', WorkoutSchema);
