@@ -34,6 +34,7 @@
     "mongoose": "^6.0.5",
     "nodemailer": "^6.6.5",
     "nodemailer-express-handlebars": "^4.0.0",
+    "use-dynamic-refs": "^1.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
