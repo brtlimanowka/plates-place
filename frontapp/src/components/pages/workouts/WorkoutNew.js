@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import WorkoutContext from '../../../store/workout/workoutContext';
 import SettingsContext from '../../../store/settings/settingsContext';
@@ -60,13 +60,37 @@ const Menu = styled.select`
 const WorkoutNew = (props) => {
   const workoutContext = useContext(WorkoutContext);
   const settingsContext = useContext(SettingsContext);
+  const [formData, setFormData] = useState(null);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const groups = ['Push', 'Pull', 'Legs', 'Other'];
   const bars = settingsContext.settings.bars;
   const weights = settingsContext.settings.weights;
 
+  const nameChangeHandler = (event) => {
+    let name = event.target.value;
+    if (name.length > 20) {
+      name = name.substring(0, 19);
+    }
+    setFormData({ ...formData, name });
+  };
+  const groupChangeHandler = (event) => {
+    let muscleGroup = event.target.value;
+    setFormData({ ...formData, muscleGroup });
+  };
+  const barChangeHandler = (event) => {
+    let barMatch = bars.find((bar) => bar._id === event.target.value);
+    let bar = {
+      name: barMatch.name,
+      weight: barMatch.weight,
+    };
+    setFormData({ ...formData, bar });
+  };
+
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
+    console.log(formData);
   };
 
   return (
@@ -82,11 +106,17 @@ const WorkoutNew = (props) => {
         <form onSubmit={workoutSubmitHandle}>
           <InputGroup>
             <label htmlFor='name'>Name</label>
-            <WideInput type='text' id='name' maxLength='20' autoFocus />
+            <WideInput
+              type='text'
+              id='name'
+              maxLength='20'
+              onChange={nameChangeHandler}
+              autoFocus
+            />
           </InputGroup>
           <InputGroup>
             <label htmlFor='group'>Group</label>
-            <Menu id='group' defaultValue=''>
+            <Menu id='group' defaultValue='' onChange={groupChangeHandler}>
               <option value='' disabled></option>
               {groups.map((group) => (
                 <option key={group} value={group}>
@@ -97,10 +127,10 @@ const WorkoutNew = (props) => {
           </InputGroup>
           <InputGroup>
             <label htmlFor='bar'>Bar</label>
-            <Menu id='bar' defaultValue=''>
+            <Menu id='bar' defaultValue='' onChange={barChangeHandler}>
               <option value='' disabled></option>
               {bars.map((bar) => (
-                <option key={bar._id} value={bar}>
+                <option key={bar._id} value={bar._id}>
                   {`${bar.name} (${bar.weight} kg)`}
                 </option>
               ))}
@@ -138,7 +168,7 @@ const WorkoutNew = (props) => {
           <ControlContainer>
             <ControlButton
               disabled={false}
-              onMouseOver={null}
+              onMouseOver={workoutSubmitHandle}
               onMouseLeave={null}
               className={false ? '' : 'disabled'}>
               <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
