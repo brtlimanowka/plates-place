@@ -3,7 +3,24 @@ import styled from 'styled-components';
 import WorkoutContext from '../../../store/workout/workoutContext';
 import SettingsContext from '../../../store/settings/settingsContext';
 import CenteredCard from '../../styles/CenteredCard.styled';
+import Button from '../../styles/Button';
+import ButtonIcon from '../../styles/ButtonIcon';
 import Input from '../../styles/Input';
+
+const ControlContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+const ControlButton = styled(Button)`
+  flex-basis: 40%;
+  &.disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => props.theme.colors.disabled};
+    &:hover {
+      color: ${(props) => props.theme.colors.font};
+    }
+  }
+`;
 
 const Container = styled.div`
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
@@ -89,7 +106,7 @@ const WorkoutNew = (props) => {
               ))}
             </Menu>
           </InputGroup>
-          <h2 style={{ margin: '10px 0' }}>Weights</h2>
+          <h2 style={{ margin: '10px 0' }}>Plates</h2>
           <InputGroup>
             <label htmlFor='weight'>Total weight:</label>
             <WideInput
@@ -118,6 +135,20 @@ const WorkoutNew = (props) => {
             </InputGroup>
           ))}
           <h3>Total weight:</h3>
+          <ControlContainer>
+            <ControlButton
+              disabled={false}
+              onMouseOver={null}
+              onMouseLeave={null}
+              className={false ? '' : 'disabled'}>
+              <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
+              Confirm
+            </ControlButton>
+            <ControlButton onClick={null}>
+              <ButtonIcon className='fas fa-times-circle'></ButtonIcon>
+              Cancel
+            </ControlButton>
+          </ControlContainer>
         </form>
       </Container>
     </CenteredCard>
