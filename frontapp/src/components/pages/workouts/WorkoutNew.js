@@ -61,12 +61,17 @@ const WorkoutNew = (props) => {
   const workoutContext = useContext(WorkoutContext);
   const settingsContext = useContext(SettingsContext);
   const [formData, setFormData] = useState(null);
+  const [selectedPlates, setSelectedPlates] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
 
   const groups = ['Push', 'Pull', 'Legs', 'Other'];
-  const bars = settingsContext.settings.bars;
-  const weights = settingsContext.settings.weights;
+  const bars = settingsContext.settings.bars.sort((a, b) =>
+    a.weight > b.weight ? -1 : 1
+  );
+  const weights = settingsContext.settings.weights.sort((a, b) =>
+    a.weight > b.weight ? -1 : 1
+  );
 
   const nameChangeHandler = (event) => {
     let name = event.target.value;
@@ -87,6 +92,20 @@ const WorkoutNew = (props) => {
     };
     setFormData({ ...formData, bar });
   };
+  const totalWeightChangeHandler = (event) => {
+    let desiredWeightPerSide = event.target.value / 2;
+    const desiredPlates = {};
+
+    weights.forEach((plate) => {
+      desiredPlates[plate._id] = Math.floor(
+        desiredWeightPerSide / plate.weight
+      );
+      desiredWeightPerSide = desiredWeightPerSide % plate.weight;
+    });
+
+    setSelectedPlates(desiredPlates);
+  };
+  const plateChangeHandler = (event) => {};
 
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
@@ -144,13 +163,15 @@ const WorkoutNew = (props) => {
               id='weight'
               min='0'
               placeholder='Excluding bar weight'
+              onChange={totalWeightChangeHandler}
             />
           </InputGroup>
           <h4 style={{ textAlign: 'center', margin: '10px 0' }}>
-            Or select available plates below
+            Or select from available plates below <br />
+            (per one end of bar)
           </h4>
           {weights.map((weight) => (
-            <InputGroup>
+            <InputGroup key={weight._id}>
               <label htmlFor={weight._id} style={{ textAlign: 'right' }}>
                 {weight.name}
               </label>
