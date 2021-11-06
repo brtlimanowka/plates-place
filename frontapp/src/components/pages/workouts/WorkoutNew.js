@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import WorkoutContext from '../../../store/workout/workoutContext';
 import SettingsContext from '../../../store/settings/settingsContext';
@@ -58,12 +58,12 @@ const Menu = styled.select`
 `;
 
 const WorkoutNew = (props) => {
-  const workoutContext = useContext(WorkoutContext);
+  // const workoutContext = useContext(WorkoutContext);
   const settingsContext = useContext(SettingsContext);
   const [formData, setFormData] = useState(null);
   const [selectedPlates, setSelectedPlates] = useState(null);
-  const [isFormValid, setIsFormValid] = useState(false);
-  const [showFeedback, setShowFeedback] = useState(false);
+  // const [isFormValid, setIsFormValid] = useState(false);
+  // const [showFeedback, setShowFeedback] = useState(false);
 
   const groups = ['Push', 'Pull', 'Legs', 'Other'];
   const bars = settingsContext.settings.bars.sort((a, b) =>
@@ -182,6 +182,8 @@ const WorkoutNew = (props) => {
                 step='1'
                 max={weight.count}
                 style={{ marginLeft: '10px' }}
+                value={selectedPlates ? selectedPlates[weight._id] : ''}
+                onChange={plateChangeHandler}
               />
             </InputGroup>
           ))}
