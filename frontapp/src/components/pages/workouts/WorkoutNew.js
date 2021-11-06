@@ -80,7 +80,7 @@ const WorkoutNew = (props) => {
               <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
               Confirm
             </button>
-            <button onClick={null}>
+            <button onClick={() => props.closeModal()}>
               <ButtonIcon className='fas fa-times-circle'></ButtonIcon>
               Cancel
             </button>
