@@ -6,7 +6,7 @@ const NewWorkoutContainer = styled.div`
   width: 60%;
   padding: 20px;
   border-radius: 10px;
-  h3 {
+  h2 {
     font-size: 1.8rem;
   }
   header {
@@ -61,6 +61,11 @@ const NewWorkoutContainer = styled.div`
     justify-content: space-around;
     button {
       flex-basis: 35%;
+      &.disabled {
+        i {
+          color: ${(props) => props.theme.colors.font};
+        }
+      }
       i {
         display: block;
         font-size: 2rem;

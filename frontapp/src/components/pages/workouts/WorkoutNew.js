@@ -12,6 +12,7 @@ const WorkoutNew = (props) => {
   const [formData, setFormData] = useState(null);
   const [selectedPlates, setSelectedPlates] = useState(null);
   const [totalWeight, setTotalWeight] = useState({ bar: 0, plates: 0 });
+  const [isBarNone, setIsBarNone] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   // const [showFeedback, setShowFeedback] = useState(false);
 
@@ -48,6 +49,7 @@ const WorkoutNew = (props) => {
       name: barMatch.name,
       weight: barMatch.weight,
     };
+    setIsBarNone(!bar.weight);
     setFormData({ ...formData, bar });
     setTotalWeight({ ...totalWeight, bar: bar.weight });
   };
@@ -116,18 +118,22 @@ const WorkoutNew = (props) => {
             </div>
           </div>
           <div className='weight-select'>
-            <button>
+            <button
+              disabled={isBarNone}
+              className={`${isBarNone ? 'disabled' : ''}`}>
               <i className='fas fa-keyboard'></i>
               Set total weight
             </button>
-            <button>
+            <button
+              disabled={isBarNone}
+              className={`${isBarNone ? 'disabled' : ''}`}>
               <i className='fas fa-mouse'></i>
               Select plates
             </button>
           </div>
-          <h3>
+          <h2>
             Total workout weight: {totalWeight.bar + totalWeight.plates} kg
-          </h3>
+          </h2>
           <div className='control-container'>
             <button
               disabled={false}
