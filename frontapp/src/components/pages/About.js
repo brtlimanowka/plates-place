@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import statue from '../../assets/statue.png';
+
 const Container = styled.div`
   position: relative;
-  height: 50vh;
+  height: calc(100vh - 66px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,12 +18,13 @@ const Container = styled.div`
 const Icon = styled.i`
   filter: blur(3px);
   position: absolute;
-  top: 28%;
-  left: 35%;
-  font-size: 210px;
+  top: 27%;
+  left: 29%;
+  font-size: 320px;
   color: white;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.2),
-    0 0 50px ${(props) => props.theme.colors.buttonSecondaryBackground};
+    0 0 50px ${(props) => props.theme.colors.buttonSecondaryBackground},
+    0 0 170px ${(props) => props.theme.colors.buttonPrimaryBackground};
   transform: rotate(-10deg);
   z-index: 1;
   animation: blink 3s linear infinite;
@@ -70,24 +73,28 @@ const Icon = styled.i`
     }
   }
 `;
+const Image = styled.img`
+  margin-left: 120px;
+  filter: grayscale(10%) invert(100%);
+  z-index: 2;
+`;
 const TitleEN = styled.div`
   position: absolute;
   text-transform: lowercase;
   color: rgba(0, 0, 0, 1);
   font-size: 120px;
-  line-height: 140px;
-  letter-spacing: 0.1em;
+  line-height: 240px;
   z-index: 2;
   font-family: 'GULDENZ', sans-serif;
   border-left: 1px solid rgba(0, 0, 0, 0.5);
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.32em;
   span:first-of-type {
     position: absolute;
     top: -15%;
   }
   span:last-of-type {
-    padding-left: 140px;
+    padding-left: 100px;
   }
 `;
 const TitleJP = styled.div`
@@ -97,8 +104,8 @@ const TitleJP = styled.div`
   font-family: 'Rampart One', cursive;
   line-height: 90px;
   font-size: 90px;
-  z-index: 1;
-  top: 7%;
+  z-index: 3;
+  top: 17%;
   right: 33%;
   color: ${(props) => props.theme.colors.spinner};
   text-shadow: 3px 2px 0
@@ -111,6 +118,7 @@ const TitleJP = styled.div`
 const About = () => {
   return (
     <Container>
+      <Image src={statue} alt='Statue' />
       <Icon className='icon fas fa-dumbbell'></Icon>
       <TitleEN>
         <span>Plates'</span>
