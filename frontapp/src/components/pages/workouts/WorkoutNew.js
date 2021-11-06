@@ -106,11 +106,14 @@ const WorkoutNew = (props) => {
           </div>
           <div className='weight-select'>
             <button>
-              <ButtonIcon className='fas fa-edit'></ButtonIcon>Set total weight
+              <i className='fas fa-keyboard'></i>
+              {/* <ButtonIcon className='fas fa-edit'></ButtonIcon> */}
+              Set total weight
             </button>
             <button>
-              <ButtonIcon className='fas fa-mouse-pointer'></ButtonIcon>Select
-              plates
+              <i className='fas fa-mouse'></i>
+              {/* <ButtonIcon className='fas fa-mouse-pointer'></ButtonIcon> */}
+              Select plates
             </button>
           </div>
           <h3>Total workout weight:</h3>

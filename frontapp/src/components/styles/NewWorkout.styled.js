@@ -12,7 +12,7 @@ const NewWorkoutContainer = styled.div`
   header {
     font-size: 1.6rem;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
     i {
@@ -24,7 +24,7 @@ const NewWorkoutContainer = styled.div`
     }
   }
   button {
-    margin-top: 10px;
+    margin-top: 20px;
     border: none;
     border-radius: 3px;
     text-transform: uppercase;
@@ -53,13 +53,19 @@ const NewWorkoutContainer = styled.div`
     justify-content: space-between;
   }
   div.weight-select {
+    margin-bottom: 20px;
     font-size: 1.6rem;
     min-height: 10rem;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-around;
     button {
-      flex-basis: 40%;
+      flex-basis: 35%;
+      i {
+        display: block;
+        font-size: 2rem;
+        color: ${(props) => props.theme.colors.buttonPrimaryBackground};
+      }
     }
   }
   div.input-group {
