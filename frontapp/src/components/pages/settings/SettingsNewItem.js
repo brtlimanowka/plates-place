@@ -95,12 +95,6 @@ const SettingsNewItem = (props) => {
       setFormData({ ...formData, count });
     }
   };
-  const confirmHoverHandler = () => {
-    setShowFeedback(true);
-  };
-  const confirmLeaveHandler = () => {
-    setShowFeedback(false);
-  };
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
@@ -207,8 +201,8 @@ const SettingsNewItem = (props) => {
       <ControlContainer>
         <ControlButton
           disabled={!isFormValid}
-          onMouseOver={confirmHoverHandler}
-          onMouseLeave={confirmLeaveHandler}
+          onMouseOver={() => setShowFeedback(true)}
+          onMouseLeave={() => setShowFeedback(false)}
           className={isFormValid ? '' : 'disabled'}>
           <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
           Confirm
