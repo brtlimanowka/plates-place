@@ -71,6 +71,49 @@ const WorkoutNew = (props) => {
             onClick={() => props.closeModal()}></i>
         </header>
         <form onSubmit={workoutSubmitHandle}>
+          <div className='fields-container'>
+            <div className='input-group'>
+              <label htmlFor='name'>Name</label>
+              <Input
+                type='text'
+                id='name'
+                maxLength='20'
+                onChange={nameChangeHandler}
+              />
+            </div>
+            <div className='input-group'>
+              <label htmlFor='group'>Muscle Groups</label>
+              <select id='group' defaultValue=''>
+                <option value='' disabled></option>
+                {groups.map((group) => (
+                  <option key={group} value={group}>
+                    {group}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className='input-group'>
+              <label htmlFor='bar'>Bar</label>
+              <select id='bar' defaultValue=''>
+                <option value='' disabled></option>
+                {bars.map((bar) => (
+                  <option key={bar._id} value={bar._id}>
+                    {bar.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className='weight-select'>
+            <button>
+              <ButtonIcon className='fas fa-edit'></ButtonIcon>Set total weight
+            </button>
+            <button>
+              <ButtonIcon className='fas fa-mouse-pointer'></ButtonIcon>Select
+              plates
+            </button>
+          </div>
+          <h3>Total workout weight:</h3>
           <div className='control-container'>
             <button
               disabled={false}
