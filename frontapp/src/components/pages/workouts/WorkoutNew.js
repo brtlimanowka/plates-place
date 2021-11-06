@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import styled from 'styled-components';
+import React, { useContext, useState, useEffect } from 'react';
 import WorkoutContext from '../../../store/workout/workoutContext';
 import SettingsContext from '../../../store/settings/settingsContext';
 import NewWorkoutContainer from '../../styles/NewWorkout.styled';
@@ -12,8 +11,18 @@ const WorkoutNew = (props) => {
   const { settings } = useContext(SettingsContext);
   const [formData, setFormData] = useState(null);
   const [selectedPlates, setSelectedPlates] = useState(null);
-  // const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   // const [showFeedback, setShowFeedback] = useState(false);
+
+  useEffect(() => {
+    if (formData) {
+      const hasName = !!formData.name;
+      const hasGroup = !!formData.muscleGroup;
+      const hasBar = !!formData.bar;
+
+      setIsFormValid(hasName && hasGroup && hasBar);
+    }
+  }, [formData]);
 
   const groups = ['Push', 'Pull', 'Legs', 'Other'];
   const bars = settings.bars.sort((a, b) => (a.weight > b.weight ? -1 : 1));
@@ -83,7 +92,7 @@ const WorkoutNew = (props) => {
             </div>
             <div className='input-group'>
               <label htmlFor='group'>Muscle Groups</label>
-              <select id='group' defaultValue=''>
+              <select id='group' defaultValue='' onChange={groupChangeHandler}>
                 <option value='' disabled></option>
                 {groups.map((group) => (
                   <option key={group} value={group}>
@@ -94,7 +103,7 @@ const WorkoutNew = (props) => {
             </div>
             <div className='input-group'>
               <label htmlFor='bar'>Bar</label>
-              <select id='bar' defaultValue=''>
+              <select id='bar' defaultValue='' onChange={barChangeHandler}>
                 <option value='' disabled></option>
                 {bars.map((bar) => (
                   <option key={bar._id} value={bar._id}>
@@ -107,12 +116,10 @@ const WorkoutNew = (props) => {
           <div className='weight-select'>
             <button>
               <i className='fas fa-keyboard'></i>
-              {/* <ButtonIcon className='fas fa-edit'></ButtonIcon> */}
               Set total weight
             </button>
             <button>
               <i className='fas fa-mouse'></i>
-              {/* <ButtonIcon className='fas fa-mouse-pointer'></ButtonIcon> */}
               Select plates
             </button>
           </div>
@@ -122,7 +129,7 @@ const WorkoutNew = (props) => {
               disabled={false}
               onMouseOver={workoutSubmitHandle}
               onMouseLeave={null}
-              className={false ? '' : 'disabled'}>
+              className={isFormValid ? '' : 'disabled'}>
               <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
               Confirm
             </button>
