@@ -32,7 +32,10 @@ router.post('/', validators.usersValidator, (req, res) => {
           .then((hashedPassword) => {
             user.password = hashedPassword;
             user.save().then(() => {
-              let settings = new Settings({ user });
+              let settings = new Settings({
+                user,
+                bars: [{ name: 'None', weight: 0, barType: 'Other' }],
+              });
               settings.save();
 
               const mailer = new Mailer(user);
