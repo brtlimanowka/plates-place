@@ -108,16 +108,21 @@ const SettingsItem = (props) => {
       </Column>
       {props.type === 'Bars' ? renderBarType : renderWeightCount}
       <Column>
-        <Icon
-          action='edit'
-          className='fas fa-wrench'
-          title='Edit'
-          onClick={enterEditModeHandler}></Icon>
-        <Icon
-          action='delete'
-          className='fas fa-times'
-          title='Delete'
-          onClick={itemDeleteHandler}></Icon>
+        {props.data?.weight !== 0 && (
+          <Fragment>
+            <Icon
+              action='edit'
+              className='fas fa-wrench'
+              title='Edit'
+              onClick={enterEditModeHandler}></Icon>
+
+            <Icon
+              action='delete'
+              className='fas fa-times'
+              title='Delete'
+              onClick={itemDeleteHandler}></Icon>
+          </Fragment>
+        )}
       </Column>
     </Fragment>
   );
