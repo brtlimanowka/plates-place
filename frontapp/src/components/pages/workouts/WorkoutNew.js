@@ -11,6 +11,7 @@ const WorkoutNew = (props) => {
   const { settings } = useContext(SettingsContext);
   const [formData, setFormData] = useState(null);
   const [selectedPlates, setSelectedPlates] = useState(null);
+  const [totalWeight, setTotalWeight] = useState({ bar: 0, plates: 0 });
   const [isFormValid, setIsFormValid] = useState(false);
   // const [showFeedback, setShowFeedback] = useState(false);
 
@@ -48,6 +49,7 @@ const WorkoutNew = (props) => {
       weight: barMatch.weight,
     };
     setFormData({ ...formData, bar });
+    setTotalWeight({ ...totalWeight, bar: bar.weight });
   };
   const totalWeightChangeHandler = (event) => {
     let desiredWeightPerSide = event.target.value / 2;
@@ -123,7 +125,9 @@ const WorkoutNew = (props) => {
               Select plates
             </button>
           </div>
-          <h3>Total workout weight:</h3>
+          <h3>
+            Total workout weight: {totalWeight.bar + totalWeight.plates} kg
+          </h3>
           <div className='control-container'>
             <button
               disabled={false}
