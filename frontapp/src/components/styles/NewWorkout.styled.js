@@ -7,6 +7,7 @@ const NewWorkoutContainer = styled.div`
   padding: 20px;
   border-radius: 10px;
   header {
+    font-size: 1.6rem;
     text-align: center;
     margin-bottom: 20px;
     display: flex;

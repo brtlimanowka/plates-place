@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Authentication = styled.main`
+  font-size: 1.6rem;
   text-align: center;
   padding-top: 25px;
   height: 550px;
@@ -42,23 +43,24 @@ const Authentication = styled.main`
     }
   }
   .form-error p {
-    font-size: 24px;
+    font-size: 2.4rem;
     line-height: 48px;
     background-color: ${(props) => props.theme.colors.errorBackground};
   }
   .form-success p {
-    font-size: 22px;
+    font-size: 2.2rem;
     line-height: 36px;
     color: ${(props) => props.theme.colors.buttonFont};
     background-color: ${(props) => props.theme.colors.buttonPrimaryBackground};
   }
   .form-error_forbidden {
-    font-size: 18px !important;
+    font-size: 1.8rem !important;
   }
   .form-label {
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
+    /* font-size: 1.8rem; */
     line-height: 25px;
     font-weight: 700;
     margin-bottom: 0.5rem;

@@ -5,6 +5,7 @@ import SettingsNewItem from './SettingsNewItem';
 import ButtonIcon from '../../styles/ButtonIcon';
 
 const Item = styled.li`
+  font-size: 1.6rem;
   display: flex;
   flex-direction: column;
   padding-left: 10px;

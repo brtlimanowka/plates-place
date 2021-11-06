@@ -27,7 +27,7 @@ const InputGroup = styled.div`
 const Label = styled.label`
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 1.4rem;
   margin: 5px 0;
 
   @media (min-width: 810px) {

@@ -13,7 +13,7 @@ const Controls = styled.div`
   i {
     margin: 0 2px;
     padding: 4px 5px 2px 5px;
-    font-size: 0.8rem;
+    font-size: 1.3rem;
     border-radius: 4px;
     border: 1px solid ${(props) => props.theme.colors.background};
     background-image: linear-gradient(
@@ -45,7 +45,7 @@ const Types = styled.ul`
       ${(props) => props.theme.colors.background}
     );
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 1.3rem;
     text-transform: uppercase;
     &.active {
       background: ${(props) => props.theme.colors.buttonPrimaryBackground};
