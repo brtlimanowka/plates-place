@@ -5,6 +5,7 @@ import SettingsNewItem from './SettingsNewItem';
 import ButtonIcon from '../../styles/ButtonIcon';
 
 const Item = styled.li`
+  font-size: 1.6rem;
   display: flex;
   flex-direction: column;
   padding-left: 10px;
@@ -107,16 +108,21 @@ const SettingsItem = (props) => {
       </Column>
       {props.type === 'Bars' ? renderBarType : renderWeightCount}
       <Column>
-        <Icon
-          action='edit'
-          className='fas fa-wrench'
-          title='Edit'
-          onClick={enterEditModeHandler}></Icon>
-        <Icon
-          action='delete'
-          className='fas fa-times'
-          title='Delete'
-          onClick={itemDeleteHandler}></Icon>
+        {props.data?.weight !== 0 && (
+          <Fragment>
+            <Icon
+              action='edit'
+              className='fas fa-wrench'
+              title='Edit'
+              onClick={enterEditModeHandler}></Icon>
+
+            <Icon
+              action='delete'
+              className='fas fa-times'
+              title='Delete'
+              onClick={itemDeleteHandler}></Icon>
+          </Fragment>
+        )}
       </Column>
     </Fragment>
   );

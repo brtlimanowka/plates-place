@@ -27,7 +27,7 @@ const InputGroup = styled.div`
 const Label = styled.label`
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 1.4rem;
   margin: 5px 0;
 
   @media (min-width: 810px) {
@@ -94,12 +94,6 @@ const SettingsNewItem = (props) => {
       let count = +event.target.value;
       setFormData({ ...formData, count });
     }
-  };
-  const confirmHoverHandler = () => {
-    setShowFeedback(true);
-  };
-  const confirmLeaveHandler = () => {
-    setShowFeedback(false);
   };
   const formSubmitHandler = (event) => {
     event.preventDefault();
@@ -207,8 +201,8 @@ const SettingsNewItem = (props) => {
       <ControlContainer>
         <ControlButton
           disabled={!isFormValid}
-          onMouseOver={confirmHoverHandler}
-          onMouseLeave={confirmLeaveHandler}
+          onMouseOver={() => setShowFeedback(true)}
+          onMouseLeave={() => setShowFeedback(false)}
           className={isFormValid ? '' : 'disabled'}>
           <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
           Confirm

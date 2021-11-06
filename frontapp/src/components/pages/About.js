@@ -20,7 +20,7 @@ const Icon = styled.i`
   position: absolute;
   top: 27%;
   left: 29%;
-  font-size: 320px;
+  font-size: 32rem;
   color: white;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.2),
     0 0 50px ${(props) => props.theme.colors.buttonSecondaryBackground},
@@ -74,7 +74,7 @@ const Icon = styled.i`
   }
 `;
 const Image = styled.img`
-  margin-left: 120px;
+  margin-left: 12rem;
   filter: grayscale(10%) invert(100%);
   z-index: 2;
 `;
@@ -82,8 +82,8 @@ const TitleEN = styled.div`
   position: absolute;
   text-transform: lowercase;
   color: rgba(0, 0, 0, 1);
-  font-size: 120px;
-  line-height: 240px;
+  font-size: 12rem;
+  line-height: 24rem;
   z-index: 2;
   font-family: 'GULDENZ', sans-serif;
   border-left: 1px solid rgba(0, 0, 0, 0.5);
@@ -94,7 +94,7 @@ const TitleEN = styled.div`
     top: -15%;
   }
   span:last-of-type {
-    padding-left: 100px;
+    padding-left: 10rem;
   }
 `;
 const TitleJP = styled.div`
@@ -102,8 +102,8 @@ const TitleJP = styled.div`
   writing-mode: vertical-rl;
   text-orientation: upright;
   font-family: 'Rampart One', cursive;
-  line-height: 90px;
-  font-size: 90px;
+  line-height: 9rem;
+  font-size: 9rem;
   z-index: 3;
   top: 17%;
   right: 33%;

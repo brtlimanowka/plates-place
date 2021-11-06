@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
-import styled from 'styled-components';
-import WorkoutContext from '../../../store/workout/workoutContext';
+import React, { useContext, useState, useEffect, Fragment } from 'react';
+// import WorkoutContext from '../../../store/workout/workoutContext';
 import SettingsContext from '../../../store/settings/settingsContext';
 import NewWorkoutContainer from '../../styles/NewWorkout.styled';
 import CenteredCard from '../../styles/CenteredCard.styled';
@@ -11,9 +10,22 @@ const WorkoutNew = (props) => {
   // const workoutContext = useContext(WorkoutContext);
   const { settings } = useContext(SettingsContext);
   const [formData, setFormData] = useState(null);
+  const [weightRenderMode, setWeightRenderMode] = useState('select');
   const [selectedPlates, setSelectedPlates] = useState(null);
-  // const [isFormValid, setIsFormValid] = useState(false);
-  // const [showFeedback, setShowFeedback] = useState(false);
+  const [totalWeight, setTotalWeight] = useState({ bar: 0, plates: 0 });
+  const [isBarNone, setIsBarNone] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  useEffect(() => {
+    if (formData) {
+      const hasName = !!formData.name;
+      const hasGroup = !!formData.muscleGroup;
+      const hasBar = !!formData.bar;
+
+      setIsFormValid(hasName && hasGroup && hasBar);
+    }
+  }, [formData]);
 
   const groups = ['Push', 'Pull', 'Legs', 'Other'];
   const bars = settings.bars.sort((a, b) => (a.weight > b.weight ? -1 : 1));
@@ -38,7 +50,9 @@ const WorkoutNew = (props) => {
       name: barMatch.name,
       weight: barMatch.weight,
     };
+    setIsBarNone(!bar.weight);
     setFormData({ ...formData, bar });
+    setTotalWeight({ ...totalWeight, bar: bar.weight });
   };
   const totalWeightChangeHandler = (event) => {
     let desiredWeightPerSide = event.target.value / 2;
@@ -54,10 +68,50 @@ const WorkoutNew = (props) => {
     setSelectedPlates(desiredPlates);
   };
   const plateChangeHandler = (event) => {};
-
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
     console.log(formData);
+  };
+  const showNameFeedback = showFeedback && (!formData || !formData.name);
+  const showGroupFeedback =
+    showFeedback && (!formData || !formData.muscleGroup);
+  const showBarFeedback = showFeedback && (!formData || !formData.bar);
+  const renderFeedbackIcon = (
+    <ButtonIcon
+      className='fas fa-exclamation-triangle'
+      title='Required'></ButtonIcon>
+  );
+  const renderWeightSelect = (
+    <Fragment>
+      <button
+        onClick={() => setWeightRenderMode('manual')}
+        disabled={isBarNone}
+        className={`${isBarNone ? 'disabled' : ''}`}>
+        <i className='fas fa-keyboard'></i>
+        Set total weight
+      </button>
+      <button
+        onClick={() => setWeightRenderMode('plates')}
+        disabled={isBarNone}
+        className={`${isBarNone ? 'disabled' : ''}`}>
+        <i className='fas fa-mouse'></i>
+        Select plates
+      </button>
+    </Fragment>
+  );
+  const renderWeightManual = <Fragment>Manual</Fragment>;
+  const renderWeightPlates = <Fragment>Plates</Fragment>;
+  const renderWeight = () => {
+    switch (weightRenderMode) {
+      case 'select':
+        return renderWeightSelect;
+      case 'manual':
+        return renderWeightManual;
+      case 'plates':
+        return renderWeightPlates;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -71,12 +125,64 @@ const WorkoutNew = (props) => {
             onClick={() => props.closeModal()}></i>
         </header>
         <form onSubmit={workoutSubmitHandle}>
+          <div className='fields-container'>
+            <div
+              className={
+                showNameFeedback ? 'input-group required' : 'input-group'
+              }>
+              <label htmlFor='name'>
+                Name{showNameFeedback && renderFeedbackIcon}
+              </label>
+              <Input
+                type='text'
+                id='name'
+                maxLength='20'
+                onChange={nameChangeHandler}
+              />
+            </div>
+            <div
+              className={
+                showGroupFeedback ? 'input-group required' : 'input-group'
+              }>
+              <label htmlFor='group'>
+                Muscle Groups{showGroupFeedback && renderFeedbackIcon}
+              </label>
+              <select id='group' defaultValue='' onChange={groupChangeHandler}>
+                <option value='' disabled></option>
+                {groups.map((group) => (
+                  <option key={group} value={group}>
+                    {group}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div
+              className={
+                showBarFeedback ? 'input-group required' : 'input-group'
+              }>
+              <label htmlFor='bar'>
+                Bar{showBarFeedback && renderFeedbackIcon}
+              </label>
+              <select id='bar' defaultValue='' onChange={barChangeHandler}>
+                <option value='' disabled></option>
+                {bars.map((bar) => (
+                  <option key={bar._id} value={bar._id}>
+                    {bar.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className='weight-select'>{renderWeight()}</div>
+          <h2>
+            Total workout weight: {totalWeight.bar + totalWeight.plates} kg
+          </h2>
           <div className='control-container'>
             <button
               disabled={false}
-              onMouseOver={workoutSubmitHandle}
-              onMouseLeave={null}
-              className={false ? '' : 'disabled'}>
+              onMouseOver={() => setShowFeedback(true)}
+              onMouseLeave={() => setShowFeedback(false)}
+              className={isFormValid ? '' : 'disabled'}>
               <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
               Confirm
             </button>

@@ -6,7 +6,7 @@ const SectionContainer = styled.div`
     background-color: ${(props) => props.theme.colors.backgroundLighter};
     display: flex;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 1.8rem;
     padding: 10px;
     margin: 10px;
   }

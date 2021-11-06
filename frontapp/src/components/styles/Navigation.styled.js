@@ -10,7 +10,7 @@ const Navigation = styled.nav`
     text-decoration: none;
   }
   header {
-    font-size: 36px;
+    font-size: 3.6rem;
   }
   .appname {
     display: none;
@@ -20,7 +20,7 @@ const Navigation = styled.nav`
     display: flex;
     justify-content: space-around;
     list-style: none;
-    font-size: 24px;
+    font-size: 2.4rem;
   }
   .active {
     i,
@@ -49,7 +49,7 @@ const Navigation = styled.nav`
   }
   @media (min-width: 1400px) {
     .menu {
-      font-size: 18px;
+      font-size: 1.8rem;
     }
     .menu-item_label {
       display: inline;

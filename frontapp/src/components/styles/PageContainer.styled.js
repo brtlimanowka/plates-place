@@ -6,6 +6,7 @@ const PageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   h2 {
+    font-size: 2.4rem;
     margin: 10px 0;
   }
 

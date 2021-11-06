@@ -6,9 +6,13 @@ const NewWorkoutContainer = styled.div`
   width: 60%;
   padding: 20px;
   border-radius: 10px;
+  h2 {
+    font-size: 1.8rem;
+  }
   header {
+    font-size: 1.6rem;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
     i {
@@ -19,36 +23,79 @@ const NewWorkoutContainer = styled.div`
       }
     }
   }
-  div.input-group {
-  }
-  div.control-container {
-    display: flex;
-    justify-content: space-evenly;
-    button {
-      margin-top: 10px;
-      border: none;
-      border-radius: 3px;
-      text-transform: uppercase;
-      line-height: 24px;
-      letter-spacing: 0.8px;
-      font-weight: 700;
-      color: ${(props) => props.theme.colors.font};
-      background-color: ${(props) => props.theme.colors.backgroundLighter};
+  button {
+    margin-top: 20px;
+    border: none;
+    border-radius: 3px;
+    text-transform: uppercase;
+    line-height: 24px;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    color: ${(props) => props.theme.colors.font};
+    background-color: ${(props) => props.theme.colors.backgroundLighter};
+    &:hover {
+      cursor: pointer;
+      background-color: ${(props) =>
+        props.theme.colors.buttonSecondaryBackground};
+      color: ${(props) => props.theme.colors.buttonFont};
+    }
+    flex-basis: 40%;
+    &.disabled {
+      cursor: not-allowed;
+      background-color: ${(props) => props.theme.colors.disabled};
       &:hover {
-        cursor: pointer;
-        background-color: ${(props) =>
-          props.theme.colors.buttonSecondaryBackground};
-        color: ${(props) => props.theme.colors.buttonFont};
+        color: ${(props) => props.theme.colors.font};
       }
-      flex-basis: 40%;
+    }
+  }
+  div.fields-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  div.weight-select {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    min-height: 10rem;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    button {
+      flex-basis: 35%;
       &.disabled {
-        cursor: not-allowed;
-        background-color: ${(props) => props.theme.colors.disabled};
-        &:hover {
+        i {
           color: ${(props) => props.theme.colors.font};
         }
       }
+      i {
+        display: block;
+        font-size: 2rem;
+        color: ${(props) => props.theme.colors.buttonPrimaryBackground};
+      }
     }
+  }
+  div.input-group {
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.4rem;
+      margin: 5px 0;
+
+      @media (min-width: 810px) {
+        margin: 0 0 5px 0;
+      }
+    }
+    &.required {
+      color: ${(props) => props.theme.colors.errorBackground};
+    }
+  }
+  div.control-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
   }
 `;
 
