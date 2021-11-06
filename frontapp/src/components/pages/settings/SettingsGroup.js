@@ -60,6 +60,7 @@ const Icon = styled.i`
 const SettingsGroup = (props) => {
   const [showItems, setShowItems] = useState(false);
   const [showNew, setShowNew] = useState(false);
+  const sortedData = props.data.sort((a, b) => (a.weight > b.weight ? -1 : 1));
   const headerClickHandler = () => setShowItems(!showItems);
   const addNewClickHandler = () => setShowNew(true);
   const newItemSubmittedHandler = () => setShowNew(false);
@@ -69,8 +70,8 @@ const SettingsGroup = (props) => {
   const renderSettingsItems = (
     <Fragment>
       <ul>
-        {props.data &&
-          props.data.map((item) => (
+        {sortedData &&
+          sortedData.map((item) => (
             <SettingsItem key={item._id} data={item} type={props.group} />
           ))}
       </ul>
