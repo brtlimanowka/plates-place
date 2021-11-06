@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import WorkoutContext from '../../../store/workout/workoutContext';
+import React, { useContext, useState, useEffect, Fragment } from 'react';
+// import WorkoutContext from '../../../store/workout/workoutContext';
 import SettingsContext from '../../../store/settings/settingsContext';
 import NewWorkoutContainer from '../../styles/NewWorkout.styled';
 import CenteredCard from '../../styles/CenteredCard.styled';
@@ -10,6 +10,7 @@ const WorkoutNew = (props) => {
   // const workoutContext = useContext(WorkoutContext);
   const { settings } = useContext(SettingsContext);
   const [formData, setFormData] = useState(null);
+  const [weightRenderMode, setWeightRenderMode] = useState('select');
   const [selectedPlates, setSelectedPlates] = useState(null);
   const [totalWeight, setTotalWeight] = useState({ bar: 0, plates: 0 });
   const [isBarNone, setIsBarNone] = useState(false);
@@ -67,12 +68,6 @@ const WorkoutNew = (props) => {
     setSelectedPlates(desiredPlates);
   };
   const plateChangeHandler = (event) => {};
-  const confirmHoverHandler = () => {
-    setShowFeedback(true);
-  };
-  const confirmLeaveHandler = () => {
-    setShowFeedback(false);
-  };
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
     console.log(formData);
@@ -81,12 +76,43 @@ const WorkoutNew = (props) => {
   const showGroupFeedback =
     showFeedback && (!formData || !formData.muscleGroup);
   const showBarFeedback = showFeedback && (!formData || !formData.bar);
-
   const renderFeedbackIcon = (
     <ButtonIcon
       className='fas fa-exclamation-triangle'
       title='Required'></ButtonIcon>
   );
+  const renderWeightSelect = (
+    <Fragment>
+      <button
+        onClick={() => setWeightRenderMode('manual')}
+        disabled={isBarNone}
+        className={`${isBarNone ? 'disabled' : ''}`}>
+        <i className='fas fa-keyboard'></i>
+        Set total weight
+      </button>
+      <button
+        onClick={() => setWeightRenderMode('plates')}
+        disabled={isBarNone}
+        className={`${isBarNone ? 'disabled' : ''}`}>
+        <i className='fas fa-mouse'></i>
+        Select plates
+      </button>
+    </Fragment>
+  );
+  const renderWeightManual = <Fragment>Manual</Fragment>;
+  const renderWeightPlates = <Fragment>Plates</Fragment>;
+  const renderWeight = () => {
+    switch (weightRenderMode) {
+      case 'select':
+        return renderWeightSelect;
+      case 'manual':
+        return renderWeightManual;
+      case 'plates':
+        return renderWeightPlates;
+      default:
+        return null;
+    }
+  };
 
   return (
     <CenteredCard>
@@ -147,28 +173,15 @@ const WorkoutNew = (props) => {
               </select>
             </div>
           </div>
-          <div className='weight-select'>
-            <button
-              disabled={isBarNone}
-              className={`${isBarNone ? 'disabled' : ''}`}>
-              <i className='fas fa-keyboard'></i>
-              Set total weight
-            </button>
-            <button
-              disabled={isBarNone}
-              className={`${isBarNone ? 'disabled' : ''}`}>
-              <i className='fas fa-mouse'></i>
-              Select plates
-            </button>
-          </div>
+          <div className='weight-select'>{renderWeight()}</div>
           <h2>
             Total workout weight: {totalWeight.bar + totalWeight.plates} kg
           </h2>
           <div className='control-container'>
             <button
               disabled={false}
-              onMouseOver={confirmHoverHandler}
-              onMouseLeave={confirmLeaveHandler}
+              onMouseOver={() => setShowFeedback(true)}
+              onMouseLeave={() => setShowFeedback(false)}
               className={isFormValid ? '' : 'disabled'}>
               <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
               Confirm
