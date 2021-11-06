@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
@@ -14,11 +14,23 @@ const Backdrop = styled.div`
 `;
 
 const Modal = (props) => {
+  useEffect(() => {
+    const close = (event) => {
+      if (event.key === 'Escape') {
+        props.closeModal();
+      }
+    };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+    // eslint-disable-next-line
+  }, []);
+
   const backdropClickHandler = (event) => {
     if (event.target.parentElement.parentElement.id === 'modal-root') {
       props.closeModal();
     }
   };
+
   if (!props.open) {
     return null;
   } else {
