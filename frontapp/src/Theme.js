@@ -18,11 +18,14 @@ const theme = {
 };
 
 const GlobalStyle = createGlobalStyle`
-    body {
-        background-color: ${(props) => props.backgroundColor};
-        color: ${(props) => props.color};
-        font-family: ${(props) => props.fontFamily};
-    }
+  html {
+    font-size: 10px;
+  }
+  body {
+    background-color: ${(props) => props.backgroundColor};
+    color: ${(props) => props.color};
+    font-family: ${(props) => props.fontFamily};
+  }
 `;
 
 const Theme = (props) => {
