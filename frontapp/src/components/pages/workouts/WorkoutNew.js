@@ -14,7 +14,7 @@ const WorkoutNew = (props) => {
   const [totalWeight, setTotalWeight] = useState({ bar: 0, plates: 0 });
   const [isBarNone, setIsBarNone] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
-  // const [showFeedback, setShowFeedback] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   useEffect(() => {
     if (formData) {
@@ -67,11 +67,26 @@ const WorkoutNew = (props) => {
     setSelectedPlates(desiredPlates);
   };
   const plateChangeHandler = (event) => {};
-
+  const confirmHoverHandler = () => {
+    setShowFeedback(true);
+  };
+  const confirmLeaveHandler = () => {
+    setShowFeedback(false);
+  };
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
     console.log(formData);
   };
+  const showNameFeedback = showFeedback && (!formData || !formData.name);
+  const showGroupFeedback =
+    showFeedback && (!formData || !formData.muscleGroup);
+  const showBarFeedback = showFeedback && (!formData || !formData.bar);
+
+  const renderFeedbackIcon = (
+    <ButtonIcon
+      className='fas fa-exclamation-triangle'
+      title='Required'></ButtonIcon>
+  );
 
   return (
     <CenteredCard>
@@ -85,8 +100,13 @@ const WorkoutNew = (props) => {
         </header>
         <form onSubmit={workoutSubmitHandle}>
           <div className='fields-container'>
-            <div className='input-group'>
-              <label htmlFor='name'>Name</label>
+            <div
+              className={
+                showNameFeedback ? 'input-group required' : 'input-group'
+              }>
+              <label htmlFor='name'>
+                Name{showNameFeedback && renderFeedbackIcon}
+              </label>
               <Input
                 type='text'
                 id='name'
@@ -94,8 +114,13 @@ const WorkoutNew = (props) => {
                 onChange={nameChangeHandler}
               />
             </div>
-            <div className='input-group'>
-              <label htmlFor='group'>Muscle Groups</label>
+            <div
+              className={
+                showGroupFeedback ? 'input-group required' : 'input-group'
+              }>
+              <label htmlFor='group'>
+                Muscle Groups{showGroupFeedback && renderFeedbackIcon}
+              </label>
               <select id='group' defaultValue='' onChange={groupChangeHandler}>
                 <option value='' disabled></option>
                 {groups.map((group) => (
@@ -105,8 +130,13 @@ const WorkoutNew = (props) => {
                 ))}
               </select>
             </div>
-            <div className='input-group'>
-              <label htmlFor='bar'>Bar</label>
+            <div
+              className={
+                showBarFeedback ? 'input-group required' : 'input-group'
+              }>
+              <label htmlFor='bar'>
+                Bar{showBarFeedback && renderFeedbackIcon}
+              </label>
               <select id='bar' defaultValue='' onChange={barChangeHandler}>
                 <option value='' disabled></option>
                 {bars.map((bar) => (
@@ -137,8 +167,8 @@ const WorkoutNew = (props) => {
           <div className='control-container'>
             <button
               disabled={false}
-              onMouseOver={workoutSubmitHandle}
-              onMouseLeave={null}
+              onMouseOver={confirmHoverHandler}
+              onMouseLeave={confirmLeaveHandler}
               className={isFormValid ? '' : 'disabled'}>
               <ButtonIcon className='fas fa-check-circle'></ButtonIcon>
               Confirm
