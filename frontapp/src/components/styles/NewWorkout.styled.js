@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const NewWorkoutContainer = styled.div`
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
   background-color: ${(props) => props.theme.colors.background};
-  min-width: 350px;
+  width: 60%;
   padding: 20px;
   border-radius: 10px;
   header {
