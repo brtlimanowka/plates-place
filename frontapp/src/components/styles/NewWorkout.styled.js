@@ -56,6 +56,9 @@ const NewWorkoutContainer = styled.div`
     margin-bottom: 20px;
     font-size: 1.6rem;
     min-height: 10rem;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
     div.plates-list {
       h3 {
         font-size: 1.6rem;
