@@ -32,6 +32,12 @@ const WorkoutNew = (props) => {
   const weights = settings.weights.sort((a, b) =>
     a.weight > b.weight ? -1 : 1
   );
+  const getTotalAvailableWeight = () => {
+    let sum = 0;
+    weights.forEach((plate) => (sum += plate.weight * plate.count));
+    console.log(sum);
+    return sum;
+  };
 
   const nameChangeHandler = (event) => {
     let name = event.target.value;
@@ -60,8 +66,12 @@ const WorkoutNew = (props) => {
     }
   };
   const totalWeightChangeHandler = (event) => {
-    setFormData({ ...formData, totalWeight: +event.target.value });
-    setTotalWeight({ ...totalWeight, plates: +event.target.value });
+    let inputWeight = +event.target.value;
+    let totalAvailable = getTotalAvailableWeight();
+    let weight = inputWeight > totalAvailable ? totalAvailable : inputWeight;
+    
+    setFormData({ ...formData, totalWeight: weight });
+    setTotalWeight({ ...totalWeight, plates: weight });
     // let desiredWeightPerSide = event.target.value / 2;
     // const desiredPlates = {};
     // weights.forEach((plate) => {
@@ -112,7 +122,7 @@ const WorkoutNew = (props) => {
         flexDirection: 'column',
         justifyContent: 'center',
       }}>
-      <label>Desired plate weight (excluding the bar)</label>
+      <label>Total desired plate weight (excluding the bar)</label>
       <Input
         style={{ width: '100%', marginTop: '10px' }}
         type='number'
