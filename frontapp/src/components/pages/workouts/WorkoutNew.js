@@ -35,7 +35,6 @@ const WorkoutNew = (props) => {
   const getTotalAvailableWeight = () => {
     let sum = 0;
     weights.forEach((plate) => (sum += plate.weight * plate.count));
-    console.log(sum);
     return sum;
   };
 
@@ -69,9 +68,11 @@ const WorkoutNew = (props) => {
     let inputWeight = +event.target.value;
     let totalAvailable = getTotalAvailableWeight();
     let weight = inputWeight > totalAvailable ? totalAvailable : inputWeight;
-    
+
     setFormData({ ...formData, totalWeight: weight });
     setTotalWeight({ ...totalWeight, plates: weight });
+  };
+  const plateChangeHandler = (event) => {
     // let desiredWeightPerSide = event.target.value / 2;
     // const desiredPlates = {};
     // weights.forEach((plate) => {
@@ -82,7 +83,6 @@ const WorkoutNew = (props) => {
     // });
     // setSelectedPlates(desiredPlates);
   };
-  const plateChangeHandler = (event) => {};
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
     console.log(formData);
@@ -129,10 +129,30 @@ const WorkoutNew = (props) => {
         min='0'
         step='1'
         onChange={totalWeightChangeHandler}
+        autoFocus
       />
     </div>
   );
-  const renderWeightPlates = <Fragment>Plates</Fragment>;
+  const renderWeightPlates = (
+    <div className='plates-list'>
+      <h3>Plate count (per bar side)</h3>
+      <ul>
+        {weights.map((plate) => (
+          <li key={plate._id}>
+            <label htmlFor={plate._id}>{plate.name}</label>
+            <Input
+              type='number'
+              min='0'
+              max={plate.count}
+              step='1'
+              defaultValue='0'
+              onChange={plateChangeHandler}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
   const renderWeight = () => {
     switch (weightRenderMode) {
       case 'select':
