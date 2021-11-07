@@ -59,6 +59,28 @@ const NewWorkoutContainer = styled.div`
     display: flex;
     align-items: stretch;
     justify-content: space-around;
+    div.plates-list {
+      width: 100%;
+      h3 {
+        font-size: 1.6rem;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      ul {
+        list-style: none;
+        li {
+          margin: 5px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          label {
+            text-align: right;
+            flex-basis: 15%;
+            margin-right: 20px;
+          }
+        }
+      }
+    }
     button {
       flex-basis: 35%;
       &.disabled {
