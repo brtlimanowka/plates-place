@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, Fragment } from 'react';
-// import WorkoutContext from '../../../store/workout/workoutContext';
+import WorkoutContext from '../../../store/workout/workoutContext';
 import SettingsContext from '../../../store/settings/settingsContext';
 import NewWorkoutContainer from '../../styles/NewWorkout.styled';
 import CenteredCard from '../../styles/CenteredCard.styled';
@@ -7,7 +7,7 @@ import ButtonIcon from '../../styles/ButtonIcon';
 import Input from '../../styles/Input';
 
 const WorkoutNew = (props) => {
-  // const workoutContext = useContext(WorkoutContext);
+  const workoutContext = useContext(WorkoutContext);
   const { settings } = useContext(SettingsContext);
   const [formData, setFormData] = useState(null);
   const [weightRenderMode, setWeightRenderMode] = useState('select');
@@ -99,7 +99,8 @@ const WorkoutNew = (props) => {
   };
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
-    console.log(formData);
+    workoutContext.createWorkout({ user: settings.user, ...formData });
+    props.closeModal();
   };
   const showNameFeedback = showFeedback && (!formData || !formData.name);
   const showGroupFeedback =
