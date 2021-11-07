@@ -16,17 +16,6 @@ const WorkoutNew = (props) => {
   const [isBarNone, setIsBarNone] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
-
-  useEffect(() => {
-    if (formData) {
-      const hasName = !!formData.name;
-      const hasGroup = !!formData.muscleGroup;
-      const hasBar = !!formData.bar;
-
-      setIsFormValid(hasName && hasGroup && hasBar);
-    }
-  }, [formData]);
-
   const groups = ['Push', 'Pull', 'Legs', 'Other'];
   const bars = settings.bars.sort((a, b) => (a.weight > b.weight ? -1 : 1));
   const weights = settings.weights.sort((a, b) =>
@@ -37,6 +26,36 @@ const WorkoutNew = (props) => {
     weights.forEach((plate) => (sum += plate.weight * plate.count));
     return sum;
   };
+
+  useEffect(() => {
+    if (formData) {
+      const hasName = !!formData.name;
+      const hasGroup = !!formData.muscleGroup;
+      const hasBar = !!formData.bar;
+
+      setIsFormValid(hasName && hasGroup && hasBar);
+    }
+  }, [formData]);
+  useEffect(() => {
+    if (selectedPlates) {
+      let totalPlateWeight = 0;
+      Object.keys(selectedPlates).forEach(
+        (plateId) =>
+          (totalPlateWeight +=
+            weights.find((plate) => plate._id === plateId).weight *
+            (selectedPlates[plateId] * 2))
+      );
+      setTotalWeight({ ...totalWeight, plates: totalPlateWeight });
+    }
+    // eslint-disable-next-line
+  }, [selectedPlates]);
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      totalWeight: totalWeight.bar + totalWeight.plates,
+    });
+    // eslint-disable-next-line
+  }, [totalWeight]);
 
   const nameChangeHandler = (event) => {
     let name = event.target.value;
@@ -73,6 +92,10 @@ const WorkoutNew = (props) => {
     setTotalWeight({ ...totalWeight, plates: weight });
   };
   const plateChangeHandler = (event) => {
+    setSelectedPlates({
+      ...selectedPlates,
+      [event.target.id]: event.target.value,
+    });
     // let desiredWeightPerSide = event.target.value / 2;
     // const desiredPlates = {};
     // weights.forEach((plate) => {
@@ -141,6 +164,7 @@ const WorkoutNew = (props) => {
           <li key={plate._id}>
             <label htmlFor={plate._id}>{plate.name}</label>
             <Input
+              id={plate._id}
               type='number'
               min='0'
               max={plate.count / 2}
