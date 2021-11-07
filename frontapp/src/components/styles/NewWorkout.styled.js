@@ -60,6 +60,7 @@ const NewWorkoutContainer = styled.div`
     align-items: stretch;
     justify-content: space-around;
     div.plates-list {
+      width: 100%;
       h3 {
         font-size: 1.6rem;
         text-align: center;
