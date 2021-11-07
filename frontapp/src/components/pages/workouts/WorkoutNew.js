@@ -96,15 +96,6 @@ const WorkoutNew = (props) => {
       ...selectedPlates,
       [event.target.id]: event.target.value,
     });
-    // let desiredWeightPerSide = event.target.value / 2;
-    // const desiredPlates = {};
-    // weights.forEach((plate) => {
-    //   desiredPlates[plate._id] = Math.floor(
-    //     desiredWeightPerSide / plate.weight
-    //   );
-    //   desiredWeightPerSide = desiredWeightPerSide % plate.weight;
-    // });
-    // setSelectedPlates(desiredPlates);
   };
   const workoutSubmitHandle = (event) => {
     event.preventDefault();
