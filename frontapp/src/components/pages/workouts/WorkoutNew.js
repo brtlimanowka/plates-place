@@ -143,7 +143,7 @@ const WorkoutNew = (props) => {
             <Input
               type='number'
               min='0'
-              max={plate.count}
+              max={plate.count / 2}
               step='1'
               defaultValue='0'
               onChange={plateChangeHandler}
