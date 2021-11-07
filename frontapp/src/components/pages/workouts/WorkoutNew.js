@@ -50,22 +50,27 @@ const WorkoutNew = (props) => {
       name: barMatch.name,
       weight: barMatch.weight,
     };
-    setIsBarNone(!bar.weight);
     setFormData({ ...formData, bar });
     setTotalWeight({ ...totalWeight, bar: bar.weight });
+    if (!bar.weight) {
+      setIsBarNone(true);
+      setTotalWeight({ bar: 0, plates: 0 });
+    } else {
+      setIsBarNone(false);
+    }
   };
   const totalWeightChangeHandler = (event) => {
-    let desiredWeightPerSide = event.target.value / 2;
-    const desiredPlates = {};
-
-    weights.forEach((plate) => {
-      desiredPlates[plate._id] = Math.floor(
-        desiredWeightPerSide / plate.weight
-      );
-      desiredWeightPerSide = desiredWeightPerSide % plate.weight;
-    });
-
-    setSelectedPlates(desiredPlates);
+    setFormData({ ...formData, totalWeight: +event.target.value });
+    setTotalWeight({ ...totalWeight, plates: +event.target.value });
+    // let desiredWeightPerSide = event.target.value / 2;
+    // const desiredPlates = {};
+    // weights.forEach((plate) => {
+    //   desiredPlates[plate._id] = Math.floor(
+    //     desiredWeightPerSide / plate.weight
+    //   );
+    //   desiredWeightPerSide = desiredWeightPerSide % plate.weight;
+    // });
+    // setSelectedPlates(desiredPlates);
   };
   const plateChangeHandler = (event) => {};
   const workoutSubmitHandle = (event) => {
@@ -99,16 +104,33 @@ const WorkoutNew = (props) => {
       </button>
     </Fragment>
   );
-  const renderWeightManual = <Fragment>Manual</Fragment>;
+  const renderWeightManual = (
+    <div
+      className='div-input'
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}>
+      <label>Desired plate weight (excluding the bar)</label>
+      <Input
+        style={{ width: '100%', marginTop: '10px' }}
+        type='number'
+        min='0'
+        step='1'
+        onChange={totalWeightChangeHandler}
+      />
+    </div>
+  );
   const renderWeightPlates = <Fragment>Plates</Fragment>;
   const renderWeight = () => {
     switch (weightRenderMode) {
       case 'select':
         return renderWeightSelect;
       case 'manual':
-        return renderWeightManual;
+        return isBarNone ? renderWeightSelect : renderWeightManual;
       case 'plates':
-        return renderWeightPlates;
+        return isBarNone ? renderWeightSelect : renderWeightPlates;
       default:
         return null;
     }
